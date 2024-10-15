@@ -1,16 +1,38 @@
+import data from "./data/les-miserables.json";
 import { floydWarshall } from "./lib/algo";
-import { INF } from "./lib/math";
+import {
+  AdjMatrix,
+  fillAdjMatrixInf,
+  Graph,
+  graphDistance,
+  graphToAdjMatrix,
+  JsonGraph,
+  jsonToGraph,
+  makeSymmetric,
+} from "./lib/graph";
 
 export default function App() {
-  const graph = [
-    [0, 3, INF, 5],
-    [2, 0, INF, 4],
-    [INF, 1, 0, INF],
-    [INF, INF, 2, 0],
-  ];
+  const jsonGraph: JsonGraph = data;
 
-  const shortestPaths = floydWarshall(graph);
+  const graph: Graph = jsonToGraph(jsonGraph);
+  console.log("Graph: ", graph);
+
+  let matrix: AdjMatrix = graphToAdjMatrix(graph);
+  matrix = makeSymmetric(matrix);
+  matrix = fillAdjMatrixInf(matrix);
+  console.log("Adjacency Matrix: ", matrix);
+
+  const shortestPaths = floydWarshall(matrix);
   console.log("APSP: ", shortestPaths);
 
-  return <h1 className="text-xl font-quicksand">Hello world!</h1>;
+  console.log("Distance between Valjean and Myriel: ", graphDistance(graph, shortestPaths, "Valjean", "Myriel"));
+  console.log("Distance between Cosette and Gueulemer: ", graphDistance(graph, shortestPaths, "Cosette", "Gueulemer"));
+
+  return (
+    <div className="font-quicksand">
+      <div className="flex flex-col text-xl justify-center h-screen w-screen">
+        <div className="text-center">Welcome to Unfurl</div>
+      </div>
+    </div>
+  );
 }

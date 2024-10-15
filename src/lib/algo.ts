@@ -1,17 +1,18 @@
+import { AdjMatrix } from "./graph";
 import { INF } from "./math";
 
 /// Floyd Warshall Algorithm
 /// All pairs shortest paths
-export function floydWarshall(graph: number[][]): number[][] {
-  const numVertices = graph.length;
-  const dist: number[][] = Array.from({ length: numVertices }, (_, i) => [...graph[i]]);
+export function floydWarshall(matrix: AdjMatrix): AdjMatrix {
+  const numNodes = matrix.length;
+  const dist: AdjMatrix = Array.from({ length: numNodes }, (_, i) => [...matrix[i]]);
 
-  // Iterate through each possible intermediate vertex
-  for (let k = 0; k < numVertices; k++) {
-    // Iterate through all pairs of vertices (i, j)
-    for (let i = 0; i < numVertices; i++) {
-      for (let j = 0; j < numVertices; j++) {
-        // If going through vertex k offers a shorter path, update dist[i][j]
+  // Iterate through each possible intermediate node
+  for (let k = 0; k < numNodes; k++) {
+    // Iterate through all pairs of nodes (i, j)
+    for (let i = 0; i < numNodes; i++) {
+      for (let j = 0; j < numNodes; j++) {
+        // If going through node k offers a shorter path, update dist[i][j]
         if (dist[i][k] !== INF && dist[k][j] !== INF && dist[i][j] > dist[i][k] + dist[k][j]) {
           dist[i][j] = dist[i][k] + dist[k][j];
         }
