@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "sea-green": "#5FC193",
+      },
+    },
     fontFamily: {
       quicksand: ["Quicksand Variable"],
     },

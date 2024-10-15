@@ -1,4 +1,5 @@
 import data from "./data/les-miserables.json";
+import { GraphView } from "./graph-view";
 import { floydWarshall } from "./lib/algo";
 import {
   AdjMatrix,
@@ -30,8 +31,11 @@ export default function App() {
 
   return (
     <div className="font-quicksand">
-      <div className="flex flex-col text-xl justify-center h-screen w-screen">
-        <div className="text-center">Welcome to Unfurl</div>
+      <div className="h-screen w-screen">
+        <div className="flex flex-col items-center justify-center h-full w-full gap-3">
+          <div className="text-xl">Welcome to Unfurl</div>
+          <GraphView graph={graph} />
+        </div>
       </div>
     </div>
   );
