@@ -21,15 +21,14 @@ export function GraphView({ graph }: GraphViewProps) {
   const d3Container = useRef(null);
   const initialized = useRef(false);
 
-  const point = {
-    id: "point-1",
+  const points: Point[] = new Array(10).fill(0).map((_, i) => ({
+    id: `point-${i}`,
     x: 400,
     y: 200,
     r: 8,
     fill: "#5FC193",
     publisher: new Publisher<Point>(),
-  };
-  const points: Point[] = [point];
+  }));
 
   useEffect(() => {
     function onUpdate(_: number, deltaTime: number) {
