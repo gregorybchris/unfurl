@@ -1,33 +1,41 @@
-export class Publisher<T> {
-  subscribers: Subscriber<T>[];
+export class Publisher<Message> {
+  subscribers: Subscriber<Message>[];
 
   constructor() {
     this.subscribers = [];
   }
 
-  publish(message: T) {
-    this.subscribers.forEach((subscriber: Subscriber<T>) => {
+  publish(message: Message) {
+    this.subscribers.forEach((subscriber: Subscriber<Message>) => {
       subscriber.receive(message);
     });
   }
 
-  register(subscriber: Subscriber<T>) {
+  register(subscriber: Subscriber<Message>) {
     this.subscribers.push(subscriber);
+  }
+
+  unregister(subscriber: Subscriber<Message>) {
+    this.subscribers = this.subscribers.filter((s) => s !== subscriber);
   }
 }
 
-export class Subscriber<T> {
-  callback: (message: T) => void;
+export class Subscriber<Message> {
+  callback: (message: Message) => void;
 
-  constructor(callback: (message: T) => void) {
+  constructor(callback: (message: Message) => void) {
     this.callback = callback;
   }
 
-  receive(message: T) {
+  receive(message: Message) {
     this.callback(message);
   }
 
-  subscribe(publisher: Publisher<T>) {
+  subscribe(publisher: Publisher<Message>) {
     publisher.register(this);
+  }
+
+  unsubscribe(publisher: Publisher<Message>) {
+    publisher.unregister(this);
   }
 }
