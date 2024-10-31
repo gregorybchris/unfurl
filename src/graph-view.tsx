@@ -17,23 +17,27 @@ type Node = {
 export function GraphView({ graph }: GraphViewProps) {
   const WIDTH = 300;
   const HEIGHT = 500;
-  const svgContainer = useRef(null);
-
-  console.log("View Graph: ", graph);
-
-  const nodes: Node[] = new Array(10).fill(0).map((_, i) => ({
-    id: `node-${i}`,
-    x: 400,
-    y: 200,
-    publisher: new Publisher<EntityState>(),
-  }));
+  const svgContainer = useRef<SVGSVGElement>(null);
+  const nodes = useRef<Node[]>([]);
 
   useEffect(() => {
-    if (svgContainer.current) {
-      const container = svgContainer.current;
-      const d3Graphics = new D3Graphics(container, WIDTH, HEIGHT, nodes, onUpdate, onClickNode);
-      d3Graphics.start();
+    console.log("View Graph: ", graph);
+
+    if (!svgContainer.current) {
+      return;
     }
+
+    nodes.current = new Array(10).fill(0).map((_, i) => ({
+      id: `node-${i}`,
+      x: 400,
+      y: 200,
+      publisher: new Publisher<EntityState>(),
+    }));
+
+    const container = svgContainer.current;
+    const d3Graphics = new D3Graphics(container, WIDTH, HEIGHT, nodes.current, onUpdate, onClickNode);
+    d3Graphics.start();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,7 +47,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
   function onUpdate(_: number, deltaTime: number) {
     const speed = 0.2;
-    nodes.forEach((node: Node) => {
+    nodes.current.forEach((node: Node) => {
       node.x += (Math.random() - 0.5) * speed * deltaTime;
       node.y += (Math.random() - 0.5) * speed * deltaTime;
 
