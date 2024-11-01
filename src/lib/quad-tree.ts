@@ -2,13 +2,13 @@ import { Box, BoxImpl } from "./box";
 import { Vector } from "./math";
 
 interface Children {
-  nw: Tree;
-  ne: Tree;
-  sw: Tree;
-  se: Tree;
+  nw: QuadTree;
+  ne: QuadTree;
+  sw: QuadTree;
+  se: QuadTree;
 }
 
-export interface Tree {
+export interface QuadTree {
   size: number;
   capacity: number;
   box: Box;
@@ -16,8 +16,8 @@ export interface Tree {
   children: Children | null;
 }
 
-export class TreeImpl {
-  static new(box: Box, capacity: number): Tree {
+export class QuadTreeImpl {
+  static new(box: Box, capacity: number): QuadTree {
     return {
       size: 0,
       capacity,
@@ -28,7 +28,7 @@ export class TreeImpl {
   }
 
   // Insert an item into a quadtree, dividing if necessary.
-  static insert(tree: Tree, item: Vector): Tree {
+  static insert(tree: QuadTree, item: Vector): QuadTree {
     if (!BoxImpl.boxContains(tree.box, item)) {
       return tree;
     }
@@ -42,7 +42,7 @@ export class TreeImpl {
     }
 
     if (tree.children === null) {
-      tree = TreeImpl.divide(tree);
+      tree = QuadTreeImpl.divide(tree);
     }
 
     if (tree.children === null) {
@@ -55,16 +55,16 @@ export class TreeImpl {
       ...tree,
       size: tree.size + 1,
       children: {
-        nw: TreeImpl.insert(tree.children.nw, item),
-        ne: TreeImpl.insert(tree.children.ne, item),
-        sw: TreeImpl.insert(tree.children.sw, item),
-        se: TreeImpl.insert(tree.children.se, item),
+        nw: QuadTreeImpl.insert(tree.children.nw, item),
+        ne: QuadTreeImpl.insert(tree.children.ne, item),
+        sw: QuadTreeImpl.insert(tree.children.sw, item),
+        se: QuadTreeImpl.insert(tree.children.se, item),
       },
     };
   }
 
   // Create four children, dividing a tree into four of equal area.
-  static divide(tree: Tree): Tree {
+  static divide(tree: QuadTree): QuadTree {
     const capacity = tree.capacity;
     const x = tree.box.c.x;
     const y = tree.box.c.y;
@@ -72,16 +72,16 @@ export class TreeImpl {
     return {
       ...tree,
       children: {
-        nw: TreeImpl.new({ c: { x: x - hhs, y: y + hhs }, hs: hhs }, capacity),
-        ne: TreeImpl.new({ c: { x: x + hhs, y: y + hhs }, hs: hhs }, capacity),
-        sw: TreeImpl.new({ c: { x: x - hhs, y: y - hhs }, hs: hhs }, capacity),
-        se: TreeImpl.new({ c: { x: x + hhs, y: y - hhs }, hs: hhs }, capacity),
+        nw: QuadTreeImpl.new({ c: { x: x - hhs, y: y + hhs }, hs: hhs }, capacity),
+        ne: QuadTreeImpl.new({ c: { x: x + hhs, y: y + hhs }, hs: hhs }, capacity),
+        sw: QuadTreeImpl.new({ c: { x: x - hhs, y: y - hhs }, hs: hhs }, capacity),
+        se: QuadTreeImpl.new({ c: { x: x + hhs, y: y - hhs }, hs: hhs }, capacity),
       },
     };
   }
 
   // Find all items contained within a given box.
-  static query(tree: Tree, box: Box): Vector[] {
+  static query(tree: QuadTree, box: Box): Vector[] {
     if (!BoxImpl.boxIntersects(tree.box, box)) {
       return [];
     }
@@ -97,10 +97,10 @@ export class TreeImpl {
       return items;
     }
 
-    Array.prototype.push.apply(items, TreeImpl.query(tree.children.nw, box));
-    Array.prototype.push.apply(items, TreeImpl.query(tree.children.ne, box));
-    Array.prototype.push.apply(items, TreeImpl.query(tree.children.sw, box));
-    Array.prototype.push.apply(items, TreeImpl.query(tree.children.se, box));
+    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.nw, box));
+    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.ne, box));
+    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.sw, box));
+    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.se, box));
 
     return items;
   }
