@@ -17,8 +17,9 @@ type Node = {
 export function GraphView({ graph }: GraphViewProps) {
   const WIDTH = 300;
   const HEIGHT = 500;
-  const svgContainer = useRef<SVGSVGElement>(null);
   const nodes = useRef<Node[]>([]);
+  const svgContainer = useRef<SVGSVGElement>(null);
+  const d3Graphics = useRef<D3Graphics | null>(null);
 
   useEffect(() => {
     console.log("View Graph: ", graph);
@@ -27,15 +28,17 @@ export function GraphView({ graph }: GraphViewProps) {
       return;
     }
 
-    nodes.current = new Array(10).fill(0).map((_, i) => ({
-      id: `node-${i}`,
-      position: { x: 400, y: 200 },
-      publisher: new Publisher<EntityState>(),
-    }));
+    // Ensure D3Graphics is initialized only once
+    if (!d3Graphics.current) {
+      nodes.current = new Array(10).fill(0).map((_, i) => ({
+        id: `node-${i}`,
+        position: { x: 400, y: 200 },
+        publisher: new Publisher<EntityState>(),
+      }));
 
-    const container = svgContainer.current;
-    const d3Graphics = new D3Graphics(container, WIDTH, HEIGHT, nodes.current, onUpdate, onClickNode);
-    d3Graphics.start();
+      d3Graphics.current = new D3Graphics(svgContainer.current, WIDTH, HEIGHT, nodes.current, onUpdate, onClickNode);
+      d3Graphics.current.start();
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

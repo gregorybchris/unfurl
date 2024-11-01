@@ -62,6 +62,10 @@ export class D3Graphics {
     this.animationGraphics.start();
   }
 
+  getSvgElementId(entity: Entity): string {
+    return `entity-${entity.id}`;
+  }
+
   addCircles() {
     const fill = "#5FC193";
     const radius = 8;
@@ -76,7 +80,7 @@ export class D3Graphics {
       .attr("cy", (entity) => entity.position.y)
       .attr("r", radius)
       .attr("fill", fill)
-      .attr("id", (entity) => `entity-${entity.id}`)
+      .attr("id", (entity) => this.getSvgElementId(entity))
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
       });
@@ -84,7 +88,8 @@ export class D3Graphics {
   }
 
   updateCircle(entity: Entity) {
-    const entitySelection = d3.select(`#entity-${entity.id}`);
-    entitySelection.attr("cx", entity.position.x).attr("cy", entity.position.y);
+    const entitySelection = d3.select(`#${this.getSvgElementId(entity)}`);
+    entitySelection.attr("cx", entity.position.x);
+    entitySelection.attr("cy", entity.position.y);
   }
 }
