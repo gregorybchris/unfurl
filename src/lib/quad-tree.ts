@@ -1,18 +1,22 @@
 import { Box, BoxImpl } from "./box";
 import { Vector } from "./math";
 
-interface Children {
+interface Item {
+  position: Vector;
+}
+
+type Children = {
   nw: QuadTree;
   ne: QuadTree;
   sw: QuadTree;
   se: QuadTree;
-}
+};
 
 export interface QuadTree {
   size: number;
   capacity: number;
   box: Box;
-  items: Vector[];
+  items: Item[];
   children: Children | null;
 }
 
@@ -28,8 +32,8 @@ export class QuadTreeImpl {
   }
 
   // Insert an item into a quadtree, dividing if necessary.
-  static insert(tree: QuadTree, item: Vector): QuadTree {
-    if (!BoxImpl.boxContains(tree.box, item)) {
+  static insert(tree: QuadTree, item: Item): QuadTree {
+    if (!BoxImpl.boxContains(tree.box, item.position)) {
       return tree;
     }
 
@@ -81,14 +85,14 @@ export class QuadTreeImpl {
   }
 
   // Find all items contained within a given box.
-  static query(tree: QuadTree, box: Box): Vector[] {
+  static query(tree: QuadTree, box: Box): Item[] {
     if (!BoxImpl.boxIntersects(tree.box, box)) {
       return [];
     }
 
-    const items: Vector[] = [];
+    const items: Item[] = [];
     for (let i = 0; i < tree.items.length; i++) {
-      if (BoxImpl.boxContains(box, tree.items[i])) {
+      if (BoxImpl.boxContains(box, tree.items[i].position)) {
         items.push(tree.items[i]);
       }
     }
