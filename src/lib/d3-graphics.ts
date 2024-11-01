@@ -1,17 +1,16 @@
 import * as d3 from "d3";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
+import { Vector } from "./math";
 import { Publisher, Subscriber } from "./pubsub";
 
 export interface EntityState {
   id: string;
-  x: number;
-  y: number;
+  position: Vector;
 }
 
 export interface Entity {
   id: string;
-  x: number;
-  y: number;
+  position: Vector;
   publisher: Publisher<EntityState>;
 }
 
@@ -73,8 +72,8 @@ export class D3Graphics {
       .data(this.entities)
       .enter()
       .append("circle")
-      .attr("cx", (entity) => entity.x)
-      .attr("cy", (entity) => entity.y)
+      .attr("cx", (entity) => entity.position.x)
+      .attr("cy", (entity) => entity.position.y)
       .attr("r", radius)
       .attr("fill", fill)
       .attr("id", (entity) => `entity-${entity.id}`)
@@ -86,6 +85,6 @@ export class D3Graphics {
 
   updateCircle(entity: Entity) {
     const entitySelection = d3.select(`#entity-${entity.id}`);
-    entitySelection.attr("cx", entity.x).attr("cy", entity.y);
+    entitySelection.attr("cx", entity.position.x).attr("cy", entity.position.y);
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { D3Graphics, EntityState } from "./lib/d3-graphics";
 import { Graph } from "./lib/graph";
+import { Vector } from "./lib/math";
 import { Publisher } from "./lib/pubsub";
 
 interface GraphViewProps {
@@ -9,8 +10,7 @@ interface GraphViewProps {
 
 type Node = {
   id: string;
-  x: number;
-  y: number;
+  position: Vector;
   publisher: Publisher<EntityState>;
 };
 
@@ -29,8 +29,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
     nodes.current = new Array(10).fill(0).map((_, i) => ({
       id: `node-${i}`,
-      x: 400,
-      y: 200,
+      position: { x: 400, y: 200 },
       publisher: new Publisher<EntityState>(),
     }));
 
@@ -46,14 +45,21 @@ export function GraphView({ graph }: GraphViewProps) {
   }
 
   function onUpdate(_: number, deltaTime: number) {
-    const speed = 0.2;
-    nodes.current.forEach((node: Node) => {
-      node.x += (Math.random() - 0.5) * speed * deltaTime;
-      node.y += (Math.random() - 0.5) * speed * deltaTime;
+    const speed = 0.5;
 
-      const entityState: EntityState = { id: node.id, x: node.x, y: node.y };
-      node.publisher.publish(entityState);
-    });
+    for (let i = 0; i < nodes.current.length; i++) {
+      const nodeA = nodes.current[i];
+
+      // for (let j = 0; j < nodes.current.length; j++) {
+      //   const nodeB = nodes.current[j];
+      // }
+
+      nodeA.position.x += (Math.random() - 0.5) * speed * deltaTime;
+      nodeA.position.y += (Math.random() - 0.5) * speed * deltaTime;
+
+      const entityState: EntityState = { id: nodeA.id, position: { x: nodeA.position.x, y: nodeA.position.y } };
+      nodeA.publisher.publish(entityState);
+    }
   }
 
   return (
