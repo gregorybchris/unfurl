@@ -1,7 +1,7 @@
 import { Box, BoxImpl } from "./box";
 import { Vector } from "./math";
 
-interface Item {
+export interface Item {
   position: Vector;
 }
 
@@ -12,13 +12,13 @@ type Children = {
   se: QuadTree;
 };
 
-export interface QuadTree {
+export type QuadTree = {
   size: number;
   capacity: number;
   box: Box;
   items: Item[];
   children: Children | null;
-}
+};
 
 export class QuadTreeImpl {
   static new(box: Box, capacity: number): QuadTree {

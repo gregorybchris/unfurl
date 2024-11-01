@@ -2,35 +2,35 @@ import random from "random";
 
 export const INF = Number.MAX_SAFE_INTEGER;
 
-export interface Vector {
+export type Vector = {
   x: number;
   y: number;
-}
+};
 
-export interface Range {
+export type Range = {
   min: number;
   max: number;
-}
+};
 
-export interface VectorRange {
+export type VectorRange = {
   x: Range;
   y: Range;
-}
+};
 
-export interface PolarRange {
+export type PolarRange = {
   r: Range;
   a: Range;
-}
+};
 
-export interface Polar {
+export type Polar = {
   r: number;
   a: number;
-}
+};
 
-export interface Box {
+export type Box = {
   width: number;
   height: number;
-}
+};
 
 export class StatsImpl {
   static mean(values: number[]): number {

@@ -1,10 +1,10 @@
 import { Vector, VectorImpl, VectorRange } from "./math";
 
 // Square bounding box with center and half-size
-export interface Box {
+export type Box = {
   c: Vector;
   hs: number;
-}
+};
 
 export class BoxImpl {
   static boxContains(box: Box, vector: Vector): boolean {
