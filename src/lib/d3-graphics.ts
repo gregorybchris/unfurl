@@ -80,7 +80,7 @@ export class D3Graphics {
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
       });
-    entityCircles.append("title").text((entity) => `entity ${entity.id}`);
+    entityCircles.append("title").text((entity) => entity.id);
   }
 
   updateCircle(entity: Entity) {
