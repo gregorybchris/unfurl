@@ -11,6 +11,7 @@ interface GraphViewProps {
 type Node = {
   id: string;
   position: Vector;
+  velocity: Vector;
   publisher: Publisher<EntityState>;
 };
 
@@ -19,7 +20,7 @@ export function GraphView({ graph }: GraphViewProps) {
   const HEIGHT = 500;
   const nodes = useRef<Node[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
-  const d3Graphics = useRef<D3Graphics | null>(null);
+  const d3Graphics = useRef<D3Graphics<Node> | null>(null);
 
   useEffect(() => {
     console.log("View Graph: ", graph);
@@ -33,6 +34,7 @@ export function GraphView({ graph }: GraphViewProps) {
       nodes.current = new Array(10).fill(0).map((_, i) => ({
         id: `node-${i}`,
         position: { x: 400, y: 200 },
+        velocity: { x: 0, y: 0 },
         publisher: new Publisher<EntityState>(),
       }));
 

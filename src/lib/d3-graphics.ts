@@ -8,13 +8,13 @@ export interface EntityState {
   position: Vector;
 }
 
-export interface Entity {
+export interface IEntity {
   id: string;
   position: Vector;
   publisher: Publisher<EntityState>;
 }
 
-export class D3Graphics {
+export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
   width: number;
   height: number;
