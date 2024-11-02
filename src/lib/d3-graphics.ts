@@ -69,11 +69,10 @@ export class D3Graphics<Entity extends IEntity> {
 
   addBackground() {
     const background = this.canvas.append("rect");
-    background.attr("fill", "#F5F5F5").attr("width", this.width).attr("height", this.height);
+    background.attr("width", this.width).attr("height", this.height).attr("fill", "#284c44");
   }
 
   addCircles() {
-    const fill = "#5FC193";
     const radius = 8;
 
     const entitiesGroup = this.canvas.append("g").attr("id", "entities-group");
@@ -85,7 +84,6 @@ export class D3Graphics<Entity extends IEntity> {
       .attr("cx", (entity) => entity.position.x)
       .attr("cy", (entity) => entity.position.y)
       .attr("r", radius)
-      .attr("fill", fill)
       .attr("id", (entity) => this.getSvgElementId(entity))
       .on("click", (_, entity) => {
         this.onEntityClick(entity);

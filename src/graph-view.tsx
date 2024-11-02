@@ -32,7 +32,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
     // Ensure D3Graphics is initialized only once
     if (!d3Graphics.current) {
-      nodes.current = new Array(10).fill(0).map((_, i) => ({
+      nodes.current = new Array(100).fill(0).map((_, i) => ({
         id: `node-${i}`,
         position: { x: random.float(140, 160), y: random.float(240, 260) },
         velocity: { x: 0, y: 0 },
@@ -74,12 +74,29 @@ export function GraphView({ graph }: GraphViewProps) {
 
       for (let j = i + 1; j < nodes.current.length; j++) {
         const nodeB = nodes.current[j];
-        // TODO: Pull out base and coefficient parameters
-        // const curve = (x: number) => CurveImpl.exponential(1, -2, x);
-        const curve = (x: number) => CurveImpl.linear(-0.01, 1, x);
-        const force = VectorImpl.map(VectorImpl.sub(nodeA.position, nodeB.position), curve);
+        const curve = (x: number) => {
+          if (Math.abs(x) < 20) {
+            return 0.1;
+          }
+          if (Math.abs(x) < 40) {
+            return 0.05;
+          }
+          return 0;
+        };
+        const distance = VectorImpl.dist(nodeA.position, nodeB.position);
+        const force = VectorImpl.map(
+          VectorImpl.mult(VectorImpl.unitTo(nodeA.position, nodeB.position), distance),
+          curve
+        );
         nodeA.velocity = VectorImpl.add(nodeA.velocity, force);
+        nodeB.velocity = VectorImpl.sub(nodeB.velocity, force);
       }
+    }
+
+    // Dampen velocity
+    for (let i = 0; i < nodes.current.length; i++) {
+      const node = nodes.current[i];
+      node.velocity = VectorImpl.mult(node.velocity, 0.99);
     }
 
     // Update node positions
@@ -94,7 +111,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
   return (
     <div>
-      <svg ref={svgContainer} className="h-[400px] w-[600px] border border-sea-green" />
+      <svg ref={svgContainer} className="h-[400px] w-[600px] border border-sea-green fill-sea-green" />
     </div>
   );
 }

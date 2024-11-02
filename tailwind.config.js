@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "sea-green": "#5FC193",
+        "light-green": "#A5D6A7",
       },
     },
     fontFamily: {
