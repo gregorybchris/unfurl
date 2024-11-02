@@ -17,8 +17,8 @@ type Node = {
 };
 
 export function GraphView({ graph }: GraphViewProps) {
-  const WIDTH = 500;
-  const HEIGHT = 600;
+  const WIDTH = 700;
+  const HEIGHT = 700;
   const nodes = useRef<Node[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
   const d3Graphics = useRef<D3Graphics<Node> | null>(null);
@@ -112,7 +112,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
   return (
     <div>
-      <svg ref={svgContainer} className="h-[400px] w-[600px] border border-sea-green fill-sea-green" />
+      <svg ref={svgContainer} className="h-[500px] w-[500px] border border-sea-green fill-sea-green" />
     </div>
   );
 }
