@@ -76,8 +76,10 @@ export function GraphView({ graph }: GraphViewProps) {
         const nodeB = nodes.current[j];
 
         const curve = (x: number) => {
-          if (Math.abs(x) < 20) return 0.1 * -Math.sign(x);
-          if (Math.abs(x) < 40) return 0.05 * -Math.sign(x);
+          if (Math.abs(x) < 5) return -Math.sign(x) * 0.7;
+          if (Math.abs(x) < 10) return -Math.sign(x) * 0.4;
+          if (Math.abs(x) < 30) return -Math.sign(x) * 0.2;
+          if (Math.abs(x) < 50) return -Math.sign(x) * 0.05;
           return 0;
         };
         const distance = VectorImpl.dist(nodeA.position, nodeB.position);
