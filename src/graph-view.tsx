@@ -76,19 +76,13 @@ export function GraphView({ graph }: GraphViewProps) {
         const nodeB = nodes.current[j];
 
         const curve = (x: number) => {
-          if (Math.abs(x) < 20) {
-            return 0.1 * -Math.sign(x);
-          }
-          if (Math.abs(x) < 40) {
-            return 0.05 * -Math.sign(x);
-          }
+          if (Math.abs(x) < 20) return 0.1 * -Math.sign(x);
+          if (Math.abs(x) < 40) return 0.05 * -Math.sign(x);
           return 0;
         };
         const distance = VectorImpl.dist(nodeA.position, nodeB.position);
-        const force = VectorImpl.map(
-          VectorImpl.mult(VectorImpl.unitTo(nodeA.position, nodeB.position), distance),
-          curve
-        );
+        const factor = curve(distance);
+        const force = VectorImpl.mult(VectorImpl.unitTo(nodeA.position, nodeB.position), factor);
         nodeA.velocity = VectorImpl.add(nodeA.velocity, force);
         nodeB.velocity = VectorImpl.sub(nodeB.velocity, force);
       }
