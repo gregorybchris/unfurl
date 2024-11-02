@@ -76,15 +76,14 @@ export function GraphView({ graph }: GraphViewProps) {
         const nodeB = nodes.current[j];
 
         const curve = (x: number) => {
-          if (Math.abs(x) < 5) return -Math.sign(x) * 0.7;
-          if (Math.abs(x) < 10) return -Math.sign(x) * 0.4;
-          if (Math.abs(x) < 30) return -Math.sign(x) * 0.2;
-          if (Math.abs(x) < 50) return -Math.sign(x) * 0.05;
+          if (Math.abs(x) < 30) return -Math.sign(x) * 2;
+          if (Math.abs(x) < 50) return -Math.sign(x) * -0.01;
           return 0;
         };
         const distance = VectorImpl.dist(nodeA.position, nodeB.position);
         const factor = curve(distance);
         const force = VectorImpl.mult(VectorImpl.unitTo(nodeA.position, nodeB.position), factor);
+
         nodeA.velocity = VectorImpl.add(nodeA.velocity, force);
         nodeB.velocity = VectorImpl.sub(nodeB.velocity, force);
       }
@@ -93,7 +92,7 @@ export function GraphView({ graph }: GraphViewProps) {
     // Dampen velocity
     for (let i = 0; i < nodes.current.length; i++) {
       const node = nodes.current[i];
-      const factor = 0.999;
+      const factor = 0.985;
       node.velocity = VectorImpl.mult(node.velocity, factor);
     }
 
@@ -109,7 +108,7 @@ export function GraphView({ graph }: GraphViewProps) {
 
   return (
     <div>
-      <svg ref={svgContainer} className="h-[500px] w-[500px] border border-sea-green fill-sea-green" />
+      <svg ref={svgContainer} className="h-[500px] w-[500px] border border-sea-green fill-sea-green rounded-xl" />
     </div>
   );
 }
