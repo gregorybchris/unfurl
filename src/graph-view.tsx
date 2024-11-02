@@ -34,7 +34,7 @@ export function GraphView({ graph }: GraphViewProps) {
     if (!d3Graphics.current) {
       nodes.current = new Array(100).fill(0).map((_, i) => ({
         id: `node-${i}`,
-        position: { x: random.float(140, 160), y: random.float(240, 260) },
+        position: { x: random.float(100, 200), y: random.float(200, 300) },
         velocity: { x: 0, y: 0 },
         publisher: new Publisher<EntityState>(),
       }));
@@ -96,7 +96,8 @@ export function GraphView({ graph }: GraphViewProps) {
     // Dampen velocity
     for (let i = 0; i < nodes.current.length; i++) {
       const node = nodes.current[i];
-      node.velocity = VectorImpl.mult(node.velocity, 0.99);
+      const factor = 0.999;
+      node.velocity = VectorImpl.mult(node.velocity, factor);
     }
 
     // Update node positions
