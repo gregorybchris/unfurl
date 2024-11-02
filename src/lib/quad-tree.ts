@@ -1,7 +1,8 @@
-import { Box, BoxImpl } from "./box";
 import { Vector } from "./math";
+import { QuadBox, QuadBoxImpl } from "./quad-box";
 
 export interface Item {
+  id: string;
   position: Vector;
 }
 
@@ -14,17 +15,17 @@ type Children = {
 
 export type QuadTree = {
   size: number;
-  capacity: number;
-  box: Box;
+  cellCapacity: number;
+  box: QuadBox;
   items: Item[];
   children: Children | null;
 };
 
 export class QuadTreeImpl {
-  static new(box: Box, capacity: number): QuadTree {
+  static new(box: QuadBox, cellCapacity: number): QuadTree {
     return {
       size: 0,
-      capacity,
+      cellCapacity,
       box,
       items: [],
       children: null,
@@ -33,11 +34,11 @@ export class QuadTreeImpl {
 
   // Insert an item into a quadtree, dividing if necessary.
   static insert(tree: QuadTree, item: Item): QuadTree {
-    if (!BoxImpl.boxContains(tree.box, item.position)) {
+    if (!QuadBoxImpl.boxContains(tree.box, item.position)) {
       return tree;
     }
 
-    if (tree.children === null && tree.items.length < tree.capacity) {
+    if (tree.children === null && tree.items.length < tree.cellCapacity) {
       return {
         ...tree,
         size: tree.size + 1,
@@ -69,30 +70,30 @@ export class QuadTreeImpl {
 
   // Create four children, dividing a tree into four of equal area.
   static divide(tree: QuadTree): QuadTree {
-    const capacity = tree.capacity;
-    const x = tree.box.c.x;
-    const y = tree.box.c.y;
-    const hhs = tree.box.hs / 2;
+    const capacity = tree.cellCapacity;
+    const x = tree.box.center.x;
+    const y = tree.box.center.y;
+    const hhs = tree.box.halfSize / 2;
     return {
       ...tree,
       children: {
-        nw: QuadTreeImpl.new({ c: { x: x - hhs, y: y + hhs }, hs: hhs }, capacity),
-        ne: QuadTreeImpl.new({ c: { x: x + hhs, y: y + hhs }, hs: hhs }, capacity),
-        sw: QuadTreeImpl.new({ c: { x: x - hhs, y: y - hhs }, hs: hhs }, capacity),
-        se: QuadTreeImpl.new({ c: { x: x + hhs, y: y - hhs }, hs: hhs }, capacity),
+        nw: QuadTreeImpl.new({ center: { x: x - hhs, y: y + hhs }, halfSize: hhs }, capacity),
+        ne: QuadTreeImpl.new({ center: { x: x + hhs, y: y + hhs }, halfSize: hhs }, capacity),
+        sw: QuadTreeImpl.new({ center: { x: x - hhs, y: y - hhs }, halfSize: hhs }, capacity),
+        se: QuadTreeImpl.new({ center: { x: x + hhs, y: y - hhs }, halfSize: hhs }, capacity),
       },
     };
   }
 
   // Find all items contained within a given box.
-  static query(tree: QuadTree, box: Box): Item[] {
-    if (!BoxImpl.boxIntersects(tree.box, box)) {
+  static query(tree: QuadTree, box: QuadBox): Item[] {
+    if (!QuadBoxImpl.boxIntersects(tree.box, box)) {
       return [];
     }
 
     const items: Item[] = [];
     for (let i = 0; i < tree.items.length; i++) {
-      if (BoxImpl.boxContains(box, tree.items[i].position)) {
+      if (QuadBoxImpl.boxContains(box, tree.items[i].position)) {
         items.push(tree.items[i]);
       }
     }

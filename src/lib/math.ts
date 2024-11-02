@@ -168,6 +168,10 @@ export class VectorImpl {
     const dx = v2.x - v1.x;
     const dy = v2.y - v1.y;
     const mag = Math.sqrt(dx * dx + dy * dy);
+    if (mag === 0) {
+      console.error("Cannot take unit vector to same point");
+      return { x: 0, y: 0 };
+    }
     return { x: dx / mag, y: dy / mag };
   }
 }

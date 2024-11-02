@@ -6,6 +6,7 @@ export default {
       colors: {
         "sea-green": "#5FC193",
         "light-green": "#A5D6A7",
+        "tree-green": "#284C44",
       },
     },
     fontFamily: {

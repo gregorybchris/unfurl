@@ -18,6 +18,7 @@ export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
   width: number;
   height: number;
+  radius: number;
   entities: Entity[];
   onUpdate: UpdateFuncType;
   onEntityClick: (entity: Entity) => void;
@@ -28,6 +29,7 @@ export class D3Graphics<Entity extends IEntity> {
     container: SVGSVGElement,
     width: number,
     height: number,
+    radius: number,
     entities: Entity[],
     onUpdate: UpdateFuncType,
     onEntityClick: (entity: Entity) => void
@@ -35,6 +37,7 @@ export class D3Graphics<Entity extends IEntity> {
     this.container = container;
     this.width = width;
     this.height = height;
+    this.radius = radius;
     this.entities = entities;
     this.onUpdate = onUpdate;
     this.onEntityClick = onEntityClick;
@@ -73,8 +76,6 @@ export class D3Graphics<Entity extends IEntity> {
   }
 
   addCircles() {
-    const radius = 8;
-
     const entitiesGroup = this.canvas.append("g").attr("id", "entities-group");
     const entityCircles = entitiesGroup
       .selectAll("circle")
@@ -83,7 +84,7 @@ export class D3Graphics<Entity extends IEntity> {
       .append("circle")
       .attr("cx", (entity) => entity.position.x)
       .attr("cy", (entity) => entity.position.y)
-      .attr("r", radius)
+      .attr("r", this.radius)
       .attr("id", (entity) => this.getSvgElementId(entity))
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
