@@ -74,12 +74,13 @@ export function GraphView({ graph }: GraphViewProps) {
 
       for (let j = i + 1; j < nodes.current.length; j++) {
         const nodeB = nodes.current[j];
+
         const curve = (x: number) => {
           if (Math.abs(x) < 20) {
-            return 0.1;
+            return 0.1 * -Math.sign(x);
           }
           if (Math.abs(x) < 40) {
-            return 0.05;
+            return 0.05 * -Math.sign(x);
           }
           return 0;
         };
