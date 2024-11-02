@@ -159,6 +159,10 @@ export class VectorImpl {
   static inRange(vector: Vector, range: VectorRange): boolean {
     return vector.x > range.x.min && vector.x <= range.x.max && vector.y > range.y.min && vector.y <= range.y.max;
   }
+
+  static map(vector: Vector, f: (n: number) => number): Vector {
+    return { x: f(vector.x), y: f(vector.y) };
+  }
 }
 
 export class PolarImpl {

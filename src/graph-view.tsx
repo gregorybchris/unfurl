@@ -1,7 +1,8 @@
+import random from "random";
 import { useEffect, useRef } from "react";
 import { D3Graphics, EntityState } from "./lib/d3-graphics";
 import { Graph } from "./lib/graph";
-import { Vector } from "./lib/math";
+import { CurveImpl, Vector, VectorImpl } from "./lib/math";
 import { Publisher } from "./lib/pubsub";
 
 interface GraphViewProps {
@@ -16,8 +17,8 @@ type Node = {
 };
 
 export function GraphView({ graph }: GraphViewProps) {
-  const WIDTH = 300;
-  const HEIGHT = 500;
+  const WIDTH = 500;
+  const HEIGHT = 600;
   const nodes = useRef<Node[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
   const d3Graphics = useRef<D3Graphics<Node> | null>(null);
@@ -33,7 +34,7 @@ export function GraphView({ graph }: GraphViewProps) {
     if (!d3Graphics.current) {
       nodes.current = new Array(10).fill(0).map((_, i) => ({
         id: `node-${i}`,
-        position: { x: 400, y: 200 },
+        position: { x: random.float(140, 160), y: random.float(240, 260) },
         velocity: { x: 0, y: 0 },
         publisher: new Publisher<EntityState>(),
       }));
@@ -49,27 +50,51 @@ export function GraphView({ graph }: GraphViewProps) {
     console.log(`Clicked node: ${node.id}`);
   }
 
-  function onUpdate(_: number, deltaTime: number) {
-    const speed = 0.5;
+  function nodePublish(node: Node): void {
+    node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y } });
+  }
 
+  function onUpdate(_: number, deltaTime: number) {
+    const simulationSpeed = 0.01;
+    const timeFactor = simulationSpeed * deltaTime;
+
+    // Apply forces toward center of screen
+    for (let i = 0; i < nodes.current.length; i++) {
+      const node = nodes.current[i];
+      // TODO: Pull out slope and intercept parameters
+      const curve = (x: number) => CurveImpl.linear(0.01, 0, x);
+      const center: Vector = { x: WIDTH / 2, y: HEIGHT / 2 };
+      const force = VectorImpl.map(VectorImpl.sub(center, node.position), curve);
+      node.velocity = VectorImpl.add(node.velocity, force);
+    }
+
+    // Apply force to move nodes away from each other
     for (let i = 0; i < nodes.current.length; i++) {
       const nodeA = nodes.current[i];
 
-      // for (let j = 0; j < nodes.current.length; j++) {
-      //   const nodeB = nodes.current[j];
-      // }
+      for (let j = i + 1; j < nodes.current.length; j++) {
+        const nodeB = nodes.current[j];
+        // TODO: Pull out base and coefficient parameters
+        // const curve = (x: number) => CurveImpl.exponential(1, -2, x);
+        const curve = (x: number) => CurveImpl.linear(-0.01, 1, x);
+        const force = VectorImpl.map(VectorImpl.sub(nodeA.position, nodeB.position), curve);
+        nodeA.velocity = VectorImpl.add(nodeA.velocity, force);
+      }
+    }
 
-      nodeA.position.x += (Math.random() - 0.5) * speed * deltaTime;
-      nodeA.position.y += (Math.random() - 0.5) * speed * deltaTime;
+    // Update node positions
+    for (let i = 0; i < nodes.current.length; i++) {
+      const node = nodes.current[i];
+      node.position = VectorImpl.add(node.position, VectorImpl.mult(node.velocity, timeFactor));
 
-      const entityState: EntityState = { id: nodeA.id, position: { x: nodeA.position.x, y: nodeA.position.y } };
-      nodeA.publisher.publish(entityState);
+      // Publish updated node states to all subscribers
+      nodePublish(node);
     }
   }
 
   return (
     <div>
-      <svg ref={svgContainer} className="h-[300px] w-[500px] border border-sea-green" />
+      <svg ref={svgContainer} className="h-[400px] w-[600px] border border-sea-green" />
     </div>
   );
 }

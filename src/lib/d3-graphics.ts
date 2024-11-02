@@ -46,6 +46,7 @@ export class D3Graphics<Entity extends IEntity> {
       .attr("preserveAspectRatio", "xMinYMin meet")
       .attr("viewBox", `0 0 ${width} ${height}`);
 
+    this.addBackground();
     this.addCircles();
 
     this.entities.forEach((entity: Entity) => {
@@ -64,6 +65,11 @@ export class D3Graphics<Entity extends IEntity> {
 
   getSvgElementId(entity: Entity): string {
     return `entity-${entity.id}`;
+  }
+
+  addBackground() {
+    const background = this.canvas.append("rect");
+    background.attr("fill", "#F5F5F5").attr("width", this.width).attr("height", this.height);
   }
 
   addCircles() {
