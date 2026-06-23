@@ -27,7 +27,7 @@ export function GraphView({ graph }: GraphViewProps) {
   const d3Graphics = useRef<D3Graphics<Body> | null>(null);
 
   const cellCapacity = 4;
-  const center: Vector = { x: WIDTH / 2, y: HEIGHT / 2 };
+  const center: Vector = { x: 0, y: 0 };
   const quadTree = useRef<QuadTree>(
     QuadTreeImpl.new({ center: center, halfSize: Math.max(WIDTH, HEIGHT) / 2 }, cellCapacity)
   );

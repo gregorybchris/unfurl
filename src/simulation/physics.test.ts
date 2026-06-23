@@ -16,13 +16,13 @@ function makeNode(id: string, position: Vector): Body {
 
 describe("physics.update", () => {
   it("leaves a single node sitting exactly at the center at rest", () => {
-    const center: Vector = { x: 500, y: 500 };
-    const node = makeNode("n0", { x: 500, y: 500 });
+    const center: Vector = { x: 0, y: 0 };
+    const node = makeNode("n0", { x: 0, y: 0 });
 
     update([node], 16, center);
 
-    expect(node.position.x).toBeCloseTo(500);
-    expect(node.position.y).toBeCloseTo(500);
+    expect(node.position.x).toBeCloseTo(0);
+    expect(node.position.y).toBeCloseTo(0);
     expect(node.velocity).toEqual({ x: 0, y: 0 });
   });
 
@@ -43,15 +43,15 @@ describe("physics.update", () => {
   });
 
   it("publishes each node's updated state to its subscribers", () => {
-    const center: Vector = { x: 500, y: 500 };
-    const node = makeNode("n0", { x: 500, y: 500 });
+    const center: Vector = { x: 0, y: 0 };
+    const node = makeNode("n0", { x: 0, y: 0 });
     const listener = vi.fn();
     node.publisher.subscribers.push({ receive: listener } as never);
 
     update([node], 16, center);
 
     expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith({ id: "n0", position: { x: 500, y: 500 } });
+    expect(listener).toHaveBeenCalledWith({ id: "n0", position: { x: 0, y: 0 } });
   });
 
   it("dampens velocity over repeated ticks toward the center", () => {
