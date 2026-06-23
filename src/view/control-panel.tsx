@@ -19,10 +19,10 @@ import {
 } from "@phosphor-icons/react";
 import * as RadixSelect from "@radix-ui/react-select";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
-import * as Slider from "@radix-ui/react-slider";
 import * as Switch from "@radix-ui/react-switch";
 import type { ReactNode } from "react";
 import { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
+import { ScrubSlider, SnapTier } from "@/view/scrub-slider";
 
 const FUNCTION_LABELS: Record<FunctionType, string> = {
   step: "Step zones",
@@ -32,37 +32,28 @@ const FUNCTION_LABELS: Record<FunctionType, string> = {
   logarithmic: "Logarithmic",
 };
 
-// ── Shared primitives ─────────────────────────────────────────────────────────
+// ── Snap tiers for each slider type ──────────────────────────────────────────
 
-function ControlSlider({
-  value,
-  min,
-  max,
-  step,
-  onChange,
-}: {
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <Slider.Root
-      className="relative flex items-center select-none touch-none w-full h-4 cursor-pointer group"
-      value={[value]}
-      min={min}
-      max={max}
-      step={step}
-      onValueChange={([v]) => onChange(v)}
-    >
-      <Slider.Track className="relative grow rounded-full h-[3px] bg-sea-green/15">
-        <Slider.Range className="absolute rounded-full h-full bg-sea-green/60 group-hover:bg-sea-green transition-colors" />
-      </Slider.Track>
-      <Slider.Thumb className="block w-3 h-3 rounded-full bg-sea-green shadow-sm hover:bg-light-green focus:outline-none focus:ring-2 focus:ring-sea-green/40 transition-colors" />
-    </Slider.Root>
-  );
-}
+const STRENGTH_SNAP_TIERS: SnapTier[] = [
+  { maxYOffset: 15, step: 0.01 },
+  { maxYOffset: 30, step: 0.05 },
+  { maxYOffset: 45, step: 0.1 },
+  { maxYOffset: Infinity, step: 0.5 },
+];
+
+const SPEED_SNAP_TIERS: SnapTier[] = [
+  { maxYOffset: 15, step: 0.001 },
+  { maxYOffset: 30, step: 0.005 },
+  { maxYOffset: 45, step: 0.01 },
+  { maxYOffset: Infinity, step: 0.02 },
+];
+
+const DAMPING_SNAP_TIERS: SnapTier[] = [
+  { maxYOffset: 15, step: 0.001 },
+  { maxYOffset: 30, step: 0.005 },
+  { maxYOffset: 45, step: 0.01 },
+  { maxYOffset: Infinity, step: 0.05 },
+];
 
 function CurveSelect({
   value,
@@ -129,11 +120,13 @@ function ForceSection({
   icon,
   label,
   config,
+  maxStrength = 2,
   onChange,
 }: {
   icon: ReactNode;
   label: string;
   config: ForceConfig;
+  maxStrength?: number;
   onChange: (c: ForceConfig) => void;
 }) {
   return (
@@ -167,11 +160,12 @@ function ForceSection({
               <span className="text-[10px] text-sea-green/40 w-12 shrink-0 uppercase tracking-wide">
                 Strength
               </span>
-              <ControlSlider
+              <ScrubSlider
                 value={config.strength}
                 min={0}
-                max={2}
-                step={0.01}
+                max={maxStrength}
+                snapTiers={STRENGTH_SNAP_TIERS}
+                mobileStep={0.1}
                 onChange={(v) => onChange({ ...config, strength: v })}
               />
               <span className="text-[11px] tabular-nums text-sea-green/60 w-7 text-right">
@@ -202,7 +196,8 @@ function GlobalRow({
   value,
   min,
   max,
-  step,
+  snapTiers,
+  mobileStep,
   decimals = 3,
   onChange,
 }: {
@@ -211,7 +206,8 @@ function GlobalRow({
   value: number;
   min: number;
   max: number;
-  step: number;
+  snapTiers: SnapTier[];
+  mobileStep?: number;
   decimals?: number;
   onChange: (v: number) => void;
 }) {
@@ -219,7 +215,7 @@ function GlobalRow({
     <div className="flex items-center gap-2">
       <span className="shrink-0 text-sea-green/50">{icon}</span>
       <span className="text-[10px] text-sea-green/50 w-12 shrink-0 uppercase tracking-wide">{label}</span>
-      <ControlSlider value={value} min={min} max={max} step={step} onChange={onChange} />
+      <ScrubSlider value={value} min={min} max={max} snapTiers={snapTiers} mobileStep={mobileStep} onChange={onChange} />
       <span className="text-[11px] tabular-nums text-sea-green/60 w-10 text-right">
         {value.toFixed(decimals)}
       </span>
@@ -322,7 +318,8 @@ export function ControlPanel({
                 value={config.simulationSpeed}
                 min={0.001}
                 max={0.08}
-                step={0.001}
+                snapTiers={SPEED_SNAP_TIERS}
+                mobileStep={0.01}
                 decimals={3}
                 onChange={(v) => onChange({ ...config, simulationSpeed: v })}
               />
@@ -332,7 +329,8 @@ export function ControlPanel({
                 value={config.damping}
                 min={0.8}
                 max={0.995}
-                step={0.001}
+                snapTiers={DAMPING_SNAP_TIERS}
+                mobileStep={0.01}
                 decimals={3}
                 onChange={(v) => onChange({ ...config, damping: v })}
               />
@@ -391,6 +389,7 @@ export function ControlPanel({
                 icon={<Graph size={14} weight="duotone" />}
                 label="Graph Distance Repulsion"
                 config={config.graphDistanceRepulsion}
+                maxStrength={10}
                 onChange={(fc) => setForce("graphDistanceRepulsion", fc)}
               />
               <ForceSection
