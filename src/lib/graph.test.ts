@@ -110,7 +110,7 @@ describe("graphDistance", () => {
     expect(graphDistance(graph, matrix, "B", "A")).toBe(1);
   });
 
-  it("works end-to-end through the full pipeline (mirrors App.tsx)", () => {
+  it("works end-to-end through the full pipeline (mirrors app.tsx)", () => {
     const graph = jsonToGraph(json);
     let matrix = graphToAdjMatrix(graph);
     matrix = makeSymmetric(matrix);

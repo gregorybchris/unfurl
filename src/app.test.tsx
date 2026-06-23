@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import App from "./App";
+import App from "./app";
 
 beforeEach(() => {
   // keep the manual d3 animation loop from actually running during the test
