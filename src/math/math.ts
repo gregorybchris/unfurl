@@ -111,11 +111,12 @@ export class VectorImpl {
       console.error("Cannot take vector mean of array of length zero");
       return { x: NaN, y: NaN };
     }
-
-    return {
-      x: StatsImpl.mean(vectors.map((p) => p.x)),
-      y: StatsImpl.mean(vectors.map((p) => p.y)),
-    };
+    let sx = 0, sy = 0;
+    for (let i = 0; i < vectors.length; i++) {
+      sx += vectors[i].x;
+      sy += vectors[i].y;
+    }
+    return { x: sx / vectors.length, y: sy / vectors.length };
   }
 
   static addPolar(vector: Vector, polar: Polar): Vector {

@@ -7,7 +7,6 @@ import { D3Graphics } from "@/rendering/d3-graphics";
 import { Body } from "@/simulation/body";
 import { EntityState } from "@/simulation/entity";
 import { update } from "@/simulation/physics";
-import { QuadTree, QuadTreeImpl } from "@/spatial/quad-tree";
 
 interface GraphViewProps {
   graph: Graph;
@@ -26,12 +25,7 @@ export function GraphView({ graph }: GraphViewProps) {
   const svgContainer = useRef<SVGSVGElement>(null);
   const d3Graphics = useRef<D3Graphics<Body> | null>(null);
 
-  const cellCapacity = 4;
   const center: Vector = { x: 0, y: 0 };
-  const quadTree = useRef<QuadTree>(
-    QuadTreeImpl.new({ center: center, halfSize: Math.max(WIDTH, HEIGHT) / 2 }, cellCapacity)
-  );
-  const nodeMap = useRef<Map<string, Body>>(new Map());
 
   function onClickNode(node: Body) {
     console.log(`Clicked node: ${node.id}`);
@@ -60,11 +54,6 @@ export function GraphView({ graph }: GraphViewProps) {
         velocity: VectorImpl.origin(),
         publisher: new Publisher<EntityState>(),
       }));
-
-      nodes.current.forEach((node) => {
-        quadTree.current = QuadTreeImpl.insert(quadTree.current, node);
-        nodeMap.current.set(node.id, node);
-      });
 
       d3Graphics.current = new D3Graphics(svgContainer.current, center, RADIUS, nodes.current, onUpdate, onClickNode);
       d3Graphics.current.start();

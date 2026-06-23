@@ -13,6 +13,7 @@ export class D3Graphics<Entity extends IEntity> {
   onEntityClick: (entity: Entity) => void;
   animationGraphics: AnimationGraphics;
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
+  private elementMap = new Map<string, SVGCircleElement>();
 
   constructor(
     container: SVGSVGElement,
@@ -69,7 +70,7 @@ export class D3Graphics<Entity extends IEntity> {
 
   addCircles() {
     const entitiesGroup = this.canvas.append("g").attr("id", "entities-group");
-    const entityCircles = entitiesGroup
+    entitiesGroup
       .selectAll("circle")
       .data(this.entities)
       .enter()
@@ -80,13 +81,19 @@ export class D3Graphics<Entity extends IEntity> {
       .attr("id", (entity) => this.getSvgElementId(entity))
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
-      });
-    entityCircles.append("title").text((entity) => entity.id);
+      })
+      .each((entity, _i, nodes) => {
+        this.elementMap.set(entity.id, nodes[_i] as SVGCircleElement);
+      })
+      .append("title")
+      .text((entity) => entity.id);
   }
 
   updateCircle(entity: Entity) {
-    const entitySelection = d3.select(`#${this.getSvgElementId(entity)}`);
-    entitySelection.attr("cx", entity.position.x);
-    entitySelection.attr("cy", entity.position.y);
+    const el = this.elementMap.get(entity.id);
+    if (el) {
+      el.setAttribute("cx", String(entity.position.x));
+      el.setAttribute("cy", String(entity.position.y));
+    }
   }
 }
