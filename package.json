@@ -19,6 +19,11 @@
   },
   "dependencies": {
     "@fontsource-variable/quicksand": "^5.2.10",
+    "@phosphor-icons/react": "^2.1.10",
+    "@radix-ui/react-scroll-area": "^1.2.12",
+    "@radix-ui/react-select": "^2.3.1",
+    "@radix-ui/react-slider": "^1.4.1",
+    "@radix-ui/react-switch": "^1.3.1",
     "d3": "^7.9.0",
     "random": "^5.4.1",
     "react": "^19.2.7",

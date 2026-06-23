@@ -1,45 +1,102 @@
 import random, { Random } from "random";
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Publisher } from "@/events/pubsub";
-import { JsonGraph } from "@/graph/graph";
+import { AdjMatrix, JsonGraph } from "@/graph/graph";
 import { Vector, VectorImpl } from "@/math/math";
 import { D3Graphics, EdgeRef } from "@/rendering/d3-graphics";
 import { Body } from "@/simulation/body";
 import { EntityState } from "@/simulation/entity";
-import { EdgeIndex, update } from "@/simulation/physics";
+import { addHeat, EdgeIndex, update } from "@/simulation/physics";
+import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
+
+const DEFAULT_SCALE = 0.5;
+const MIN_SCALE = 0.1;
+const MAX_SCALE = 3;
+
+export interface GraphViewHandle {
+  addHeat: () => void;
+  zoomBy: (factor: number) => void;
+  resetZoom: () => void;
+}
 
 interface GraphViewProps {
   graph: JsonGraph;
   seed: number | null;
+  physicsConfig?: PhysicsConfig;
+  graphDistances?: AdjMatrix;
+  nodeDegrees?: number[];
+  eigenvectorCentrality?: number[];
 }
 
-export function GraphView({ graph, seed }: GraphViewProps) {
+export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function GraphView(
+  {
+    graph,
+    seed,
+    physicsConfig = defaultPhysicsConfig,
+    graphDistances = [],
+    nodeDegrees = [],
+    eigenvectorCentrality = [],
+  },
+  ref,
+) {
   const RADIUS = 8;
-  // Pixels per world unit. Fixed so resizing the window reveals more of the scene
-  // rather than rescaling it; 0.5 matches the previous 500px ÷ 1000-unit view.
-  const SCALE = 0.5;
+
+  const [scale, setScale] = useState(DEFAULT_SCALE);
+  const scaleRef = useRef(scale);
+  scaleRef.current = scale;
+  // Tracks the currently-rendered scale; lerped toward scaleRef each frame.
+  const displayScaleRef = useRef(DEFAULT_SCALE);
 
   const nodes = useRef<Body[]>([]);
   const edgeIndices = useRef<EdgeIndex[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
   const d3Graphics = useRef<D3Graphics<Body> | null>(null);
 
+  const physicsConfigRef = useRef<PhysicsConfig>(physicsConfig);
+  physicsConfigRef.current = physicsConfig;
+
   const center: Vector = { x: 0, y: 0 };
+
+  useImperativeHandle(ref, () => ({
+    addHeat: () => addHeat(nodes.current),
+    zoomBy: (factor: number) =>
+      setScale((prev) => Math.max(MIN_SCALE, Math.min(MAX_SCALE, prev * factor))),
+    resetZoom: () => setScale(DEFAULT_SCALE),
+  }));
 
   function onClickNode(node: Body) {
     console.log(`Clicked node: ${node.id}`);
   }
 
   function onUpdate(_: number, deltaTime: number) {
-    update(nodes.current, edgeIndices.current, deltaTime, center);
+    // Smoothly lerp the display scale toward the target each frame.
+    const target = scaleRef.current;
+    const current = displayScaleRef.current;
+    if (Math.abs(current - target) > 0.0005) {
+      const factor = 1 - Math.exp(-deltaTime * 0.018);
+      const next = current + (target - current) * factor;
+      displayScaleRef.current = next;
+      if (svgContainer.current && d3Graphics.current) {
+        const svg = svgContainer.current;
+        d3Graphics.current.resize(svg.clientWidth, svg.clientHeight, next);
+      }
+    }
+
+    update(
+      nodes.current,
+      edgeIndices.current,
+      deltaTime,
+      center,
+      physicsConfigRef.current,
+      graphDistances,
+      nodeDegrees,
+      eigenvectorCentrality,
+    );
   }
 
   useEffect(() => {
-    if (!svgContainer.current) {
-      return;
-    }
+    if (!svgContainer.current) return;
 
-    // Ensure D3Graphics is initialized only once
     if (!d3Graphics.current) {
       const rng = seed !== null ? new Random(seed) : random;
       const generationRadius = 50;
@@ -71,23 +128,32 @@ export function GraphView({ graph, seed }: GraphViewProps) {
         nodes.current,
         edgeRefs,
         onUpdate,
-        onClickNode
+        onClickNode,
       );
       d3Graphics.current.start();
     }
 
-    // Drive the viewBox from the element's live pixel size: size it once now
-    // (avoids a first-frame flash) and again whenever the element resizes.
     const svg = svgContainer.current;
-    const applyResize = () => d3Graphics.current?.resize(svg.clientWidth, svg.clientHeight, SCALE);
+    const applyResize = () =>
+      d3Graphics.current?.resize(svg.clientWidth, svg.clientHeight, scaleRef.current);
     applyResize();
     const observer = new ResizeObserver(applyResize);
     observer.observe(svg);
 
-    return () => observer.disconnect();
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const factor = e.deltaY > 0 ? 0.93 : 1.07;
+      setScale((prev) => Math.max(MIN_SCALE, Math.min(MAX_SCALE, prev * factor)));
+    };
+    svg.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      observer.disconnect();
+      svg.removeEventListener("wheel", onWheel);
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <svg ref={svgContainer} className="block h-full w-full bg-tree-green fill-light-green" />;
-}
+});
