@@ -30,6 +30,7 @@ const FUNCTION_LABELS: Record<FunctionType, string> = {
   inverse: "Inverse",
   logistic: "Logistic",
   logarithmic: "Logarithmic",
+  exponential: "Exponential",
 };
 
 // ── Snap tiers for each slider type ──────────────────────────────────────────
@@ -130,7 +131,7 @@ function ForceSection({
   onChange: (c: ForceConfig) => void;
 }) {
   return (
-    <div className="rounded-lg border border-sea-green/10 bg-white/[0.025] overflow-hidden">
+    <div className="rounded-lg border border-sea-green/10 bg-white/[0.025]">
       <div className="flex items-center gap-2.5 px-3 py-2.5">
         <span
           className={`shrink-0 transition-opacity ${config.enabled ? "text-sea-green opacity-90" : "text-sea-green/30"}`}
