@@ -1,12 +1,13 @@
 import random from "random";
 import { useEffect, useRef } from "react";
-import { D3Graphics, EntityState } from "./lib/d3-graphics";
-import { Graph } from "./lib/graph";
-import { Vector, VectorImpl } from "./lib/math";
-import { Node } from "./lib/node";
-import { update } from "./lib/physics";
-import { Publisher } from "./lib/pubsub";
-import { QuadTree, QuadTreeImpl } from "./lib/quad-tree";
+import { Publisher } from "@/events/pubsub";
+import { Graph } from "@/graph/graph";
+import { Vector, VectorImpl } from "@/math/math";
+import { D3Graphics } from "@/rendering/d3-graphics";
+import { Body } from "@/simulation/body";
+import { EntityState } from "@/simulation/entity";
+import { update } from "@/simulation/physics";
+import { QuadTree, QuadTreeImpl } from "@/spatial/quad-tree";
 
 interface GraphViewProps {
   graph: Graph;
@@ -18,18 +19,18 @@ export function GraphView({ graph }: GraphViewProps) {
   const RADIUS = 6;
   const NUM_NODES = 500;
 
-  const nodes = useRef<Node[]>([]);
+  const nodes = useRef<Body[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
-  const d3Graphics = useRef<D3Graphics<Node> | null>(null);
+  const d3Graphics = useRef<D3Graphics<Body> | null>(null);
 
   const cellCapacity = 4;
   const center: Vector = { x: WIDTH / 2, y: HEIGHT / 2 };
   const quadTree = useRef<QuadTree>(
     QuadTreeImpl.new({ center: center, halfSize: Math.max(WIDTH, HEIGHT) / 2 }, cellCapacity)
   );
-  const nodeMap = useRef<Map<string, Node>>(new Map());
+  const nodeMap = useRef<Map<string, Body>>(new Map());
 
-  function onClickNode(node: Node) {
+  function onClickNode(node: Body) {
     console.log(`Clicked node: ${node.id}`);
   }
 

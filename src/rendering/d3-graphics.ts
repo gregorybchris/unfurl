@@ -1,18 +1,7 @@
 import * as d3 from "d3";
+import { Subscriber } from "@/events/pubsub";
+import { IEntity } from "@/simulation/entity";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
-import { Vector } from "./math";
-import { Publisher, Subscriber } from "./pubsub";
-
-export interface EntityState {
-  id: string;
-  position: Vector;
-}
-
-export interface IEntity {
-  id: string;
-  position: Vector;
-  publisher: Publisher<EntityState>;
-}
 
 export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;

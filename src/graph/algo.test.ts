@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { floydWarshall } from "./algo";
 import { AdjMatrix } from "./graph";
-import { INF } from "./math";
+import { INF } from "@/math/math";
 
 describe("floydWarshall", () => {
   it("computes all-pairs shortest paths through intermediate nodes", () => {

@@ -1,4 +1,4 @@
-import { Vector, VectorImpl, VectorRange } from "./math";
+import { Vector, VectorImpl, VectorRange } from "@/math/math";
 
 // Square bounding box with center and half-size
 export type QuadBox = {

@@ -1,4 +1,4 @@
-import { Vector } from "./math";
+import { Vector } from "@/math/math";
 import { QuadBox, QuadBoxImpl } from "./quad-box";
 
 export interface Item {

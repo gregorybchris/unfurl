@@ -1,4 +1,4 @@
-import { INF } from "./math";
+import { INF } from "@/math/math";
 
 export type AdjMatrix = number[][];
 

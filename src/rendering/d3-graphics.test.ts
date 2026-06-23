@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { D3Graphics, EntityState, IEntity } from "./d3-graphics";
-import { Publisher } from "./pubsub";
+import { Publisher } from "@/events/pubsub";
+import { EntityState, IEntity } from "@/simulation/entity";
+import { D3Graphics } from "./d3-graphics";
 
 function makeEntity(id: string, x: number, y: number): IEntity {
   return { id, position: { x, y }, publisher: new Publisher<EntityState>() };

@@ -8,7 +8,7 @@ import {
   jsonToGraph,
   makeSymmetric,
 } from "./graph";
-import { INF } from "./math";
+import { INF } from "@/math/math";
 
 const json: JsonGraph = {
   nodes: [

@@ -1,6 +1,4 @@
-import data from "./data/les-miserables.json";
-import { GraphView } from "./graph-view";
-import { floydWarshall } from "./lib/algo";
+import { floydWarshall } from "@/graph/algo";
 import {
   AdjMatrix,
   fillAdjMatrixInf,
@@ -10,7 +8,9 @@ import {
   JsonGraph,
   jsonToGraph,
   makeSymmetric,
-} from "./lib/graph";
+} from "@/graph/graph";
+import { GraphView } from "@/view/graph-view";
+import data from "./data/les-miserables.json";
 
 export default function App() {
   const jsonGraph: JsonGraph = data;

@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
-import { EntityState } from "./d3-graphics";
-import { Vector } from "./math";
-import { Node } from "./node";
+import { Publisher } from "@/events/pubsub";
+import { Vector } from "@/math/math";
+import { Body } from "./body";
+import { EntityState } from "./entity";
 import { update } from "./physics";
-import { Publisher } from "./pubsub";
 
-function makeNode(id: string, position: Vector): Node {
+function makeNode(id: string, position: Vector): Body {
   return {
     id,
     position,

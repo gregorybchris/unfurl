@@ -1,5 +1,5 @@
 import { AdjMatrix } from "./graph";
-import { INF } from "./math";
+import { INF } from "@/math/math";
 
 /// Floyd Warshall Algorithm
 /// All pairs shortest paths

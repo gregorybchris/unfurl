@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GraphView } from "./graph-view";
-import { Graph } from "./lib/graph";
+import { Graph } from "@/graph/graph";
 
 beforeEach(() => {
   vi.stubGlobal("requestAnimationFrame", () => 0);

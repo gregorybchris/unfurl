@@ -1,7 +1,7 @@
-import { CurveImpl, Vector, VectorImpl } from "./math";
-import { Node } from "./node";
+import { CurveImpl, Vector, VectorImpl } from "@/math/math";
+import { Body } from "./body";
 
-export function update(nodes: Node[], deltaTime: number, center: Vector) {
+export function update(nodes: Body[], deltaTime: number, center: Vector) {
   const simulationSpeed = 0.01;
   const timeFactor = simulationSpeed * deltaTime;
 
