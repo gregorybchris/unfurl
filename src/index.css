@@ -1,9 +1,14 @@
 @import "@fontsource-variable/quicksand";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-sea-green: #5fc193;
+  --color-light-green: #a5d6a7;
+  --color-tree-green: #284c44;
+
+  --font-quicksand: "Quicksand Variable", sans-serif;
+}
 
 body {
-    background-color: #333333;
+  background-color: #333333;
 }

@@ -1,0 +1,67 @@
+import { describe, expect, it, vi } from "vitest";
+import { EntityState } from "./d3-graphics";
+import { Vector } from "./math";
+import { Node } from "./node";
+import { update } from "./physics";
+import { Publisher } from "./pubsub";
+
+function makeNode(id: string, position: Vector): Node {
+  return {
+    id,
+    position,
+    velocity: { x: 0, y: 0 },
+    publisher: new Publisher<EntityState>(),
+  };
+}
+
+describe("physics.update", () => {
+  it("leaves a single node sitting exactly at the center at rest", () => {
+    const center: Vector = { x: 500, y: 500 };
+    const node = makeNode("n0", { x: 500, y: 500 });
+
+    update([node], 16, center);
+
+    expect(node.position.x).toBeCloseTo(500);
+    expect(node.position.y).toBeCloseTo(500);
+    expect(node.velocity).toEqual({ x: 0, y: 0 });
+  });
+
+  it("pushes two nearby nodes apart (repulsion)", () => {
+    const center: Vector = { x: 0, y: 0 };
+    const a = makeNode("a", { x: 0, y: 0 });
+    const b = makeNode("b", { x: 10, y: 0 });
+
+    update([a, b], 1, center);
+
+    // a is repelled toward -x, b toward +x
+    expect(a.position.x).toBeLessThan(0);
+    expect(b.position.x).toBeGreaterThan(10);
+    expect(a.position.x).toBeCloseTo(-0.0188, 4);
+    expect(b.position.x).toBeCloseTo(10.01786, 4);
+    expect(a.position.y).toBeCloseTo(0);
+    expect(b.position.y).toBeCloseTo(0);
+  });
+
+  it("publishes each node's updated state to its subscribers", () => {
+    const center: Vector = { x: 500, y: 500 };
+    const node = makeNode("n0", { x: 500, y: 500 });
+    const listener = vi.fn();
+    node.publisher.subscribers.push({ receive: listener } as never);
+
+    update([node], 16, center);
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith({ id: "n0", position: { x: 500, y: 500 } });
+  });
+
+  it("dampens velocity over repeated ticks toward the center", () => {
+    const center: Vector = { x: 0, y: 0 };
+    const node = makeNode("n0", { x: 100, y: 0 });
+
+    update([node], 16, center);
+    const speedAfterFirst = Math.abs(node.velocity.x);
+    expect(speedAfterFirst).toBeGreaterThan(0);
+    // node is being pulled back toward the center (negative x velocity)
+    expect(node.velocity.x).toBeLessThan(0);
+  });
+});

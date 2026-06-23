@@ -29,6 +29,14 @@ export function GraphView({ graph }: GraphViewProps) {
   );
   const nodeMap = useRef<Map<string, Node>>(new Map());
 
+  function onClickNode(node: Node) {
+    console.log(`Clicked node: ${node.id}`);
+  }
+
+  function onUpdate(_: number, deltaTime: number) {
+    update(nodes.current, deltaTime, center);
+  }
+
   useEffect(() => {
     console.log("View Graph: ", graph);
 
@@ -68,14 +76,6 @@ export function GraphView({ graph }: GraphViewProps) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function onClickNode(node: Node) {
-    console.log(`Clicked node: ${node.id}`);
-  }
-
-  function onUpdate(_: number, deltaTime: number) {
-    update(nodes.current, deltaTime, center);
-  }
 
   return (
     <div>
