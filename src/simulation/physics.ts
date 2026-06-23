@@ -1,16 +1,20 @@
 import { Vector } from "@/math/math";
 import { Body } from "./body";
 
-const SIMULATION_SPEED = 0.01;
-const CENTER_PULL_SLOPE = 0.01;
-const REPULSION_INNER = 30;
-const REPULSION_OUTER = 50;
+const SIMULATION_SPEED = 0.02;
+const CENTER_PULL_SLOPE = 0.005;
+const REPULSION_INNER = 65;
+const REPULSION_OUTER = 270;
 const REPULSION_OUTER_SQ = REPULSION_OUTER * REPULSION_OUTER;
 const REPULSION_CLOSE_FORCE = -2;
-const REPULSION_FAR_FORCE = 0.001;
-const DAMPING = 0.94;
+const REPULSION_FAR_FORCE = -0.15;
+const DAMPING = 0.92;
+const SPRING_K = 0.005;
+const SPRING_REST_LENGTH = 250;
 
-export function update(nodes: Body[], deltaTime: number, center: Vector) {
+export type EdgeIndex = { i: number; j: number };
+
+export function update(nodes: Body[], edges: EdgeIndex[], deltaTime: number, center: Vector) {
   const timeFactor = SIMULATION_SPEED * deltaTime;
 
   // Apply forces toward center of screen
@@ -44,6 +48,23 @@ export function update(nodes: Body[], deltaTime: number, center: Vector) {
       nodeB.velocity.x -= fx;
       nodeB.velocity.y -= fy;
     }
+  }
+
+  // Apply spring attraction for edges
+  for (const edge of edges) {
+    const nodeA = nodes[edge.i];
+    const nodeB = nodes[edge.j];
+    const dx = nodeB.position.x - nodeA.position.x;
+    const dy = nodeB.position.y - nodeA.position.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance === 0) continue;
+    const force = SPRING_K * (distance - SPRING_REST_LENGTH);
+    const fx = (dx / distance) * force;
+    const fy = (dy / distance) * force;
+    nodeA.velocity.x += fx;
+    nodeA.velocity.y += fy;
+    nodeB.velocity.x -= fx;
+    nodeB.velocity.y -= fy;
   }
 
   // Dampen velocity and update positions

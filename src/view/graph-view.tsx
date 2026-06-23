@@ -1,28 +1,26 @@
 import random, { Random } from "random";
 import { useEffect, useRef } from "react";
 import { Publisher } from "@/events/pubsub";
-import { Graph } from "@/graph/graph";
+import { JsonGraph } from "@/graph/graph";
 import { Vector, VectorImpl } from "@/math/math";
-import { D3Graphics } from "@/rendering/d3-graphics";
+import { D3Graphics, EdgeRef } from "@/rendering/d3-graphics";
 import { Body } from "@/simulation/body";
 import { EntityState } from "@/simulation/entity";
-import { update } from "@/simulation/physics";
+import { EdgeIndex, update } from "@/simulation/physics";
 
 interface GraphViewProps {
-  graph: Graph;
+  graph: JsonGraph;
   seed: number | null;
 }
 
 export function GraphView({ graph, seed }: GraphViewProps) {
-  const WIDTH = 1000;
-  const HEIGHT = 1000;
-  const RADIUS = 6;
-  const NUM_NODES = 500;
+  const RADIUS = 8;
   // Pixels per world unit. Fixed so resizing the window reveals more of the scene
   // rather than rescaling it; 0.5 matches the previous 500px ÷ 1000-unit view.
   const SCALE = 0.5;
 
   const nodes = useRef<Body[]>([]);
+  const edgeIndices = useRef<EdgeIndex[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
   const d3Graphics = useRef<D3Graphics<Body> | null>(null);
 
@@ -33,12 +31,10 @@ export function GraphView({ graph, seed }: GraphViewProps) {
   }
 
   function onUpdate(_: number, deltaTime: number) {
-    update(nodes.current, deltaTime, center);
+    update(nodes.current, edgeIndices.current, deltaTime, center);
   }
 
   useEffect(() => {
-    console.log("View Graph: ", graph);
-
     if (!svgContainer.current) {
       return;
     }
@@ -47,8 +43,9 @@ export function GraphView({ graph, seed }: GraphViewProps) {
     if (!d3Graphics.current) {
       const rng = seed !== null ? new Random(seed) : random;
       const generationRadius = 50;
-      nodes.current = new Array(NUM_NODES).fill(0).map((_, i) => ({
-        id: `node-${i}`,
+
+      nodes.current = graph.nodes.map((node) => ({
+        id: node.id,
         position: {
           x: rng.float(center.x - generationRadius, center.x + generationRadius),
           y: rng.float(center.y - generationRadius, center.y + generationRadius),
@@ -57,7 +54,25 @@ export function GraphView({ graph, seed }: GraphViewProps) {
         publisher: new Publisher<EntityState>(),
       }));
 
-      d3Graphics.current = new D3Graphics(svgContainer.current, center, RADIUS, nodes.current, onUpdate, onClickNode);
+      const nodeIndexMap = new Map(nodes.current.map((n, i) => [n.id, i]));
+      edgeIndices.current = graph.links
+        .map((link) => ({ i: nodeIndexMap.get(link.source)!, j: nodeIndexMap.get(link.target)! }))
+        .filter((e) => e.i !== undefined && e.j !== undefined);
+
+      const nodeMap = new Map(nodes.current.map((n) => [n.id, n]));
+      const edgeRefs: EdgeRef<Body>[] = graph.links
+        .map((link) => ({ source: nodeMap.get(link.source)!, target: nodeMap.get(link.target)! }))
+        .filter((e) => e.source && e.target);
+
+      d3Graphics.current = new D3Graphics(
+        svgContainer.current,
+        center,
+        RADIUS,
+        nodes.current,
+        edgeRefs,
+        onUpdate,
+        onClickNode
+      );
       d3Graphics.current.start();
     }
 

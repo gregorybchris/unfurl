@@ -1,42 +1,52 @@
-import * as d3 from "d3";
 import { Subscriber } from "@/events/pubsub";
 import { Vector } from "@/math/math";
 import { IEntity } from "@/simulation/entity";
+import * as d3 from "d3";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
+
+export type EdgeRef<Entity> = { source: Entity; target: Entity };
 
 export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
   center: Vector;
   radius: number;
   entities: Entity[];
+  edges: EdgeRef<Entity>[];
   onUpdate: UpdateFuncType;
   onEntityClick: (entity: Entity) => void;
   animationGraphics: AnimationGraphics;
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private elementMap = new Map<string, SVGCircleElement>();
+  private lineElements: SVGLineElement[] = [];
 
   constructor(
     container: SVGSVGElement,
     center: Vector,
     radius: number,
     entities: Entity[],
+    edges: EdgeRef<Entity>[],
     onUpdate: UpdateFuncType,
-    onEntityClick: (entity: Entity) => void
+    onEntityClick: (entity: Entity) => void,
   ) {
     this.container = container;
     this.center = center;
     this.radius = radius;
     this.entities = entities;
+    this.edges = edges;
     this.onUpdate = onUpdate;
     this.onEntityClick = onEntityClick;
 
-    this.animationGraphics = new AnimationGraphics(this.onUpdate);
+    this.animationGraphics = new AnimationGraphics((currentTime, deltaTime) => {
+      this.onUpdate(currentTime, deltaTime);
+      this.updateLines();
+    });
 
     // The viewBox is driven by `resize()` from the element's live pixel size, so
     // preserveAspectRatio never actually has to letterbox (the box matches the
     // element's aspect ratio); it stays as a harmless centered default.
     this.canvas = d3.select(container).attr("preserveAspectRatio", "xMidYMid meet");
 
+    this.addLines();
     this.addCircles();
 
     this.entities.forEach((entity: Entity) => {
@@ -58,6 +68,7 @@ export class D3Graphics<Entity extends IEntity> {
 
   update(currentTime: number, deltaTime: number): void {
     this.onUpdate(currentTime, deltaTime);
+    this.updateLines();
   }
 
   start() {
@@ -66,6 +77,33 @@ export class D3Graphics<Entity extends IEntity> {
 
   getSvgElementId(entity: Entity): string {
     return `entity-${entity.id}`;
+  }
+
+  addLines() {
+    const linesGroup = this.canvas.append("g").attr("id", "edges-group");
+    const groupEl = linesGroup.node()!;
+    for (const edge of this.edges) {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", String(edge.source.position.x));
+      line.setAttribute("y1", String(edge.source.position.y));
+      line.setAttribute("x2", String(edge.target.position.x));
+      line.setAttribute("y2", String(edge.target.position.y));
+      line.setAttribute("stroke", "RGBA(126, 168, 128, 0.3)");
+      line.setAttribute("stroke-width", "4");
+      groupEl.appendChild(line);
+      this.lineElements.push(line);
+    }
+  }
+
+  updateLines() {
+    for (let i = 0; i < this.edges.length; i++) {
+      const edge = this.edges[i];
+      const line = this.lineElements[i];
+      line.setAttribute("x1", String(edge.source.position.x));
+      line.setAttribute("y1", String(edge.source.position.y));
+      line.setAttribute("x2", String(edge.target.position.x));
+      line.setAttribute("y2", String(edge.target.position.y));
+    }
   }
 
   addCircles() {
