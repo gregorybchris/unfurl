@@ -35,4 +35,29 @@ describe("AnimationGraphics", () => {
     frame!(20);
     expect(updates[2]).toEqual([20, 4]);
   });
+
+  it("clamps a large delta from a paused/backgrounded tab", () => {
+    let frame: ((time?: number) => void) | null = null;
+    vi.stubGlobal("requestAnimationFrame", (cb: (time?: number) => void) => {
+      frame = cb;
+      return 0;
+    });
+
+    const updates: Array<[number, number]> = [];
+    const graphics = new AnimationGraphics(
+      (currentTime, deltaTime) => {
+        updates.push([currentTime, deltaTime]);
+      },
+      32
+    );
+
+    graphics.start();
+    frame!(16);
+    expect(updates[1]).toEqual([16, 16]);
+
+    // Simulate ~5s of throttled rAF while the window was unfocused: the raw
+    // delta is huge, but the callback must receive the clamped maximum.
+    frame!(5016);
+    expect(updates[2]).toEqual([5016, 32]);
+  });
 });
