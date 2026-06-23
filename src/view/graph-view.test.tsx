@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { GraphView } from "./graph-view";
-import { Graph } from "@/graph/graph";
+import { JsonGraph } from "@/graph/graph";
 
 beforeEach(() => {
   vi.stubGlobal("requestAnimationFrame", () => 0);
@@ -15,13 +15,13 @@ afterEach(() => {
 
 describe("GraphView", () => {
   it("renders an svg element", () => {
-    const graph: Graph = { A: ["B"], B: [] };
+    const graph: JsonGraph = { nodes: [{ id: "A", group: 1 }, { id: "B", group: 1 }], links: [{ source: "A", target: "B", value: 1 }] };
     const { container } = render(<GraphView graph={graph} seed={null} />);
     expect(container.querySelector("svg")).not.toBeNull();
   });
 
   it("initializes the d3 simulation with node circles", () => {
-    const graph: Graph = { A: ["B"], B: [] };
+    const graph: JsonGraph = { nodes: [{ id: "A", group: 1 }, { id: "B", group: 1 }], links: [{ source: "A", target: "B", value: 1 }] };
     const { container } = render(<GraphView graph={graph} seed={null} />);
     const svg = container.querySelector("svg")!;
 

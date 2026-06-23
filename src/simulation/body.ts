@@ -7,5 +7,6 @@ export type Body = {
   id: string;
   position: Vector;
   velocity: Vector;
+  pinned?: boolean;
   publisher: Publisher<EntityState>;
 };

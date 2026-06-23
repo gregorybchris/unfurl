@@ -20,6 +20,7 @@ export function update(nodes: Body[], edges: EdgeIndex[], deltaTime: number, cen
   // Apply forces toward center of screen
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
+    if (node.pinned) continue;
     node.velocity.x += CENTER_PULL_SLOPE * (center.x - node.position.x);
     node.velocity.y += CENTER_PULL_SLOPE * (center.y - node.position.y);
   }
@@ -43,10 +44,14 @@ export function update(nodes: Body[], edges: EdgeIndex[], deltaTime: number, cen
       const mag = distance === 0 ? 1 : distance;
       const fx = (dx / mag) * factor;
       const fy = (dy / mag) * factor;
-      nodeA.velocity.x += fx;
-      nodeA.velocity.y += fy;
-      nodeB.velocity.x -= fx;
-      nodeB.velocity.y -= fy;
+      if (!nodeA.pinned) {
+        nodeA.velocity.x += fx;
+        nodeA.velocity.y += fy;
+      }
+      if (!nodeB.pinned) {
+        nodeB.velocity.x -= fx;
+        nodeB.velocity.y -= fy;
+      }
     }
   }
 
@@ -61,15 +66,25 @@ export function update(nodes: Body[], edges: EdgeIndex[], deltaTime: number, cen
     const force = SPRING_K * (distance - SPRING_REST_LENGTH);
     const fx = (dx / distance) * force;
     const fy = (dy / distance) * force;
-    nodeA.velocity.x += fx;
-    nodeA.velocity.y += fy;
-    nodeB.velocity.x -= fx;
-    nodeB.velocity.y -= fy;
+    if (!nodeA.pinned) {
+      nodeA.velocity.x += fx;
+      nodeA.velocity.y += fy;
+    }
+    if (!nodeB.pinned) {
+      nodeB.velocity.x -= fx;
+      nodeB.velocity.y -= fy;
+    }
   }
 
   // Dampen velocity and update positions
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
+    if (node.pinned) {
+      node.velocity.x = 0;
+      node.velocity.y = 0;
+      node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y } });
+      continue;
+    }
     node.velocity.x *= DAMPING;
     node.velocity.y *= DAMPING;
     node.position.x += node.velocity.x * timeFactor;

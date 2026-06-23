@@ -12,5 +12,6 @@ export interface EntityState {
 export interface IEntity {
   id: string;
   position: Vector;
+  pinned?: boolean;
   publisher: Publisher<EntityState>;
 }

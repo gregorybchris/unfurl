@@ -6,6 +6,8 @@ import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
 export type EdgeRef<Entity> = { source: Entity; target: Entity };
 
+type DragState<Entity> = { entity: Entity; lastMouse: Vector };
+
 export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
   center: Vector;
@@ -18,6 +20,7 @@ export class D3Graphics<Entity extends IEntity> {
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private elementMap = new Map<string, SVGCircleElement>();
   private lineElements: SVGLineElement[] = [];
+  private dragState: DragState<Entity> | null = null;
 
   constructor(
     container: SVGSVGElement,
@@ -79,6 +82,47 @@ export class D3Graphics<Entity extends IEntity> {
     return `entity-${entity.id}`;
   }
 
+  private clientToSVG(event: MouseEvent): Vector {
+    const svgEl = this.canvas.node()!;
+    const pt = svgEl.createSVGPoint();
+    pt.x = event.clientX;
+    pt.y = event.clientY;
+    const p = pt.matrixTransform(svgEl.getScreenCTM()!.inverse());
+    return { x: p.x, y: p.y };
+  }
+
+  private onDragMove(event: MouseEvent): void {
+    if (!this.dragState) return;
+    const mouse = this.clientToSVG(event);
+    const dx = mouse.x - this.dragState.lastMouse.x;
+    const dy = mouse.y - this.dragState.lastMouse.y;
+    this.dragState.lastMouse = mouse;
+
+    const { entity } = this.dragState;
+    entity.position.x += dx;
+    entity.position.y += dy;
+    entity.publisher.publish({ id: entity.id, position: { x: entity.position.x, y: entity.position.y } });
+  }
+
+  private beginNodeDrag(event: MouseEvent, entity: Entity): void {
+    event.preventDefault();
+    entity.pinned = true;
+    this.canvas.style("cursor", "grabbing");
+    const lastMouse = this.clientToSVG(event);
+    this.dragState = { entity, lastMouse };
+
+    const onMove = (e: MouseEvent) => this.onDragMove(e);
+    const onUp = () => {
+      entity.pinned = false;
+      this.dragState = null;
+      this.canvas.style("cursor", null);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }
+
   addLines() {
     const linesGroup = this.canvas.append("g").attr("id", "edges-group");
     const groupEl = linesGroup.node()!;
@@ -117,6 +161,10 @@ export class D3Graphics<Entity extends IEntity> {
       .attr("cy", (entity) => entity.position.y)
       .attr("r", this.radius)
       .attr("id", (entity) => this.getSvgElementId(entity))
+      .style("cursor", "grab")
+      .on("mousedown", (event: MouseEvent, entity) => {
+        this.beginNodeDrag(event, entity);
+      })
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
       })

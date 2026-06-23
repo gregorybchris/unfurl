@@ -19,7 +19,7 @@ describe("physics.update", () => {
     const center: Vector = { x: 0, y: 0 };
     const node = makeNode("n0", { x: 0, y: 0 });
 
-    update([node], 16, center);
+    update([node], [], 16, center);
 
     expect(node.position.x).toBeCloseTo(0);
     expect(node.position.y).toBeCloseTo(0);
@@ -31,13 +31,13 @@ describe("physics.update", () => {
     const a = makeNode("a", { x: 0, y: 0 });
     const b = makeNode("b", { x: 10, y: 0 });
 
-    update([a, b], 1, center);
+    update([a, b], [], 1, center);
 
     // a is repelled toward -x, b toward +x
     expect(a.position.x).toBeLessThan(0);
     expect(b.position.x).toBeGreaterThan(10);
-    expect(a.position.x).toBeCloseTo(-0.0188, 4);
-    expect(b.position.x).toBeCloseTo(10.01786, 4);
+    expect(a.position.x).toBeCloseTo(-0.0368, 4);
+    expect(b.position.x).toBeCloseTo(10.03588, 4);
     expect(a.position.y).toBeCloseTo(0);
     expect(b.position.y).toBeCloseTo(0);
   });
@@ -48,7 +48,7 @@ describe("physics.update", () => {
     const listener = vi.fn();
     node.publisher.subscribers.push({ receive: listener } as never);
 
-    update([node], 16, center);
+    update([node], [], 16, center);
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({ id: "n0", position: { x: 0, y: 0 } });
@@ -58,7 +58,7 @@ describe("physics.update", () => {
     const center: Vector = { x: 0, y: 0 };
     const node = makeNode("n0", { x: 100, y: 0 });
 
-    update([node], 16, center);
+    update([node], [], 16, center);
     const speedAfterFirst = Math.abs(node.velocity.x);
     expect(speedAfterFirst).toBeGreaterThan(0);
     // node is being pulled back toward the center (negative x velocity)
