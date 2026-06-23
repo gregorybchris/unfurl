@@ -1,4 +1,4 @@
-import random from "random";
+import random, { Random } from "random";
 import { useEffect, useRef } from "react";
 import { Publisher } from "@/events/pubsub";
 import { Graph } from "@/graph/graph";
@@ -10,9 +10,10 @@ import { update } from "@/simulation/physics";
 
 interface GraphViewProps {
   graph: Graph;
+  seed: number | null;
 }
 
-export function GraphView({ graph }: GraphViewProps) {
+export function GraphView({ graph, seed }: GraphViewProps) {
   const WIDTH = 1000;
   const HEIGHT = 1000;
   const RADIUS = 6;
@@ -44,12 +45,13 @@ export function GraphView({ graph }: GraphViewProps) {
 
     // Ensure D3Graphics is initialized only once
     if (!d3Graphics.current) {
+      const rng = seed !== null ? new Random(seed) : random;
       const generationRadius = 50;
       nodes.current = new Array(NUM_NODES).fill(0).map((_, i) => ({
         id: `node-${i}`,
         position: {
-          x: random.float(center.x - generationRadius, center.x + generationRadius),
-          y: random.float(center.y - generationRadius, center.y + generationRadius),
+          x: rng.float(center.x - generationRadius, center.x + generationRadius),
+          y: rng.float(center.y - generationRadius, center.y + generationRadius),
         },
         velocity: VectorImpl.origin(),
         publisher: new Publisher<EntityState>(),

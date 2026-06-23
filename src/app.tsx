@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div className="font-quicksand text-sea-green selection:bg-tree-green">
       <div className="h-screen w-screen">
-        <GraphView graph={graph} />
+        <GraphView graph={graph} seed={null} />
       </div>
     </div>
   );
