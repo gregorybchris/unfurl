@@ -18,6 +18,9 @@ export function GraphView({ graph }: GraphViewProps) {
   const HEIGHT = 1000;
   const RADIUS = 6;
   const NUM_NODES = 500;
+  // Pixels per world unit. Fixed so resizing the window reveals more of the scene
+  // rather than rescaling it; 0.5 matches the previous 500px ÷ 1000-unit view.
+  const SCALE = 0.5;
 
   const nodes = useRef<Body[]>([]);
   const svgContainer = useRef<SVGSVGElement>(null);
@@ -63,27 +66,22 @@ export function GraphView({ graph }: GraphViewProps) {
         nodeMap.current.set(node.id, node);
       });
 
-      d3Graphics.current = new D3Graphics(
-        svgContainer.current,
-        WIDTH,
-        HEIGHT,
-        RADIUS,
-        nodes.current,
-        onUpdate,
-        onClickNode
-      );
+      d3Graphics.current = new D3Graphics(svgContainer.current, center, RADIUS, nodes.current, onUpdate, onClickNode);
       d3Graphics.current.start();
     }
+
+    // Drive the viewBox from the element's live pixel size: size it once now
+    // (avoids a first-frame flash) and again whenever the element resizes.
+    const svg = svgContainer.current;
+    const applyResize = () => d3Graphics.current?.resize(svg.clientWidth, svg.clientHeight, SCALE);
+    applyResize();
+    const observer = new ResizeObserver(applyResize);
+    observer.observe(svg);
+
+    return () => observer.disconnect();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div>
-      <svg
-        ref={svgContainer}
-        className="h-[500px] w-[500px] border border-sea-green fill-light-green rounded-xl shadow-xl"
-      />
-    </div>
-  );
+  return <svg ref={svgContainer} className="block h-full w-full bg-tree-green fill-light-green" />;
 }

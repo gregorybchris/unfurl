@@ -32,10 +32,7 @@ export default function App() {
   return (
     <div className="font-quicksand text-sea-green selection:bg-tree-green">
       <div className="h-screen w-screen">
-        <div className="flex flex-col items-center justify-center h-full w-full gap-3">
-          <div className="text-xl">Unfurl</div>
-          <GraphView graph={graph} />
-        </div>
+        <GraphView graph={graph} />
       </div>
     </div>
   );

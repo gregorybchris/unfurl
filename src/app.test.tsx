@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./app";
 
@@ -14,11 +14,6 @@ afterEach(() => {
 });
 
 describe("App", () => {
-  it("renders the title", () => {
-    render(<App />);
-    expect(screen.getByText("Unfurl")).toBeInTheDocument();
-  });
-
   it("renders the graph view svg", () => {
     const { container } = render(<App />);
     expect(container.querySelector("svg")).not.toBeNull();

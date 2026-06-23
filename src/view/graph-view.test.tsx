@@ -20,12 +20,11 @@ describe("GraphView", () => {
     expect(container.querySelector("svg")).not.toBeNull();
   });
 
-  it("initializes the d3 simulation with a background and node circles", () => {
+  it("initializes the d3 simulation with node circles", () => {
     const graph: Graph = { A: ["B"], B: [] };
     const { container } = render(<GraphView graph={graph} />);
     const svg = container.querySelector("svg")!;
 
-    expect(svg.querySelector("rect")).not.toBeNull();
     expect(svg.querySelectorAll("circle").length).toBeGreaterThan(0);
   });
 });

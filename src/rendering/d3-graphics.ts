@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 import { Subscriber } from "@/events/pubsub";
+import { Vector } from "@/math/math";
 import { IEntity } from "@/simulation/entity";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
 export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
-  width: number;
-  height: number;
+  center: Vector;
   radius: number;
   entities: Entity[];
   onUpdate: UpdateFuncType;
@@ -16,16 +16,14 @@ export class D3Graphics<Entity extends IEntity> {
 
   constructor(
     container: SVGSVGElement,
-    width: number,
-    height: number,
+    center: Vector,
     radius: number,
     entities: Entity[],
     onUpdate: UpdateFuncType,
     onEntityClick: (entity: Entity) => void
   ) {
     this.container = container;
-    this.width = width;
-    this.height = height;
+    this.center = center;
     this.radius = radius;
     this.entities = entities;
     this.onUpdate = onUpdate;
@@ -33,18 +31,28 @@ export class D3Graphics<Entity extends IEntity> {
 
     this.animationGraphics = new AnimationGraphics(this.onUpdate);
 
-    this.canvas = d3
-      .select(container)
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", `0 0 ${width} ${height}`);
+    // The viewBox is driven by `resize()` from the element's live pixel size, so
+    // preserveAspectRatio never actually has to letterbox (the box matches the
+    // element's aspect ratio); it stays as a harmless centered default.
+    this.canvas = d3.select(container).attr("preserveAspectRatio", "xMidYMid meet");
 
-    this.addBackground();
     this.addCircles();
 
     this.entities.forEach((entity: Entity) => {
       const subscriber = new Subscriber<Entity>(this.updateCircle.bind(this));
       subscriber.subscribe(entity.publisher);
     });
+  }
+
+  // Map the element's pixel size onto a world-space viewBox centered on the focal
+  // point, at a fixed `scale` (px per world unit). A larger element therefore
+  // reveals more of the scene around the center instead of rescaling the content.
+  resize(pixelWidth: number, pixelHeight: number, scale: number): void {
+    const worldWidth = pixelWidth / scale;
+    const worldHeight = pixelHeight / scale;
+    const x = this.center.x - worldWidth / 2;
+    const y = this.center.y - worldHeight / 2;
+    this.canvas.attr("viewBox", `${x} ${y} ${worldWidth} ${worldHeight}`);
   }
 
   update(currentTime: number, deltaTime: number): void {
@@ -57,11 +65,6 @@ export class D3Graphics<Entity extends IEntity> {
 
   getSvgElementId(entity: Entity): string {
     return `entity-${entity.id}`;
-  }
-
-  addBackground() {
-    const background = this.canvas.append("rect");
-    background.attr("width", this.width).attr("height", this.height).attr("fill", "#284c44");
   }
 
   addCircles() {
