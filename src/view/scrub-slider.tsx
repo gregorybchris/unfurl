@@ -80,9 +80,12 @@ export function ScrubSlider({
 
   const setIndicator = useCallback((step: number, pct: number) => {
     const el = indicatorRef.current;
-    if (!el) return;
+    const track = trackRef.current;
+    if (!el || !track) return;
+    const rect = track.getBoundingClientRect();
     el.textContent = `±${step}`;
-    el.style.left = `${pct}%`;
+    el.style.left = `${rect.left + (pct / 100) * rect.width}px`;
+    el.style.top = `${rect.top - 24}px`;
     el.style.opacity = "1";
   }, []);
 
@@ -162,8 +165,7 @@ export function ScrubSlider({
       {/* Step indicator — updated directly via DOM ref, no React re-renders during drag */}
       <span
         ref={indicatorRef}
-        className="pointer-events-none absolute -top-5 -translate-x-1/2 rounded bg-sea-green px-1.5 py-0.5 text-[10px] tabular-nums text-[#1c3530] opacity-0 transition-opacity duration-100 z-10"
-        style={{ left: `${percent}%` }}
+        className="pointer-events-none fixed -translate-x-1/2 rounded bg-sea-green px-1.5 py-0.5 text-[10px] tabular-nums text-[#1c3530] opacity-0 transition-opacity duration-100 z-50"
       >
         ±1
       </span>
