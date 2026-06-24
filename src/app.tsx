@@ -69,6 +69,8 @@ const INITIAL_URL_SETTINGS = (() => {
   return c ? decodeSettings(c) : null;
 })();
 
+document.documentElement.setAttribute("data-theme", INITIAL_URL_SETTINGS?.theme ?? "slate-dark");
+
 export default function App() {
   const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(
     INITIAL_URL_SETTINGS?.physicsConfig ?? defaultPhysicsConfig
@@ -91,6 +93,10 @@ export default function App() {
     window.history.replaceState(null, "", url.toString());
   }, [physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode, linkWidth]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
   const { shortestPaths, nodeDegrees, eigenvectorCentrality } = useMemo(
     () => computeGraphData(selectedGraph.data),
@@ -99,7 +105,6 @@ export default function App() {
 
   return (
     <div
-      data-theme={theme}
       className="font-quicksand text-accent selection:bg-surface bg-body h-screen overflow-hidden"
     >
       <div className="flex h-screen w-screen">
