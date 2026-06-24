@@ -286,9 +286,12 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           cameraRef.current.panX = startPanX - dx / displayScaleRef.current;
           cameraRef.current.panY = startPanY - dy / displayScaleRef.current;
         } else {
-          // In 3D, pan is a screen-space shift applied inside the projection
-          cameraRef.current.panX = startPanX - dx / (cameraRef.current.distance / DEFAULT_CAMERA_DISTANCE);
-          cameraRef.current.panY = startPanY + dy / (cameraRef.current.distance / DEFAULT_CAMERA_DISTANCE);
+          // In 3D, pan along camera right/up basis vectors so direction stays
+          // consistent regardless of how the camera is rotated
+          const factor = cameraRef.current.distance / DEFAULT_CAMERA_DISTANCE;
+          const cam = cameraRef.current;
+          cameraRef.current.panX = startPanX - (dx * cam.rightVec.x - dy * cam.upVec.x) / factor;
+          cameraRef.current.panY = startPanY - (dx * cam.rightVec.y - dy * cam.upVec.y) / factor;
         }
         updateCameraAndRedraw();
       } else if (rotateDragRef.current) {
@@ -481,11 +484,9 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           )}
         </div>
       )}
-      {dimensionMode === '3d' && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none text-[10px] text-accent/40 select-none">
-          Shift+drag to rotate · ⌘+drag to pan
-        </div>
-      )}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none text-[10px] text-accent/40 select-none">
+        {dimensionMode === '3d' ? 'Shift+drag to rotate · ⌘+drag to pan' : '⌘+drag to pan'}
+      </div>
     </div>
   );
 });
