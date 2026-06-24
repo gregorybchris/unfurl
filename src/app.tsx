@@ -30,6 +30,16 @@ export const GRAPH_OPTIONS = [
 
 export type GraphId = (typeof GRAPH_OPTIONS)[number]["id"];
 
+export type Theme = "slate-dark" | "warm-charcoal" | "parchment" | "deep-navy" | "true-gray";
+
+export const THEMES: { id: Theme; label: string; swatch: string }[] = [
+  { id: "slate-dark", label: "Slate Dark", swatch: "#818cf8" },
+  { id: "warm-charcoal", label: "Warm Charcoal", swatch: "#fbbf24" },
+  { id: "parchment", label: "Parchment", swatch: "#4f46e5" },
+  { id: "deep-navy", label: "Deep Navy", swatch: "#22d3ee" },
+  { id: "true-gray", label: "True Gray", swatch: "#a3a3a3" },
+];
+
 function computeGraphData(jsonGraph: JsonGraph) {
   const graph: Graph = jsonToGraph(jsonGraph);
   let matrix = graphToAdjMatrix(graph);
@@ -56,6 +66,7 @@ function computeGraphData(jsonGraph: JsonGraph) {
 export default function App() {
   const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(defaultPhysicsConfig);
   const [selectedGraphId, setSelectedGraphId] = useState<GraphId>("les-miserables");
+  const [theme, setTheme] = useState<Theme>("slate-dark");
   const graphViewRef = useRef<GraphViewHandle>(null);
 
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
@@ -65,7 +76,10 @@ export default function App() {
   );
 
   return (
-    <div className="font-quicksand text-sea-green selection:bg-tree-green">
+    <div
+      data-theme={theme}
+      className="font-quicksand text-accent selection:bg-surface bg-body"
+    >
       <div className="flex h-screen w-screen">
         <ControlPanel
           config={physicsConfig}
@@ -79,6 +93,8 @@ export default function App() {
           onZoomOut={() => graphViewRef.current?.zoomBy(1 / 1.2)}
           selectedGraphId={selectedGraphId}
           onGraphChange={(id) => setSelectedGraphId(id as GraphId)}
+          theme={theme}
+          onThemeChange={setTheme}
         />
         <div className="flex-1 min-w-0">
           <GraphView

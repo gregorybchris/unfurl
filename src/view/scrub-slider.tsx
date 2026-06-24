@@ -165,7 +165,7 @@ export function ScrubSlider({
       {/* Step indicator — updated directly via DOM ref, no React re-renders during drag */}
       <span
         ref={indicatorRef}
-        className="pointer-events-none fixed -translate-x-1/2 rounded bg-sea-green px-1.5 py-0.5 text-[10px] tabular-nums text-[#1c3530] opacity-0 transition-opacity duration-100 z-50"
+        className="pointer-events-none fixed -translate-x-1/2 rounded bg-accent px-1.5 py-0.5 text-[10px] tabular-nums text-panel opacity-0 transition-opacity duration-100 z-50"
       >
         ±1
       </span>
@@ -184,9 +184,9 @@ export function ScrubSlider({
           onPointerCancel={handlePointerUp}
         />
         {/* Track */}
-        <div className="pointer-events-none relative h-[3px] w-full rounded-full bg-sea-green/15">
+        <div className="pointer-events-none relative h-[3px] w-full rounded-full bg-accent/15">
           {/* Range fill */}
-          <div className="pointer-events-none absolute h-full rounded-full bg-sea-green/60" style={{ width: `${percent}%` }} />
+          <div className="pointer-events-none absolute h-full rounded-full bg-accent/60" style={{ width: `${percent}%` }} />
         </div>
         {/* Thumb */}
         <div
@@ -196,8 +196,8 @@ export function ScrubSlider({
           aria-valuenow={value}
           tabIndex={0}
           className={[
-            "pointer-events-none absolute h-3 w-3 -translate-x-1/2 rounded-full bg-sea-green shadow-sm transition-colors",
-            focused ? "ring-2 ring-sea-green/40 ring-offset-1 ring-offset-[#1c3530]" : "",
+            "pointer-events-none absolute h-3 w-3 -translate-x-1/2 rounded-full bg-accent shadow-sm transition-colors",
+            focused ? "ring-2 ring-accent/40 ring-offset-1 ring-offset-panel" : "",
           ].join(" ")}
           style={{ left: `${percent}%` }}
           onFocus={() => setFocused(true)}

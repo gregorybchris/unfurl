@@ -2,13 +2,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sea-green: #5fc193;
-  --color-light-green: #a5d6a7;
-  --color-tree-green: #284c44;
+  --color-accent: #818cf8;
+  --color-accent-soft: #c7d2fe;
+  --color-surface: #0d1117;
+  --color-panel: #1a1d27;
+  --color-tooltip: #141720;
+  --color-body: #0f1117;
 
   --font-quicksand: "Quicksand Variable", sans-serif;
 }
 
+/* ── Per-theme overrides ───────────────────────────────────────────────────── */
+
+[data-theme="slate-dark"] {
+  --color-accent: #818cf8;
+  --color-accent-soft: #c7d2fe;
+  --color-surface: #0d1117;
+  --color-panel: #1a1d27;
+  --color-tooltip: #141720;
+  --color-body: #0f1117;
+  --color-edge: rgba(129, 140, 248, 0.35);
+}
+
+[data-theme="warm-charcoal"] {
+  --color-accent: #fbbf24;
+  --color-accent-soft: #fde68a;
+  --color-surface: #1a1720;
+  --color-panel: #231f27;
+  --color-tooltip: #1c1920;
+  --color-body: #18161a;
+  --color-edge: rgba(251, 191, 36, 0.35);
+}
+
+[data-theme="parchment"] {
+  --color-accent: #4f46e5;
+  --color-accent-soft: #6366f1;
+  --color-surface: #ebe6de;
+  --color-panel: #fffef9;
+  --color-tooltip: #ede8dc;
+  --color-body: #f5f2ec;
+  --color-edge: rgba(79, 70, 229, 0.35);
+}
+
+[data-theme="deep-navy"] {
+  --color-accent: #22d3ee;
+  --color-accent-soft: #67e8f9;
+  --color-surface: #0a0d18;
+  --color-panel: #131726;
+  --color-tooltip: #0e1120;
+  --color-body: #0b0e1a;
+  --color-edge: rgba(34, 211, 238, 0.3);
+}
+
+[data-theme="true-gray"] {
+  --color-accent: #a3a3a3;
+  --color-accent-soft: #d4d4d4;
+  --color-surface: #181818;
+  --color-panel: #1f1f1f;
+  --color-tooltip: #191919;
+  --color-body: #141414;
+  --color-edge: rgba(163, 163, 163, 0.4);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+
 body {
-  background-color: #333333;
+  background-color: #000;
+}
+
+/* Edge color driven by CSS variable so all themes work without JS */
+svg line.edge-visual {
+  stroke: var(--color-edge, rgba(100, 100, 100, 0.4));
+  stroke-width: 4px;
 }

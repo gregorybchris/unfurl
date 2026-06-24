@@ -146,8 +146,7 @@ export class D3Graphics<Entity extends IEntity> {
       line.setAttribute("y1", String(edge.source.position.y));
       line.setAttribute("x2", String(edge.target.position.x));
       line.setAttribute("y2", String(edge.target.position.y));
-      line.setAttribute("stroke", "RGBA(126, 168, 128, 0.5)");
-      line.setAttribute("stroke-width", "4");
+      line.setAttribute("class", "edge-visual");
       line.style.pointerEvents = "none";
       groupEl.appendChild(line);
       this.lineElements.push(line);

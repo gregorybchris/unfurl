@@ -13,6 +13,7 @@ import {
   MagnifyingGlassMinus,
   MagnifyingGlassPlus,
   Network,
+  Palette,
   Pause,
   Play,
   Wind,
@@ -21,7 +22,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import * as Switch from "@radix-ui/react-switch";
 import type { ReactNode } from "react";
-import { GRAPH_OPTIONS } from "@/app";
+import { GRAPH_OPTIONS, Theme, THEMES } from "@/app";
 import { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
 import { ScrubSlider, SnapTier } from "@/view/scrub-slider";
 
@@ -66,15 +67,15 @@ function GraphSelect({
 }) {
   return (
     <RadixSelect.Root value={value} onValueChange={onChange}>
-      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-sea-green/15 rounded-md px-2.5 py-1.5 text-[11px] text-sea-green/80 hover:bg-sea-green/10 hover:text-sea-green focus:outline-none focus:ring-1 focus:ring-sea-green/30 gap-1 transition-colors cursor-pointer">
+      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <RadixSelect.Value />
-        <RadixSelect.Icon className="shrink-0 text-sea-green/40">
+        <RadixSelect.Icon className="shrink-0 text-accent/40">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
         <RadixSelect.Content
-          className="bg-[#1c3530] border border-sea-green/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
+          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
           position="popper"
           sideOffset={4}
         >
@@ -83,12 +84,69 @@ function GraphSelect({
               <RadixSelect.Item
                 key={g.id}
                 value={g.id}
-                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-sea-green/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-sea-green/15 data-[highlighted]:text-sea-green data-[state=checked]:text-light-green"
+                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
               >
-                <RadixSelect.ItemIndicator className="absolute left-2 text-sea-green">
+                <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
                   <Check size={9} weight="bold" />
                 </RadixSelect.ItemIndicator>
                 <RadixSelect.ItemText>{g.label}</RadixSelect.ItemText>
+              </RadixSelect.Item>
+            ))}
+          </RadixSelect.Viewport>
+        </RadixSelect.Content>
+      </RadixSelect.Portal>
+    </RadixSelect.Root>
+  );
+}
+
+function ThemeSelect({
+  value,
+  onChange,
+}: {
+  value: Theme;
+  onChange: (v: Theme) => void;
+}) {
+  const current = THEMES.find((t) => t.id === value)!;
+  return (
+    <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as Theme)}>
+      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
+        <div className="flex items-center gap-2 min-w-0">
+          <Palette size={11} className="shrink-0 text-accent/60" />
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span
+              className="shrink-0 w-2 h-2 rounded-full"
+              style={{ backgroundColor: current.swatch }}
+            />
+            <RadixSelect.Value />
+          </div>
+        </div>
+        <RadixSelect.Icon className="shrink-0 text-accent/40">
+          <CaretDown size={9} weight="bold" />
+        </RadixSelect.Icon>
+      </RadixSelect.Trigger>
+      <RadixSelect.Portal>
+        <RadixSelect.Content
+          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
+          position="popper"
+          sideOffset={4}
+        >
+          <RadixSelect.Viewport className="p-1">
+            {THEMES.map((t) => (
+              <RadixSelect.Item
+                key={t.id}
+                value={t.id}
+                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
+              >
+                <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
+                  <Check size={9} weight="bold" />
+                </RadixSelect.ItemIndicator>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ backgroundColor: t.swatch }}
+                  />
+                  <RadixSelect.ItemText>{t.label}</RadixSelect.ItemText>
+                </div>
               </RadixSelect.Item>
             ))}
           </RadixSelect.Viewport>
@@ -107,15 +165,15 @@ function CurveSelect({
 }) {
   return (
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as FunctionType)}>
-      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-sea-green/15 rounded-md px-2.5 py-1.5 text-[11px] text-sea-green/80 hover:bg-sea-green/10 hover:text-sea-green focus:outline-none focus:ring-1 focus:ring-sea-green/30 gap-1 transition-colors cursor-pointer">
+      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <RadixSelect.Value />
-        <RadixSelect.Icon className="shrink-0 text-sea-green/40">
+        <RadixSelect.Icon className="shrink-0 text-accent/40">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
         <RadixSelect.Content
-          className="bg-[#1c3530] border border-sea-green/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[10rem]"
+          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[10rem]"
           position="popper"
           sideOffset={4}
         >
@@ -124,9 +182,9 @@ function CurveSelect({
               <RadixSelect.Item
                 key={fn}
                 value={fn}
-                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-sea-green/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-sea-green/15 data-[highlighted]:text-sea-green data-[state=checked]:text-light-green"
+                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
               >
-                <RadixSelect.ItemIndicator className="absolute left-2 text-sea-green">
+                <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
                   <Check size={9} weight="bold" />
                 </RadixSelect.ItemIndicator>
                 <RadixSelect.ItemText>{FUNCTION_LABELS[fn]}</RadixSelect.ItemText>
@@ -150,7 +208,7 @@ function ForceSwitch({
     <Switch.Root
       checked={checked}
       onCheckedChange={onChange}
-      className="relative inline-flex h-[18px] w-8 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-sea-green/20 transition-colors focus:outline-none focus:ring-2 focus:ring-sea-green/30 data-[state=checked]:bg-sea-green/70"
+      className="relative inline-flex h-[18px] w-8 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-accent/20 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/30 data-[state=checked]:bg-accent/70"
     >
       <Switch.Thumb className="pointer-events-none block h-[14px] w-[14px] translate-x-0 rounded-full bg-white/80 shadow-sm ring-0 transition-transform data-[state=checked]:translate-x-[14px]" />
     </Switch.Root>
@@ -173,15 +231,15 @@ function ForceSection({
   onChange: (c: ForceConfig) => void;
 }) {
   return (
-    <div className="rounded-lg border border-sea-green/10 bg-white/[0.025]">
+    <div className="rounded-lg border border-accent/10 bg-white/[0.025]">
       <div className="flex items-center gap-2.5 px-3 py-2.5">
         <span
-          className={`shrink-0 transition-opacity ${config.enabled ? "text-sea-green opacity-90" : "text-sea-green/30"}`}
+          className={`shrink-0 transition-opacity ${config.enabled ? "text-accent opacity-90" : "text-accent/30"}`}
         >
           {icon}
         </span>
         <span
-          className={`flex-1 text-xs font-medium leading-tight transition-colors ${config.enabled ? "text-sea-green/90" : "text-sea-green/30"}`}
+          className={`flex-1 text-xs font-medium leading-tight transition-colors ${config.enabled ? "text-accent/90" : "text-accent/30"}`}
         >
           {label}
         </span>
@@ -197,10 +255,10 @@ function ForceSection({
       >
         <div className="overflow-hidden">
           <div
-            className={`border-t border-sea-green/8 px-3 py-2.5 space-y-2.5 transition-opacity duration-200 ${config.enabled ? "opacity-100" : "opacity-0"}`}
+            className={`border-t border-accent/8 px-3 py-2.5 space-y-2.5 transition-opacity duration-200 ${config.enabled ? "opacity-100" : "opacity-0"}`}
           >
             <div className="flex items-center gap-4">
-              <span className="text-[10px] text-sea-green/40 w-12 shrink-0 uppercase tracking-wide">
+              <span className="text-[10px] text-accent/40 w-12 shrink-0 uppercase tracking-wide">
                 Strength
               </span>
               <ScrubSlider
@@ -211,12 +269,12 @@ function ForceSection({
                 mobileStep={0.1}
                 onChange={(v) => onChange({ ...config, strength: v })}
               />
-              <span className="text-[11px] tabular-nums text-sea-green/60 w-7 text-right">
+              <span className="text-[11px] tabular-nums text-accent/60 w-7 text-right">
                 {config.strength.toFixed(2)}
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-[10px] text-sea-green/40 w-12 shrink-0 uppercase tracking-wide">
+              <span className="text-[10px] text-accent/40 w-12 shrink-0 uppercase tracking-wide">
                 Curve
               </span>
               <CurveSelect
@@ -256,10 +314,10 @@ function GlobalRow({
 }) {
   return (
     <div className="flex items-center gap-4">
-      <span className="shrink-0 text-sea-green/50">{icon}</span>
-      <span className="text-[10px] text-sea-green/50 w-12 shrink-0 uppercase tracking-wide">{label}</span>
+      <span className="shrink-0 text-accent/50">{icon}</span>
+      <span className="text-[10px] text-accent/50 w-12 shrink-0 uppercase tracking-wide">{label}</span>
       <ScrubSlider value={value} min={min} max={max} snapTiers={snapTiers} mobileStep={mobileStep} onChange={onChange} />
-      <span className="text-[11px] tabular-nums text-sea-green/60 w-10 text-right">
+      <span className="text-[11px] tabular-nums text-accent/60 w-10 text-right">
         {value.toFixed(decimals)}
       </span>
     </div>
@@ -285,8 +343,8 @@ function IconBtn({
       title={title}
       className={`flex items-center justify-center gap-1.5 flex-1 rounded-lg border px-2.5 py-1.5 text-[11px] font-semibold transition-colors
         ${accent
-          ? "border-sea-green/30 bg-sea-green/10 text-sea-green hover:bg-sea-green/20 active:bg-sea-green/30"
-          : "border-sea-green/15 bg-white/[0.03] text-sea-green/70 hover:bg-sea-green/10 hover:text-sea-green active:bg-sea-green/20"
+          ? "border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 active:bg-accent/30"
+          : "border-accent/15 bg-white/[0.03] text-accent/70 hover:bg-accent/10 hover:text-accent active:bg-accent/20"
         }`}
     >
       {children}
@@ -305,6 +363,8 @@ interface ControlPanelProps {
   onZoomOut: () => void;
   selectedGraphId: string;
   onGraphChange: (id: string) => void;
+  theme: Theme;
+  onThemeChange: (t: Theme) => void;
 }
 
 export function ControlPanel({
@@ -316,15 +376,17 @@ export function ControlPanel({
   onZoomOut,
   selectedGraphId,
   onGraphChange,
+  theme,
+  onThemeChange,
 }: ControlPanelProps) {
   const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) =>
     onChange({ ...config, [key]: fc });
 
   return (
-    <div className="h-full w-64 shrink-0 flex flex-col border-r border-sea-green/10 bg-[#1c3530]/95 shadow-2xl text-sea-green backdrop-blur-sm">
+    <div className="h-full w-64 shrink-0 flex flex-col border-r border-accent/10 bg-panel/95 shadow-2xl text-accent backdrop-blur-sm">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-sea-green/10">
-        <span className="text-sm font-bold tracking-[0.15em] uppercase text-sea-green/80">
+      <div className="px-4 py-3 border-b border-accent/10">
+        <span className="text-sm font-bold tracking-[0.15em] uppercase text-accent/80">
           Unfurl
         </span>
       </div>
@@ -335,6 +397,9 @@ export function ControlPanel({
 
             {/* Graph selector */}
             <GraphSelect value={selectedGraphId} onChange={onGraphChange} />
+
+            {/* Theme selector */}
+            <ThemeSelect value={theme} onChange={onThemeChange} />
 
             {/* Action row */}
             <div className="flex gap-1.5">
@@ -361,7 +426,7 @@ export function ControlPanel({
             </div>
 
             {/* Global sliders */}
-            <div className="rounded-lg border border-sea-green/10 bg-white/[0.025] px-3 py-2.5 space-y-2.5">
+            <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2.5 space-y-2.5">
               <GlobalRow
                 icon={<Lightning size={12} weight="fill" />}
                 label="Speed"
@@ -387,32 +452,32 @@ export function ControlPanel({
             </div>
 
             {/* Zoom controls */}
-            <div className="rounded-lg border border-sea-green/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
-              <span className="text-[10px] text-sea-green/50 uppercase tracking-wide">Zoom</span>
+            <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
+              <span className="text-[10px] text-accent/50 uppercase tracking-wide">Zoom</span>
               <div className="flex-1" />
               <button
                 onClick={onZoomOut}
                 title="Zoom out"
-                className="rounded-md p-1 text-sea-green/60 hover:bg-sea-green/10 hover:text-sea-green transition-colors"
+                className="rounded-md p-1 text-accent/60 hover:bg-accent/10 hover:text-accent transition-colors"
               >
                 <MagnifyingGlassMinus size={14} />
               </button>
               <button
                 onClick={onZoomIn}
                 title="Zoom in"
-                className="rounded-md p-1 text-sea-green/60 hover:bg-sea-green/10 hover:text-sea-green transition-colors"
+                className="rounded-md p-1 text-accent/60 hover:bg-accent/10 hover:text-accent transition-colors"
               >
                 <MagnifyingGlassPlus size={14} />
               </button>
-              <span className="text-[10px] text-sea-green/40 ml-0.5">scroll</span>
+              <span className="text-[10px] text-accent/40 ml-0.5">scroll</span>
             </div>
 
             {/* Forces divider */}
             <div className="flex items-center gap-2 px-0.5">
-              <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-sea-green/30">
+              <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-accent/30">
                 Forces
               </span>
-              <div className="flex-1 h-px bg-sea-green/10" />
+              <div className="flex-1 h-px bg-accent/10" />
             </div>
 
             {/* Force sections */}
@@ -466,9 +531,9 @@ export function ControlPanel({
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar
           orientation="vertical"
-          className="flex select-none touch-none p-0.5 w-1.5 transition-colors hover:bg-sea-green/5"
+          className="flex select-none touch-none p-0.5 w-1.5 transition-colors hover:bg-accent/5"
         >
-          <ScrollArea.Thumb className="flex-1 bg-sea-green/20 rounded-full hover:bg-sea-green/30" />
+          <ScrollArea.Thumb className="flex-1 bg-accent/20 rounded-full hover:bg-accent/30" />
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
     </div>

@@ -183,15 +183,15 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
 
   return (
     <div className="relative h-full w-full">
-      <svg ref={svgContainer} className="block h-full w-full bg-tree-green fill-light-green" />
+      <svg ref={svgContainer} className="block h-full w-full bg-surface fill-accent-soft" />
       {tooltip && (
         <div
-          className="pointer-events-none fixed z-50 rounded-lg border border-sea-green/20 bg-[#162c28]/95 px-3 py-2 shadow-2xl backdrop-blur-sm"
+          className="pointer-events-none fixed z-50 rounded-lg border border-accent/20 bg-tooltip/95 px-3 py-2 shadow-2xl backdrop-blur-sm"
           style={{ left: tooltip.x + 14, top: tooltip.y + 14 }}
         >
-          <div className="text-[12px] font-medium text-light-green">{tooltip.content}</div>
+          <div className="text-[12px] font-medium text-accent-soft">{tooltip.content}</div>
           {tooltip.sub && (
-            <div className="text-[10px] text-sea-green/60 mt-0.5">{tooltip.sub}</div>
+            <div className="text-[10px] text-accent/60 mt-0.5">{tooltip.sub}</div>
           )}
         </div>
       )}
