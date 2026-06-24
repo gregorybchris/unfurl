@@ -3,26 +3,26 @@ import { ForceConfig, FunctionType, PhysicsConfig } from '@/simulation/physics-c
 import { DimensionMode } from '@/view/graph-view'
 import { ScrubSlider, SnapTier } from '@/view/scrub-slider'
 import {
-  ArrowCounterClockwise,
-  ArrowsIn,
-  ArrowsOut,
-  CaretDown,
-  ChartBar,
-  Check,
-  CirclesThree,
-  Fire,
-  Graph,
-  Info,
-  Lightning,
-  Magnet,
-  MagnifyingGlassMinus,
-  MagnifyingGlassPlus,
-  Network,
-  Palette,
-  Pause,
-  Play,
-  Swatches,
-  VectorThree,
+  ArrowCounterClockwiseIcon,
+  ArrowsInIcon,
+  ArrowsOutIcon,
+  CaretDownIcon,
+  ChartBarIcon,
+  CheckIcon,
+  CirclesThreeIcon,
+  FireIcon,
+  GraphIcon,
+  InfoIcon,
+  LightningIcon,
+  MagnetIcon,
+  MagnifyingGlassMinusIcon,
+  MagnifyingGlassPlusIcon,
+  NetworkIcon,
+  PaletteIcon,
+  PauseIcon,
+  PlayIcon,
+  SwatchesIcon,
+  VectorThreeIcon,
 } from '@phosphor-icons/react'
 import * as Popover from '@radix-ui/react-popover'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
@@ -60,11 +60,11 @@ function GraphSelect({ value, onChange }: { value: string; onChange: (v: string)
     <RadixSelect.Root value={value} onValueChange={onChange}>
       <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <div className="flex items-center gap-2 min-w-0">
-          <Graph size={11} className="shrink-0 text-accent/60" />
+          <GraphIcon size={11} className="shrink-0 text-accent/60" />
           <RadixSelect.Value />
         </div>
         <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
-          <CaretDown size={9} weight="bold" />
+          <CaretDownIcon size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
@@ -81,7 +81,7 @@ function GraphSelect({ value, onChange }: { value: string; onChange: (v: string)
                 className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
               >
                 <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
-                  <Check size={9} weight="bold" />
+                  <CheckIcon size={9} weight="bold" />
                 </RadixSelect.ItemIndicator>
                 <RadixSelect.ItemText>{g.label}</RadixSelect.ItemText>
               </RadixSelect.Item>
@@ -99,7 +99,7 @@ function ThemeSelect({ value, onChange }: { value: Theme; onChange: (v: Theme) =
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as Theme)}>
       <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <div className="flex items-center gap-2 min-w-0">
-          <Palette size={11} className="shrink-0 text-accent/60" />
+          <PaletteIcon size={11} className="shrink-0 text-accent/60" />
           <div className="flex items-center gap-1.5 min-w-0">
             <span
               className="shrink-0 w-2 h-2 rounded-full"
@@ -109,7 +109,7 @@ function ThemeSelect({ value, onChange }: { value: Theme; onChange: (v: Theme) =
           </div>
         </div>
         <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
-          <CaretDown size={9} weight="bold" />
+          <CaretDownIcon size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
@@ -126,7 +126,7 @@ function ThemeSelect({ value, onChange }: { value: Theme; onChange: (v: Theme) =
                 className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
               >
                 <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
-                  <Check size={9} weight="bold" />
+                  <CheckIcon size={9} weight="bold" />
                 </RadixSelect.ItemIndicator>
                 <div className="flex items-center gap-2">
                   <span
@@ -156,7 +156,7 @@ function CurveSelect({
       <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <RadixSelect.Value />
         <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
-          <CaretDown size={9} weight="bold" />
+          <CaretDownIcon size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
@@ -173,7 +173,7 @@ function CurveSelect({
                 className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-accent/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-accent/15 data-[highlighted]:text-accent data-[state=checked]:text-accent-soft"
               >
                 <RadixSelect.ItemIndicator className="absolute left-2 text-accent">
-                  <Check size={9} weight="bold" />
+                  <CheckIcon size={9} weight="bold" />
                 </RadixSelect.ItemIndicator>
                 <RadixSelect.ItemText>{FUNCTION_LABELS[fn]}</RadixSelect.ItemText>
               </RadixSelect.Item>
@@ -231,7 +231,7 @@ function ForceSection({
           <Popover.Root>
             <Popover.Trigger asChild>
               <button className="shrink-0 text-accent/25 hover:text-accent/60 transition-colors focus:outline-none">
-                <Info size={12} weight="bold" />
+                <InfoIcon size={12} weight="bold" />
               </button>
             </Popover.Trigger>
             <Popover.Portal>
@@ -430,18 +430,18 @@ export function ControlPanel({
                 title={config.paused ? 'Resume simulation' : 'Pause simulation'}
               >
                 {config.paused ? (
-                  <Play size={11} weight="fill" />
+                  <PlayIcon size={11} weight="fill" />
                 ) : (
-                  <Pause size={11} weight="fill" />
+                  <PauseIcon size={11} weight="fill" />
                 )}
                 {config.paused ? 'Play' : 'Pause'}
               </IconBtn>
               <IconBtn onClick={onAddHeat} title="Inject kinetic energy">
-                <Fire size={11} weight="fill" className="text-orange-400/80" />
+                <FireIcon size={11} weight="fill" className="text-orange-400/80" />
                 Heat
               </IconBtn>
               <IconBtn onClick={onReset} title="Reset all controls to defaults">
-                <ArrowCounterClockwise size={11} weight="bold" />
+                <ArrowCounterClockwiseIcon size={11} weight="bold" />
                 Reset
               </IconBtn>
             </div>
@@ -449,7 +449,7 @@ export function ControlPanel({
             {/* Global sliders */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2.5 space-y-2.5">
               <GlobalRow
-                icon={<Lightning size={12} weight="fill" />}
+                icon={<LightningIcon size={12} weight="fill" />}
                 label="Speed"
                 value={config.simulationSpeed}
                 min={0.001}
@@ -470,21 +470,21 @@ export function ControlPanel({
                 title="Zoom out"
                 className="rounded-md p-1 text-accent/60 hover:bg-accent/10 hover:text-accent transition-colors"
               >
-                <MagnifyingGlassMinus size={14} />
+                <MagnifyingGlassMinusIcon size={14} />
               </button>
               <button
                 onClick={onZoomIn}
                 title="Zoom in"
                 className="rounded-md p-1 text-accent/60 hover:bg-accent/10 hover:text-accent transition-colors"
               >
-                <MagnifyingGlassPlus size={14} />
+                <MagnifyingGlassPlusIcon size={14} />
               </button>
               <span className="text-[10px] text-accent/40 ml-0.5">scroll</span>
             </div>
 
             {/* Node colors toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
-              <Swatches size={12} className="text-accent/50 shrink-0" />
+              <SwatchesIcon size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
                 Node Colors
               </span>
@@ -493,7 +493,7 @@ export function ControlPanel({
 
             {/* Link width toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
-              <Network size={12} className="text-accent/50 shrink-0" />
+              <NetworkIcon size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
                 Link Width
               </span>
@@ -502,7 +502,7 @@ export function ControlPanel({
 
             {/* 2D / 3D mode toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
-              <VectorThree size={12} className="text-accent/50 shrink-0" />
+              <VectorThreeIcon size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
                 3D Mode
               </span>
@@ -523,28 +523,28 @@ export function ControlPanel({
             {/* Force sections */}
             <div className="space-y-1.5">
               <ForceSection
-                icon={<ArrowsIn size={14} weight="duotone" />}
+                icon={<ArrowsInIcon size={14} weight="duotone" />}
                 label="Gravity"
                 config={config.centerPull}
                 onChange={(fc) => setForce('centerPull', fc)}
                 description="Pulls every node toward the center of the canvas. Keeps the graph compact and prevents nodes from drifting off-screen."
               />
               <ForceSection
-                icon={<ArrowsOut size={14} weight="duotone" />}
+                icon={<ArrowsOutIcon size={14} weight="duotone" />}
                 label="Charge Repulsion"
                 config={config.basicRepulsion}
                 onChange={(fc) => setForce('basicRepulsion', fc)}
                 description="Each node repels every other node like an electric charge. Spreads the graph out and prevents nodes from overlapping."
               />
               <ForceSection
-                icon={<Magnet size={14} weight="duotone" />}
+                icon={<MagnetIcon size={14} weight="duotone" />}
                 label="Link Spring"
                 config={config.springAttraction}
                 onChange={(fc) => setForce('springAttraction', fc)}
                 description="Edges act as springs that pull connected nodes toward each other. Higher strength draws linked nodes closer together."
               />
               <ForceSection
-                icon={<Graph size={14} weight="duotone" />}
+                icon={<GraphIcon size={14} weight="duotone" />}
                 label="Topological Repulsion"
                 config={config.graphDistanceRepulsion}
                 maxStrength={10}
@@ -552,21 +552,21 @@ export function ControlPanel({
                 description="Pushes nodes apart based on their graph distance — nodes many hops away from each other are pushed further apart, revealing the network's structure."
               />
               <ForceSection
-                icon={<ChartBar size={14} weight="duotone" />}
+                icon={<ChartBarIcon size={14} weight="duotone" />}
                 label="Hub Gravity"
                 config={config.degreeDrift}
                 onChange={(fc) => setForce('degreeDrift', fc)}
                 description="Pulls nodes toward the center with force proportional to their degree. Nodes with many connections naturally migrate toward the center of the layout."
               />
               <ForceSection
-                icon={<CirclesThree size={14} weight="duotone" />}
+                icon={<CirclesThreeIcon size={14} weight="duotone" />}
                 label="Hub Repulsion"
                 config={config.degreeRepulsion}
                 onChange={(fc) => setForce('degreeRepulsion', fc)}
                 description="Pushes nodes away from others with force proportional to their degree. Gives highly-connected nodes more visual breathing room."
               />
               <ForceSection
-                icon={<Network size={14} weight="duotone" />}
+                icon={<NetworkIcon size={14} weight="duotone" />}
                 label="Centrality Gravity"
                 config={config.eigenvectorDrift}
                 onChange={(fc) => setForce('eigenvectorDrift', fc)}
