@@ -298,8 +298,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         const { startX, startY, startTheta, startPhi } = rotateDragRef.current;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
-        cameraRef.current.theta = startTheta + dx * 0.005;
-        cameraRef.current.phi = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, startPhi - dy * 0.005));
+        cameraRef.current.theta = startTheta - dx * 0.005;
+        cameraRef.current.phi = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, startPhi + dy * 0.005));
         updateCameraAndRedraw();
       }
     };
