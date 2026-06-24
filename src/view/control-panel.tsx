@@ -410,7 +410,12 @@ export function ControlPanel({
     <div className="h-full w-64 shrink-0 flex flex-col border-r border-accent/10 bg-panel/95 shadow-2xl text-accent backdrop-blur-sm">
       {/* Header */}
       <div className="px-4 py-3 border-b border-accent/10">
-        <span className="text-sm font-bold tracking-[0.15em] uppercase text-accent/80">Unfurl</span>
+        <button
+          onClick={() => window.location.reload()}
+          className="text-sm font-bold tracking-[0.15em] uppercase text-accent/80 hover:text-accent transition-colors cursor-pointer"
+        >
+          Unfurl
+        </button>
       </div>
 
       <ScrollArea.Root className="flex-1 min-h-0">
