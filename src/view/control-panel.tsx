@@ -526,6 +526,7 @@ export function ControlPanel({
                 icon={<ArrowsInIcon size={14} weight="duotone" />}
                 label="Gravity"
                 config={config.centerPull}
+                maxStrength={20}
                 onChange={(fc) => setForce('centerPull', fc)}
                 description="Pulls every node toward the center of the canvas. Keeps the graph compact and prevents nodes from drifting off-screen."
               />
@@ -533,6 +534,7 @@ export function ControlPanel({
                 icon={<ArrowsOutIcon size={14} weight="duotone" />}
                 label="Charge Repulsion"
                 config={config.basicRepulsion}
+                maxStrength={10}
                 onChange={(fc) => setForce('basicRepulsion', fc)}
                 description="Each node repels every other node like an electric charge. Spreads the graph out and prevents nodes from overlapping."
               />
@@ -540,6 +542,7 @@ export function ControlPanel({
                 icon={<MagnetIcon size={14} weight="duotone" />}
                 label="Link Spring"
                 config={config.springAttraction}
+                maxStrength={10}
                 onChange={(fc) => setForce('springAttraction', fc)}
                 description="Edges act as springs that pull connected nodes toward each other. Higher strength draws linked nodes closer together."
               />
@@ -547,7 +550,7 @@ export function ControlPanel({
                 icon={<GraphIcon size={14} weight="duotone" />}
                 label="Topological Repulsion"
                 config={config.graphDistanceRepulsion}
-                maxStrength={10}
+                maxStrength={20}
                 onChange={(fc) => setForce('graphDistanceRepulsion', fc)}
                 description="Pushes nodes apart based on their graph distance — nodes many hops away from each other are pushed further apart, revealing the network's structure."
               />
@@ -555,6 +558,7 @@ export function ControlPanel({
                 icon={<ChartBarIcon size={14} weight="duotone" />}
                 label="Hub Gravity"
                 config={config.degreeDrift}
+                maxStrength={20}
                 onChange={(fc) => setForce('degreeDrift', fc)}
                 description="Pulls nodes toward the center with force proportional to their degree. Nodes with many connections naturally migrate toward the center of the layout."
               />
@@ -562,6 +566,7 @@ export function ControlPanel({
                 icon={<CirclesThreeIcon size={14} weight="duotone" />}
                 label="Hub Repulsion"
                 config={config.degreeRepulsion}
+                maxStrength={20}
                 onChange={(fc) => setForce('degreeRepulsion', fc)}
                 description="Pushes nodes away from others with force proportional to their degree. Gives highly-connected nodes more visual breathing room."
               />

@@ -204,14 +204,11 @@ export function update(
   if (config.graphDistanceRepulsion.enabled && graphDistances.length > 0) {
     const fc = config.graphDistanceRepulsion
     const fn = fc.functionType === 'step' ? 'linear' : fc.functionType
-    // For function types whose force approaches zero at large distances, use a tighter
-    // cutoff to skip most pairs cheaply (avoids sqrt for ~80%+ of O(n²) candidates).
-    const cutoffSq =
-      fn === 'linear' || fn === 'logarithmic' ? REPULSION_OUTER_SQ : REPULSION_OUTER_SQ * 4
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const graphDist = graphDistances[i]?.[j]
-        if (graphDist === undefined || graphDist === INF || graphDist === 0) continue
+        // Skip adjacent nodes (let spring handle them) and disconnected pairs.
+        if (graphDist === undefined || graphDist === INF || graphDist <= 1) continue
 
         const nodeA = nodes[i]
         const nodeB = nodes[j]
@@ -219,11 +216,17 @@ export function update(
         const dy = nodeB.position.y - nodeA.position.y
         const dz = nodeB.position.z - nodeA.position.z
         const distSq = dx * dx + dy * dy + dz * dz
-        if (distSq === 0 || distSq >= cutoffSq) continue
+        if (distSq === 0) continue
 
-        // Scale strength by graph distance (farther apart in graph → more repulsion).
+        // Ideal separation grows with hop count: 2-hop → 1 rest-length, N-hop → (N-1) rest-lengths.
+        const targetDist = (graphDist - 1) * SPRING_REST_LENGTH
         const euclidean = Math.sqrt(distSq)
-        const repulse = repulsionByDistance(fn, fc.strength * graphDist * 0.3, euclidean)
+        if (euclidean >= targetDist) continue
+
+        // Remap euclidean position within [0, targetDist] into repulsionByDistance's range,
+        // so the selected curve applies within the repulsion zone.
+        const scaledDist = (euclidean / targetDist) * REPULSION_OUTER
+        const repulse = repulsionByDistance(fn, fc.strength, scaledDist)
         const fx = -(dx / euclidean) * repulse
         const fy = -(dy / euclidean) * repulse
         const fz = -(dz / euclidean) * repulse
