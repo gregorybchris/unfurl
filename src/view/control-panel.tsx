@@ -18,7 +18,6 @@ import {
   Pause,
   Play,
   Swatches,
-  Wind,
 } from "@phosphor-icons/react";
 import * as Popover from "@radix-ui/react-popover";
 import * as RadixSelect from "@radix-ui/react-select";
@@ -55,12 +54,6 @@ const SPEED_SNAP_TIERS: SnapTier[] = [
   { maxYOffset: Infinity, step: 0.02 },
 ];
 
-const DAMPING_SNAP_TIERS: SnapTier[] = [
-  { maxYOffset: 15, step: 0.001 },
-  { maxYOffset: 30, step: 0.005 },
-  { maxYOffset: 45, step: 0.01 },
-  { maxYOffset: Infinity, step: 0.05 },
-];
 
 function GraphSelect({
   value,
@@ -470,17 +463,6 @@ export function ControlPanel({
                 mobileStep={0.01}
                 decimals={3}
                 onChange={(v) => onChange({ ...config, simulationSpeed: v })}
-              />
-              <GlobalRow
-                icon={<Wind size={12} />}
-                label="Damping"
-                value={config.damping}
-                min={0.8}
-                max={0.995}
-                snapTiers={DAMPING_SNAP_TIERS}
-                mobileStep={0.01}
-                decimals={3}
-                onChange={(v) => onChange({ ...config, damping: v })}
               />
             </div>
 

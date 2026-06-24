@@ -8,7 +8,6 @@ export type ForceConfig = {
 
 export type PhysicsConfig = {
   simulationSpeed: number;
-  damping: number;
   paused: boolean;
   centerPull: ForceConfig;
   basicRepulsion: ForceConfig;
@@ -21,7 +20,6 @@ export type PhysicsConfig = {
 
 export const defaultPhysicsConfig: PhysicsConfig = {
   simulationSpeed: 0.02,
-  damping: 0.92,
   paused: false,
   centerPull:             { enabled: true,  strength: 1.0, functionType: "linear"  },
   basicRepulsion:         { enabled: true,  strength: 2.0, functionType: "linear"  },

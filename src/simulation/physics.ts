@@ -266,9 +266,9 @@ export function update(
       node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y, z: node.position.z } });
       continue;
     }
-    node.velocity.x *= config.damping;
-    node.velocity.y *= config.damping;
-    node.velocity.z *= config.damping;
+    node.velocity.x *= 0.92;
+    node.velocity.y *= 0.92;
+    node.velocity.z *= 0.92;
     node.position.x += node.velocity.x * timeFactor;
     node.position.y += node.velocity.y * timeFactor;
     node.position.z += node.velocity.z * timeFactor;

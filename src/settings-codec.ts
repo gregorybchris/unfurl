@@ -37,7 +37,7 @@ const FORCE_LAYOUT: [keyof PhysicsConfig, number, number][] = [
 // Bit layout (MSB-first within each byte):
 // [4]  version
 // [7]  simulationSpeed  — quantized as round((v - 0.001) / 0.001), range [0, 79]
-// [8]  damping          — quantized as round((v - 0.8) / 0.001),   range [0, 195]
+// [8]  reserved         — was damping; hardcoded 0.92 in physics, bits kept for URL compat
 // [1]  paused
 // [3]  selectedGraphId  — index into GRAPH_IDS
 // [3]  theme            — index into THEME_IDS
@@ -87,7 +87,7 @@ export function encodeSettings(s: AppSettings): string {
 
   w.write(CODEC_VERSION, 4);
   w.write(Math.round((p.simulationSpeed - 0.001) / 0.001), 7);
-  w.write(Math.round((p.damping - 0.8) / 0.001), 8);
+  w.write(Math.round((0.92 - 0.8) / 0.001), 8); // reserved (was damping)
   w.write(p.paused ? 1 : 0, 1);
   w.write(GRAPH_IDS.indexOf(s.selectedGraphId), 3);
   w.write(THEME_IDS.indexOf(s.theme), 3);
@@ -118,7 +118,7 @@ export function decodeSettings(encoded: string): AppSettings | null {
     if (r.read(4) !== CODEC_VERSION) return null;
 
     const simulationSpeed = +(r.read(7) * 0.001 + 0.001).toFixed(3);
-    const damping = +(r.read(8) * 0.001 + 0.8).toFixed(3);
+    r.read(8); // reserved (was damping)
     const paused = r.read(1) === 1;
 
     const graphIdx = r.read(3);
@@ -132,7 +132,7 @@ export function decodeSettings(encoded: string): AppSettings | null {
     const nodeColors = r.read(1) === 1;
     const dimensionMode = r.read(1) === 1 ? '3d' : '2d' as const;
 
-    const physicsConfig = { simulationSpeed, damping, paused } as PhysicsConfig;
+    const physicsConfig = { simulationSpeed, paused } as PhysicsConfig;
 
     for (const [key, , strengthBits] of FORCE_LAYOUT) {
       const enabled = r.read(1) === 1;
