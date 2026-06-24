@@ -1,5 +1,6 @@
 import { AdjMatrix } from "@/graph/graph";
-import { CurveImpl, INF, Vector } from "@/math/math";
+import { CurveImpl, INF } from "@/math/math";
+import { Vec3 } from "@/math/vec3";
 import { QuadBoxImpl } from "@/spatial/quad-box";
 import { QuadTreeImpl } from "@/spatial/quad-tree";
 import { Body } from "./body";
@@ -58,7 +59,7 @@ export function update(
   nodes: Body[],
   edges: EdgeIndex[],
   deltaTime: number,
-  center: Vector,
+  center: Vec3,
   config: PhysicsConfig,
   graphDistances: AdjMatrix,
   nodeDegrees: number[],
@@ -79,14 +80,15 @@ export function update(
       if (node.pinned) continue;
       node.velocity.x += s * (center.x - node.position.x);
       node.velocity.y += s * (center.y - node.position.y);
+      node.velocity.z += s * (center.z - node.position.z);
     }
   }
 
-  // --- Basic Pair-wise Repulsion (quadtree-accelerated) ---
+  // --- Basic Pair-wise Repulsion (quadtree-accelerated, XY plane) ---
   if (config.basicRepulsion.enabled && nodes.length > 0) {
     const fc = config.basicRepulsion;
 
-    // Build a bounding quadtree from current node positions.
+    // Build a bounding quadtree from current node positions (uses XY only; acceptable 3D approximation).
     let minX = nodes[0].position.x, maxX = minX;
     let minY = nodes[0].position.y, maxY = minY;
     for (const n of nodes) {
@@ -114,7 +116,8 @@ export function update(
         const nodeB = nodes[j];
         const dx = nodeB.position.x - nodeA.position.x;
         const dy = nodeB.position.y - nodeA.position.y;
-        const distSq = dx * dx + dy * dy;
+        const dz = nodeB.position.z - nodeA.position.z;
+        const distSq = dx * dx + dy * dy + dz * dz;
         if (distSq >= REPULSION_OUTER_SQ) continue;
 
         const distance = Math.sqrt(distSq);
@@ -131,8 +134,9 @@ export function update(
 
         const fx = (dx / mag) * factor;
         const fy = (dy / mag) * factor;
-        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; }
-        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; }
+        const fz = (dz / mag) * factor;
+        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; nodeA.velocity.z += fz; }
+        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; nodeB.velocity.z -= fz; }
       }
     }
   }
@@ -145,13 +149,15 @@ export function update(
       const nodeB = nodes[edge.j];
       const dx = nodeB.position.x - nodeA.position.x;
       const dy = nodeB.position.y - nodeA.position.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const dz = nodeB.position.z - nodeA.position.z;
+      const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
       if (distance === 0) continue;
       const force = k * (distance - SPRING_REST_LENGTH);
       const fx = (dx / distance) * force;
       const fy = (dy / distance) * force;
-      if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; }
-      if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; }
+      const fz = (dz / distance) * force;
+      if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; nodeA.velocity.z += fz; }
+      if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; nodeB.velocity.z -= fz; }
     }
   }
 
@@ -168,15 +174,17 @@ export function update(
         const nodeB = nodes[j];
         const dx = nodeB.position.x - nodeA.position.x;
         const dy = nodeB.position.y - nodeA.position.y;
-        const euclidean = Math.sqrt(dx * dx + dy * dy);
+        const dz = nodeB.position.z - nodeA.position.z;
+        const euclidean = Math.sqrt(dx * dx + dy * dy + dz * dz);
         if (euclidean === 0) continue;
 
         // Scale strength by graph distance (farther apart in graph → more repulsion).
         const repulse = repulsionByDistance(fn, fc.strength * graphDist * 0.3, euclidean);
         const fx = -(dx / euclidean) * repulse;
         const fy = -(dy / euclidean) * repulse;
-        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; }
-        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; }
+        const fz = -(dz / euclidean) * repulse;
+        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; nodeA.velocity.z += fz; }
+        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; nodeB.velocity.z -= fz; }
       }
     }
   }
@@ -189,6 +197,7 @@ export function update(
       const pull = driftByCentrality(config.degreeDrift.functionType, config.degreeDrift.strength, nodeDegrees[i] ?? 0) * CENTER_PULL_SLOPE;
       node.velocity.x += pull * (center.x - node.position.x);
       node.velocity.y += pull * (center.y - node.position.y);
+      node.velocity.z += pull * (center.z - node.position.z);
     }
   }
 
@@ -203,7 +212,8 @@ export function update(
         const nodeB = nodes[j];
         const dx = nodeB.position.x - nodeA.position.x;
         const dy = nodeB.position.y - nodeA.position.y;
-        const distSq = dx * dx + dy * dy;
+        const dz = nodeB.position.z - nodeA.position.z;
+        const distSq = dx * dx + dy * dy + dz * dz;
         if (distSq >= REPULSION_OUTER_SQ) continue;
 
         const distance = Math.sqrt(distSq);
@@ -213,8 +223,9 @@ export function update(
 
         const fx = (dx / mag) * factor;
         const fy = (dy / mag) * factor;
-        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; }
-        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; }
+        const fz = (dz / mag) * factor;
+        if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; nodeA.velocity.z += fz; }
+        if (!nodeB.pinned) { nodeB.velocity.x -= fx; nodeB.velocity.y -= fy; nodeB.velocity.z -= fz; }
       }
     }
   }
@@ -227,6 +238,7 @@ export function update(
       const pull = driftByCentrality(config.eigenvectorDrift.functionType, config.eigenvectorDrift.strength, eigenvectorCentrality[i] ?? 0) * CENTER_PULL_SLOPE;
       node.velocity.x += pull * (center.x - node.position.x);
       node.velocity.y += pull * (center.y - node.position.y);
+      node.velocity.z += pull * (center.z - node.position.z);
     }
   }
 
@@ -235,11 +247,12 @@ export function update(
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.pinned) continue;
-    const vSq = node.velocity.x * node.velocity.x + node.velocity.y * node.velocity.y;
+    const vSq = node.velocity.x * node.velocity.x + node.velocity.y * node.velocity.y + node.velocity.z * node.velocity.z;
     if (vSq > MAX_VELOCITY_SQ) {
       const scale = 100 / Math.sqrt(vSq);
       node.velocity.x *= scale;
       node.velocity.y *= scale;
+      node.velocity.z *= scale;
     }
   }
 
@@ -249,14 +262,17 @@ export function update(
     if (node.pinned) {
       node.velocity.x = 0;
       node.velocity.y = 0;
-      node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y } });
+      node.velocity.z = 0;
+      node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y, z: node.position.z } });
       continue;
     }
     node.velocity.x *= config.damping;
     node.velocity.y *= config.damping;
+    node.velocity.z *= config.damping;
     node.position.x += node.velocity.x * timeFactor;
     node.position.y += node.velocity.y * timeFactor;
-    node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y } });
+    node.position.z += node.velocity.z * timeFactor;
+    node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y, z: node.position.z } });
   }
 }
 
@@ -265,5 +281,6 @@ export function addHeat(nodes: Body[], magnitude = 50): void {
     if (node.pinned) continue;
     node.velocity.x += (Math.random() - 0.5) * magnitude;
     node.velocity.y += (Math.random() - 0.5) * magnitude;
+    node.velocity.z += (Math.random() - 0.5) * magnitude;
   }
 }

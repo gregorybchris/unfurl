@@ -1,14 +1,14 @@
-import { Vector, VectorImpl, VectorRange } from "@/math/math";
+import { Vec2, Vec2Impl, Vec2Range } from "@/math/vec2";
 
 // Square bounding box with center and half-size
 export type QuadBox = {
-  center: Vector;
+  center: Vec2;
   halfSize: number;
 };
 
 export class QuadBoxImpl {
-  static boxContains(box: QuadBox, vector: Vector): boolean {
-    return VectorImpl.inRange(vector, QuadBoxImpl.toVectorRange(box));
+  static boxContains(box: QuadBox, vector: Vec2): boolean {
+    return Vec2Impl.inRange(vector, QuadBoxImpl.toVec2Range(box));
   }
 
   static boxIntersects(self: QuadBox, other: QuadBox): boolean {
@@ -19,14 +19,19 @@ export class QuadBoxImpl {
     );
   }
 
-  static toVectorRange(box: QuadBox): VectorRange {
+  static toVec2Range(box: QuadBox): Vec2Range {
     return {
       x: { min: box.center.x - box.halfSize, max: box.center.x + box.halfSize },
       y: { min: box.center.y - box.halfSize, max: box.center.y + box.halfSize },
     };
   }
 
-  static fromVectorRange(range: VectorRange): QuadBox {
+  // Keep old name as alias for backward compatibility with existing call sites
+  static toVectorRange(box: QuadBox): Vec2Range {
+    return QuadBoxImpl.toVec2Range(box);
+  }
+
+  static fromVec2Range(range: Vec2Range): QuadBox {
     const size = Math.max(range.x.max - range.x.min, range.y.max - range.y.min);
     const halfSize = size / 2;
     return {
@@ -35,7 +40,7 @@ export class QuadBoxImpl {
     };
   }
 
-  static fromRadius(vector: Vector, radius: number): QuadBox {
+  static fromRadius(vector: Vec2, radius: number): QuadBox {
     return {
       center: vector,
       halfSize: radius,

@@ -1,9 +1,9 @@
-import { Vector } from "@/math/math";
+import { Vec2 } from "@/math/vec2";
 import { QuadBox, QuadBoxImpl } from "./quad-box";
 
 export interface Item {
   id: string;
-  position: Vector;
+  position: Vec2;
 }
 
 type Children = {

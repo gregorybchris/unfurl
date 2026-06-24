@@ -27,6 +27,7 @@ import * as Switch from "@radix-ui/react-switch";
 import type { ReactNode } from "react";
 import { GRAPH_OPTIONS, Theme, THEMES } from "@/app";
 import { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
+import { DimensionMode } from "@/view/graph-view";
 import { ScrubSlider, SnapTier } from "@/view/scrub-slider";
 
 const FUNCTION_LABELS: Record<FunctionType, string> = {
@@ -391,6 +392,8 @@ interface ControlPanelProps {
   onThemeChange: (t: Theme) => void;
   nodeColors: boolean;
   onNodeColorsChange: (v: boolean) => void;
+  dimensionMode: DimensionMode;
+  onDimensionModeChange: (m: DimensionMode) => void;
 }
 
 export function ControlPanel({
@@ -406,6 +409,8 @@ export function ControlPanel({
   onThemeChange,
   nodeColors,
   onNodeColorsChange,
+  dimensionMode,
+  onDimensionModeChange,
 }: ControlPanelProps) {
   const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) =>
     onChange({ ...config, [key]: fc });
@@ -505,6 +510,16 @@ export function ControlPanel({
               <Swatches size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">Node Colors</span>
               <ForceSwitch checked={nodeColors} onChange={onNodeColorsChange} />
+            </div>
+
+            {/* 2D / 3D mode toggle */}
+            <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
+              <CirclesThree size={12} className="text-accent/50 shrink-0" />
+              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">3D Mode</span>
+              <ForceSwitch
+                checked={dimensionMode === '3d'}
+                onChange={(v) => onDimensionModeChange(v ? '3d' : '2d')}
+              />
             </div>
 
             {/* Forces divider */}

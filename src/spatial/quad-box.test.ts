@@ -36,9 +36,9 @@ describe("QuadBoxImpl", () => {
     });
   });
 
-  describe("fromVectorRange", () => {
+  describe("fromVec2Range", () => {
     it("builds a square box that covers the larger dimension", () => {
-      const result = QuadBoxImpl.fromVectorRange({
+      const result = QuadBoxImpl.fromVec2Range({
         x: { min: 0, max: 10 },
         y: { min: 0, max: 4 },
       });

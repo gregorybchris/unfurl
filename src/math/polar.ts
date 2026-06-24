@@ -1,6 +1,6 @@
 import { Range, StatsImpl } from "./stats";
-// polar.ts and vector.ts mutually import each other; all cross-references are inside method bodies so there is no initialization-order issue
-import { Vector, VectorImpl } from "./vector";
+// polar.ts and vec2.ts mutually import each other; all cross-references are inside method bodies so there is no initialization-order issue
+import { Vec2, Vec2Impl } from "./vec2";
 
 export type Polar = {
   r: number;
@@ -17,7 +17,7 @@ export class PolarImpl {
     return { r: 0, a: 0 };
   }
 
-  static toRect(polar: Polar): Vector {
+  static toRect(polar: Polar): Vec2 {
     return {
       x: polar.r * Math.cos(polar.a),
       y: polar.r * Math.sin(polar.a),
@@ -25,7 +25,7 @@ export class PolarImpl {
   }
 
   static add(polarA: Polar, polarB: Polar): Polar {
-    return VectorImpl.toPolar(VectorImpl.add(PolarImpl.toRect(polarA), PolarImpl.toRect(polarB)));
+    return Vec2Impl.toPolar(Vec2Impl.add(PolarImpl.toRect(polarA), PolarImpl.toRect(polarB)));
   }
 
   static mean(polars: Polar[]): Polar {
@@ -34,11 +34,11 @@ export class PolarImpl {
       return { r: NaN, a: NaN };
     }
 
-    return VectorImpl.toPolar(VectorImpl.mean(polars.map(PolarImpl.toRect)));
+    return Vec2Impl.toPolar(Vec2Impl.mean(polars.map(PolarImpl.toRect)));
   }
 
-  static addVector(polar: Polar, vector: Vector): Polar {
-    return PolarImpl.add(polar, VectorImpl.toPolar(vector));
+  static addVector(polar: Polar, vector: Vec2): Polar {
+    return PolarImpl.add(polar, Vec2Impl.toPolar(vector));
   }
 
   static mult(polar: Polar, scaler: number): Polar {
