@@ -544,7 +544,9 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         </div>
       )}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none text-[10px] text-accent/40 select-none">
-        {dimensionMode === '3d' ? 'Shift+drag to rotate · ⌘+drag to pan' : '⌘+drag to pan'}
+        {dimensionMode === '3d'
+          ? 'Shift+drag to rotate · ⌘+drag to pan · scroll to zoom'
+          : '⌘+drag to pan · scroll to zoom'}
       </div>
     </div>
   )
