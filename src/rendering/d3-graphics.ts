@@ -6,10 +6,17 @@ import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
 export type EdgeRef<Entity> = { source: Entity; target: Entity; value?: number };
 
+const GROUP_COLORS = [
+  '#60a5fa', '#f87171', '#4ade80', '#fbbf24', '#c084fc',
+  '#34d399', '#fb923c', '#38bdf8', '#a78bfa', '#f472b6',
+  '#a3e635', '#2dd4bf',
+];
+
 export interface D3GraphicsOptions<Entity> {
   onNodeHover?: (entity: Entity, clientX: number, clientY: number) => void;
   onEdgeHover?: (edge: EdgeRef<Entity>, clientX: number, clientY: number) => void;
   onHoverEnd?: () => void;
+  nodeGroupMap?: Map<string, number>;
 }
 
 type DragState<Entity> = { entity: Entity; lastMouse: Vector };
@@ -30,6 +37,7 @@ export class D3Graphics<Entity extends IEntity> {
   private hitLineElements: SVGLineElement[] = [];
   private dragState: DragState<Entity> | null = null;
   private opts: D3GraphicsOptions<Entity>;
+  private nodeGroupMap: Map<string, number>;
 
   constructor(
     container: SVGSVGElement,
@@ -49,6 +57,7 @@ export class D3Graphics<Entity extends IEntity> {
     this.onUpdate = onUpdate;
     this.onEntityClick = onEntityClick;
     this.opts = options;
+    this.nodeGroupMap = options.nodeGroupMap ?? new Map();
 
     this.animationGraphics = new AnimationGraphics((currentTime, deltaTime) => {
       this.onUpdate(currentTime, deltaTime);
@@ -133,6 +142,17 @@ export class D3Graphics<Entity extends IEntity> {
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
+  }
+
+  setNodeColors(enabled: boolean): void {
+    for (const [id, el] of this.elementMap) {
+      if (enabled) {
+        const group = this.nodeGroupMap.get(id);
+        el.setAttribute("fill", GROUP_COLORS[(group ?? 0) % GROUP_COLORS.length]);
+      } else {
+        el.removeAttribute("fill");
+      }
+    }
   }
 
   addLines() {

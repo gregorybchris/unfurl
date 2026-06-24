@@ -33,6 +33,7 @@ interface GraphViewProps {
   graphDistances?: AdjMatrix;
   nodeDegrees?: number[];
   eigenvectorCentrality?: number[];
+  nodeColors?: boolean;
 }
 
 export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function GraphView(
@@ -43,6 +44,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     graphDistances = [],
     nodeDegrees = [],
     eigenvectorCentrality = [],
+    nodeColors = false,
   },
   ref,
 ) {
@@ -145,6 +147,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         onUpdate,
         onClickNode,
         {
+          nodeGroupMap,
           onNodeHover: (entity, x, y) => {
             const group = hasMultipleGroups ? nodeGroupMap.get(entity.id) : undefined;
             setTooltip({ content: entity.id, sub: group !== undefined ? `group ${group}` : undefined, x, y });
@@ -180,6 +183,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    d3Graphics.current?.setNodeColors(nodeColors);
+  }, [nodeColors]);
 
   return (
     <div className="relative h-full w-full">

@@ -67,6 +67,7 @@ export default function App() {
   const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(defaultPhysicsConfig);
   const [selectedGraphId, setSelectedGraphId] = useState<GraphId>("les-miserables");
   const [theme, setTheme] = useState<Theme>("slate-dark");
+  const [nodeColors, setNodeColors] = useState(false);
   const graphViewRef = useRef<GraphViewHandle>(null);
 
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
@@ -95,6 +96,8 @@ export default function App() {
           onGraphChange={(id) => setSelectedGraphId(id as GraphId)}
           theme={theme}
           onThemeChange={setTheme}
+          nodeColors={nodeColors}
+          onNodeColorsChange={setNodeColors}
         />
         <div className="flex-1 min-w-0">
           <GraphView
@@ -106,6 +109,7 @@ export default function App() {
             graphDistances={shortestPaths}
             nodeDegrees={nodeDegrees}
             eigenvectorCentrality={eigenvectorCentrality}
+            nodeColors={nodeColors}
           />
         </div>
       </div>
