@@ -133,6 +133,9 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         }))
         .filter((e) => e.source && e.target);
 
+      const nodeGroupMap = new Map(graph.nodes.map((n) => [n.id, n.group]));
+      const hasMultipleGroups = new Set(graph.nodes.map((n) => n.group)).size > 1;
+
       d3Graphics.current = new D3Graphics(
         svgContainer.current,
         center,
@@ -143,7 +146,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         onClickNode,
         {
           onNodeHover: (entity, x, y) => {
-            setTooltip({ content: entity.id, x, y });
+            const group = hasMultipleGroups ? nodeGroupMap.get(entity.id) : undefined;
+            setTooltip({ content: entity.id, sub: group !== undefined ? `group ${group}` : undefined, x, y });
           },
           onEdgeHover: (edge, x, y) => {
             const sub = edge.value !== undefined && edge.value > 1 ? `weight: ${edge.value}` : undefined;
