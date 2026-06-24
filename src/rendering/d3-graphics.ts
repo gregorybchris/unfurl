@@ -4,7 +4,13 @@ import { IEntity } from "@/simulation/entity";
 import * as d3 from "d3";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
-export type EdgeRef<Entity> = { source: Entity; target: Entity };
+export type EdgeRef<Entity> = { source: Entity; target: Entity; value?: number };
+
+export interface D3GraphicsOptions<Entity> {
+  onNodeHover?: (entity: Entity, clientX: number, clientY: number) => void;
+  onEdgeHover?: (edge: EdgeRef<Entity>, clientX: number, clientY: number) => void;
+  onHoverEnd?: () => void;
+}
 
 type DragState<Entity> = { entity: Entity; lastMouse: Vector };
 
@@ -20,7 +26,9 @@ export class D3Graphics<Entity extends IEntity> {
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private elementMap = new Map<string, SVGCircleElement>();
   private lineElements: SVGLineElement[] = [];
+  private hitLineElements: SVGLineElement[] = [];
   private dragState: DragState<Entity> | null = null;
+  private opts: D3GraphicsOptions<Entity>;
 
   constructor(
     container: SVGSVGElement,
@@ -30,6 +38,7 @@ export class D3Graphics<Entity extends IEntity> {
     edges: EdgeRef<Entity>[],
     onUpdate: UpdateFuncType,
     onEntityClick: (entity: Entity) => void,
+    options: D3GraphicsOptions<Entity> = {},
   ) {
     this.container = container;
     this.center = center;
@@ -38,6 +47,7 @@ export class D3Graphics<Entity extends IEntity> {
     this.edges = edges;
     this.onUpdate = onUpdate;
     this.onEntityClick = onEntityClick;
+    this.opts = options;
 
     this.animationGraphics = new AnimationGraphics((currentTime, deltaTime) => {
       this.onUpdate(currentTime, deltaTime);
@@ -107,6 +117,7 @@ export class D3Graphics<Entity extends IEntity> {
   private beginNodeDrag(event: MouseEvent, entity: Entity): void {
     event.preventDefault();
     entity.pinned = true;
+    this.opts.onHoverEnd?.();
     this.canvas.style("cursor", "grabbing");
     const lastMouse = this.clientToSVG(event);
     this.dragState = { entity, lastMouse };
@@ -126,7 +137,9 @@ export class D3Graphics<Entity extends IEntity> {
   addLines() {
     const linesGroup = this.canvas.append("g").attr("id", "edges-group");
     const groupEl = linesGroup.node()!;
-    for (const edge of this.edges) {
+    for (let i = 0; i < this.edges.length; i++) {
+      const edge = this.edges[i];
+
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       line.setAttribute("x1", String(edge.source.position.x));
       line.setAttribute("y1", String(edge.source.position.y));
@@ -134,19 +147,48 @@ export class D3Graphics<Entity extends IEntity> {
       line.setAttribute("y2", String(edge.target.position.y));
       line.setAttribute("stroke", "RGBA(126, 168, 128, 0.5)");
       line.setAttribute("stroke-width", "4");
+      line.style.pointerEvents = "none";
       groupEl.appendChild(line);
       this.lineElements.push(line);
+
+      // Invisible wider line for hover hit detection.
+      const hit = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      hit.setAttribute("x1", String(edge.source.position.x));
+      hit.setAttribute("y1", String(edge.source.position.y));
+      hit.setAttribute("x2", String(edge.target.position.x));
+      hit.setAttribute("y2", String(edge.target.position.y));
+      hit.setAttribute("stroke", "transparent");
+      hit.setAttribute("stroke-width", "20");
+      hit.style.cursor = "crosshair";
+      hit.addEventListener("mousemove", (e: MouseEvent) => {
+        if (this.dragState) return;
+        this.opts.onEdgeHover?.(edge, e.clientX, e.clientY);
+      });
+      hit.addEventListener("mouseleave", () => {
+        this.opts.onHoverEnd?.();
+      });
+      groupEl.appendChild(hit);
+      this.hitLineElements.push(hit);
     }
   }
 
   updateLines() {
     for (let i = 0; i < this.edges.length; i++) {
       const edge = this.edges[i];
+      const x1 = String(edge.source.position.x);
+      const y1 = String(edge.source.position.y);
+      const x2 = String(edge.target.position.x);
+      const y2 = String(edge.target.position.y);
       const line = this.lineElements[i];
-      line.setAttribute("x1", String(edge.source.position.x));
-      line.setAttribute("y1", String(edge.source.position.y));
-      line.setAttribute("x2", String(edge.target.position.x));
-      line.setAttribute("y2", String(edge.target.position.y));
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      const hit = this.hitLineElements[i];
+      hit.setAttribute("x1", x1);
+      hit.setAttribute("y1", y1);
+      hit.setAttribute("x2", x2);
+      hit.setAttribute("y2", y2);
     }
   }
 
@@ -168,11 +210,16 @@ export class D3Graphics<Entity extends IEntity> {
       .on("click", (_, entity) => {
         this.onEntityClick(entity);
       })
+      .on("mousemove", (event: MouseEvent, entity) => {
+        if (this.dragState) return;
+        this.opts.onNodeHover?.(entity, event.clientX, event.clientY);
+      })
+      .on("mouseleave", () => {
+        this.opts.onHoverEnd?.();
+      })
       .each((entity, _i, nodes) => {
         this.elementMap.set(entity.id, nodes[_i] as SVGCircleElement);
-      })
-      .append("title")
-      .text((entity) => entity.id);
+      });
   }
 
   updateCircle(entity: Entity) {

@@ -9,6 +9,13 @@ import { EntityState } from "@/simulation/entity";
 import { addHeat, EdgeIndex, update } from "@/simulation/physics";
 import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
 
+interface TooltipState {
+  content: string;
+  sub?: string;
+  x: number;
+  y: number;
+}
+
 const DEFAULT_SCALE = 0.5;
 const MIN_SCALE = 0.1;
 const MAX_SCALE = 3;
@@ -42,6 +49,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   const RADIUS = 8;
 
   const [scale, setScale] = useState(DEFAULT_SCALE);
+  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const scaleRef = useRef(scale);
   scaleRef.current = scale;
   // Tracks the currently-rendered scale; lerped toward scaleRef each frame.
@@ -118,7 +126,11 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
 
       const nodeMap = new Map(nodes.current.map((n) => [n.id, n]));
       const edgeRefs: EdgeRef<Body>[] = graph.links
-        .map((link) => ({ source: nodeMap.get(link.source)!, target: nodeMap.get(link.target)! }))
+        .map((link) => ({
+          source: nodeMap.get(link.source)!,
+          target: nodeMap.get(link.target)!,
+          value: link.value,
+        }))
         .filter((e) => e.source && e.target);
 
       d3Graphics.current = new D3Graphics(
@@ -129,6 +141,16 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         edgeRefs,
         onUpdate,
         onClickNode,
+        {
+          onNodeHover: (entity, x, y) => {
+            setTooltip({ content: entity.id, x, y });
+          },
+          onEdgeHover: (edge, x, y) => {
+            const sub = edge.value !== undefined && edge.value > 1 ? `weight: ${edge.value}` : undefined;
+            setTooltip({ content: `${edge.source.id} — ${edge.target.id}`, sub, x, y });
+          },
+          onHoverEnd: () => setTooltip(null),
+        },
       );
       d3Graphics.current.start();
     }
@@ -155,5 +177,20 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <svg ref={svgContainer} className="block h-full w-full bg-tree-green fill-light-green" />;
+  return (
+    <div className="relative h-full w-full">
+      <svg ref={svgContainer} className="block h-full w-full bg-tree-green fill-light-green" />
+      {tooltip && (
+        <div
+          className="pointer-events-none fixed z-50 rounded-lg border border-sea-green/20 bg-[#162c28]/95 px-3 py-2 shadow-2xl backdrop-blur-sm"
+          style={{ left: tooltip.x + 14, top: tooltip.y + 14 }}
+        >
+          <div className="text-[12px] font-medium text-light-green">{tooltip.content}</div>
+          {tooltip.sub && (
+            <div className="text-[10px] text-sea-green/60 mt-0.5">{tooltip.sub}</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 });
