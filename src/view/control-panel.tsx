@@ -8,6 +8,7 @@ import {
   CirclesThree,
   Fire,
   Graph,
+  VectorThree,
   Info,
   Lightning,
   Magnet,
@@ -65,7 +66,10 @@ function GraphSelect({
   return (
     <RadixSelect.Root value={value} onValueChange={onChange}>
       <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
-        <RadixSelect.Value />
+        <div className="flex items-center gap-2 min-w-0">
+          <Graph size={11} className="shrink-0 text-accent/60" />
+          <RadixSelect.Value />
+        </div>
         <RadixSelect.Icon className="shrink-0 text-accent/40">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
@@ -507,7 +511,7 @@ export function ControlPanel({
 
             {/* 2D / 3D mode toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
-              <CirclesThree size={12} className="text-accent/50 shrink-0" />
+              <VectorThree size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">3D Mode</span>
               <ForceSwitch
                 checked={dimensionMode === '3d'}
