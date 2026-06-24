@@ -21,7 +21,21 @@
   --color-panel: #1a1d27;
   --color-tooltip: #141720;
   --color-body: #0f1117;
-  --color-edge: rgba(129, 140, 248, 0.35);
+  --color-edge: rgba(129, 140, 248, 0.3);
+
+  /* Slightly pastel — pops cleanly on very dark blue-gray */
+  --color-group-0:  #7dd3fc;
+  --color-group-1:  #fca5a5;
+  --color-group-2:  #86efac;
+  --color-group-3:  #fde047;
+  --color-group-4:  #d8b4fe;
+  --color-group-5:  #6ee7b7;
+  --color-group-6:  #fdba74;
+  --color-group-7:  #93c5fd;
+  --color-group-8:  #f9a8d4;
+  --color-group-9:  #bef264;
+  --color-group-10: #5eead4;
+  --color-group-11: #fcd34d;
 }
 
 [data-theme="warm-charcoal"] {
@@ -31,7 +45,21 @@
   --color-panel: #231f27;
   --color-tooltip: #1c1920;
   --color-body: #18161a;
-  --color-edge: rgba(251, 191, 36, 0.35);
+  --color-edge: rgba(251, 191, 36, 0.3);
+
+  /* Warm, rich hues — no cold blues/cyans */
+  --color-group-0:  #f87171;
+  --color-group-1:  #fb923c;
+  --color-group-2:  #fbbf24;
+  --color-group-3:  #f472b6;
+  --color-group-4:  #c084fc;
+  --color-group-5:  #86efac;
+  --color-group-6:  #fda4af;
+  --color-group-7:  #a78bfa;
+  --color-group-8:  #fde68a;
+  --color-group-9:  #e879f9;
+  --color-group-10: #4ade80;
+  --color-group-11: #34d399;
 }
 
 [data-theme="parchment"] {
@@ -42,6 +70,20 @@
   --color-tooltip: #ede8dc;
   --color-body: #f5f2ec;
   --color-edge: rgba(79, 70, 229, 0.35);
+
+  /* Deeper/saturated for contrast on warm off-white canvas */
+  --color-group-0:  #dc2626;
+  --color-group-1:  #2563eb;
+  --color-group-2:  #16a34a;
+  --color-group-3:  #d97706;
+  --color-group-4:  #7c3aed;
+  --color-group-5:  #0891b2;
+  --color-group-6:  #ea580c;
+  --color-group-7:  #db2777;
+  --color-group-8:  #059669;
+  --color-group-9:  #65a30d;
+  --color-group-10: #0d9488;
+  --color-group-11: #9333ea;
 }
 
 [data-theme="deep-navy"] {
@@ -51,7 +93,21 @@
   --color-panel: #131726;
   --color-tooltip: #0e1120;
   --color-body: #0b0e1a;
-  --color-edge: rgba(34, 211, 238, 0.3);
+  --color-edge: rgba(34, 211, 238, 0.25);
+
+  /* Warm-leaning brights that contrast the cool navy */
+  --color-group-0:  #f87171;
+  --color-group-1:  #fbbf24;
+  --color-group-2:  #4ade80;
+  --color-group-3:  #f472b6;
+  --color-group-4:  #fb923c;
+  --color-group-5:  #c084fc;
+  --color-group-6:  #34d399;
+  --color-group-7:  #fde047;
+  --color-group-8:  #a78bfa;
+  --color-group-9:  #86efac;
+  --color-group-10: #fda4af;
+  --color-group-11: #5eead4;
 }
 
 [data-theme="true-gray"] {
@@ -61,7 +117,21 @@
   --color-panel: #1f1f1f;
   --color-tooltip: #191919;
   --color-body: #141414;
-  --color-edge: rgba(163, 163, 163, 0.4);
+  --color-edge: rgba(163, 163, 163, 0.35);
+
+  /* Full-saturation brights — maximum contrast on neutral gray */
+  --color-group-0:  #60a5fa;
+  --color-group-1:  #f87171;
+  --color-group-2:  #4ade80;
+  --color-group-3:  #fbbf24;
+  --color-group-4:  #c084fc;
+  --color-group-5:  #34d399;
+  --color-group-6:  #fb923c;
+  --color-group-7:  #38bdf8;
+  --color-group-8:  #a78bfa;
+  --color-group-9:  #f472b6;
+  --color-group-10: #a3e635;
+  --color-group-11: #2dd4bf;
 }
 
 /* ── Base ──────────────────────────────────────────────────────────────────── */

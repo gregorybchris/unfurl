@@ -6,11 +6,7 @@ import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
 export type EdgeRef<Entity> = { source: Entity; target: Entity; value?: number };
 
-const GROUP_COLORS = [
-  '#60a5fa', '#f87171', '#4ade80', '#fbbf24', '#c084fc',
-  '#34d399', '#fb923c', '#38bdf8', '#a78bfa', '#f472b6',
-  '#a3e635', '#2dd4bf',
-];
+const GROUP_COLOR_COUNT = 12;
 
 export interface D3GraphicsOptions<Entity> {
   onNodeHover?: (entity: Entity, clientX: number, clientY: number) => void;
@@ -147,10 +143,10 @@ export class D3Graphics<Entity extends IEntity> {
   setNodeColors(enabled: boolean): void {
     for (const [id, el] of this.elementMap) {
       if (enabled) {
-        const group = this.nodeGroupMap.get(id);
-        el.setAttribute("fill", GROUP_COLORS[(group ?? 0) % GROUP_COLORS.length]);
+        const group = (this.nodeGroupMap.get(id) ?? 0) % GROUP_COLOR_COUNT;
+        el.style.fill = `var(--color-group-${group})`;
       } else {
-        el.removeAttribute("fill");
+        el.style.fill = "";
       }
     }
   }
