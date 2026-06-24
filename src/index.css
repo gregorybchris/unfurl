@@ -156,5 +156,5 @@ body {
 /* Edge color driven by CSS variable so all themes work without JS */
 svg line.edge-visual {
   stroke: var(--color-edge, rgba(100, 100, 100, 0.4));
-  stroke-width: 4px;
+  stroke-width: 2px;
 }

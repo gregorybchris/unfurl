@@ -387,6 +387,8 @@ interface ControlPanelProps {
   onNodeColorsChange: (v: boolean) => void;
   dimensionMode: DimensionMode;
   onDimensionModeChange: (m: DimensionMode) => void;
+  linkWidth: boolean;
+  onLinkWidthChange: (v: boolean) => void;
 }
 
 export function ControlPanel({
@@ -404,6 +406,8 @@ export function ControlPanel({
   onNodeColorsChange,
   dimensionMode,
   onDimensionModeChange,
+  linkWidth,
+  onLinkWidthChange,
 }: ControlPanelProps) {
   const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) =>
     onChange({ ...config, [key]: fc });
@@ -492,6 +496,13 @@ export function ControlPanel({
               <Swatches size={12} className="text-accent/50 shrink-0" />
               <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">Node Colors</span>
               <ForceSwitch checked={nodeColors} onChange={onNodeColorsChange} />
+            </div>
+
+            {/* Link width toggle */}
+            <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
+              <Network size={12} className="text-accent/50 shrink-0" />
+              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">Link Width</span>
+              <ForceSwitch checked={linkWidth} onChange={onLinkWidthChange} />
             </div>
 
             {/* 2D / 3D mode toggle */}

@@ -38,6 +38,7 @@ interface GraphViewProps {
   eigenvectorCentrality?: number[];
   nodeColors?: boolean;
   dimensionMode?: DimensionMode;
+  linkWidth?: boolean;
 }
 
 export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function GraphView(
@@ -50,6 +51,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     eigenvectorCentrality = [],
     nodeColors = false,
     dimensionMode = '2d',
+    linkWidth = false,
   },
   ref,
 ) {
@@ -466,6 +468,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   useEffect(() => {
     d3Graphics.current?.setNodeColors(nodeColors);
   }, [nodeColors]);
+
+  useEffect(() => {
+    d3Graphics.current?.setLinkWidth(linkWidth);
+  }, [linkWidth]);
 
   const cursorStyle = panDragRef.current ? 'grabbing' : rotateDragRef.current ? 'all-scroll' : undefined;
 

@@ -42,6 +42,8 @@ export class D3Graphics<Entity extends IEntity> {
   private hitElementMap = new Map<string, SVGCircleElement>();
   private lineElements: SVGLineElement[] = [];
   private hitLineElements: SVGLineElement[] = [];
+  private edgeBaseWidths: number[] = [];
+  private linkWidthEnabled = false;
   private dragState: DragState<Entity> | null = null;
   private opts: D3GraphicsOptions<Entity>;
   private nodeGroupMap: Map<string, number>;
@@ -171,6 +173,16 @@ export class D3Graphics<Entity extends IEntity> {
   }
 
   addLines() {
+    const vals = this.edges.map(e => e.value).filter((v): v is number => v !== undefined);
+    const minVal = vals.length ? Math.min(...vals) : 1;
+    const maxVal = vals.length ? Math.max(...vals) : 1;
+    const minPx = 1, maxPx = 8;
+    this.edgeBaseWidths = this.edges.map(e =>
+      e.value === undefined || minVal === maxVal
+        ? 2
+        : minPx + ((e.value - minVal) / (maxVal - minVal)) * (maxPx - minPx)
+    );
+
     const linesGroup = this.canvas.append("g").attr("id", "edges-group");
     const groupEl = linesGroup.node()!;
     for (let i = 0; i < this.edges.length; i++) {
@@ -219,12 +231,19 @@ export class D3Graphics<Entity extends IEntity> {
       line.setAttribute("y1", String(ps.y));
       line.setAttribute("x2", String(pt.x));
       line.setAttribute("y2", String(pt.y));
+      const avgScale = (ps.scale + pt.scale) / 2;
+      const baseWidth = this.linkWidthEnabled ? this.edgeBaseWidths[i] : 2;
+      line.style.strokeWidth = `${baseWidth * avgScale}px`;
       const hit = this.hitLineElements[i];
       hit.setAttribute("x1", String(ps.x));
       hit.setAttribute("y1", String(ps.y));
       hit.setAttribute("x2", String(pt.x));
       hit.setAttribute("y2", String(pt.y));
     }
+  }
+
+  setLinkWidth(enabled: boolean): void {
+    this.linkWidthEnabled = enabled;
   }
 
   addCircles() {

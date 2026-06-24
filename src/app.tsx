@@ -81,14 +81,15 @@ export default function App() {
   const [dimensionMode, setDimensionMode] = useState<DimensionMode>(
     INITIAL_URL_SETTINGS?.dimensionMode ?? '2d'
   );
+  const [linkWidth, setLinkWidth] = useState(INITIAL_URL_SETTINGS?.linkWidth ?? false);
   const graphViewRef = useRef<GraphViewHandle>(null);
 
   useEffect(() => {
-    const encoded = encodeSettings({ physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode });
+    const encoded = encodeSettings({ physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode, linkWidth });
     const url = new URL(window.location.href);
     url.searchParams.set("c", encoded);
     window.history.replaceState(null, "", url.toString());
-  }, [physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode]);
+  }, [physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode, linkWidth]);
 
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
   const { shortestPaths, nodeDegrees, eigenvectorCentrality } = useMemo(
@@ -99,7 +100,7 @@ export default function App() {
   return (
     <div
       data-theme={theme}
-      className="font-quicksand text-accent selection:bg-surface bg-body"
+      className="font-quicksand text-accent selection:bg-surface bg-body h-screen overflow-hidden"
     >
       <div className="flex h-screen w-screen">
         <ControlPanel
@@ -120,6 +121,8 @@ export default function App() {
           onNodeColorsChange={setNodeColors}
           dimensionMode={dimensionMode}
           onDimensionModeChange={setDimensionMode}
+          linkWidth={linkWidth}
+          onLinkWidthChange={setLinkWidth}
         />
         <div className="flex-1 min-w-0">
           <GraphView
@@ -133,6 +136,7 @@ export default function App() {
             eigenvectorCentrality={eigenvectorCentrality}
             nodeColors={nodeColors}
             dimensionMode={dimensionMode}
+            linkWidth={linkWidth}
           />
         </div>
       </div>
