@@ -1,14 +1,17 @@
+import { GRAPH_OPTIONS, Theme, THEMES } from '@/app'
+import { ForceConfig, FunctionType, PhysicsConfig } from '@/simulation/physics-config'
+import { DimensionMode } from '@/view/graph-view'
+import { ScrubSlider, SnapTier } from '@/view/scrub-slider'
 import {
   ArrowCounterClockwise,
   ArrowsIn,
   ArrowsOut,
   CaretDown,
-  Check,
   ChartBar,
+  Check,
   CirclesThree,
   Fire,
   Graph,
-  VectorThree,
   Info,
   Lightning,
   Magnet,
@@ -19,25 +22,22 @@ import {
   Pause,
   Play,
   Swatches,
-} from "@phosphor-icons/react";
-import * as Popover from "@radix-ui/react-popover";
-import * as RadixSelect from "@radix-ui/react-select";
-import * as ScrollArea from "@radix-ui/react-scroll-area";
-import * as Switch from "@radix-ui/react-switch";
-import type { ReactNode } from "react";
-import { GRAPH_OPTIONS, Theme, THEMES } from "@/app";
-import { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
-import { DimensionMode } from "@/view/graph-view";
-import { ScrubSlider, SnapTier } from "@/view/scrub-slider";
+  VectorThree,
+} from '@phosphor-icons/react'
+import * as Popover from '@radix-ui/react-popover'
+import * as ScrollArea from '@radix-ui/react-scroll-area'
+import * as RadixSelect from '@radix-ui/react-select'
+import * as Switch from '@radix-ui/react-switch'
+import type { ReactNode } from 'react'
 
 const FUNCTION_LABELS: Record<FunctionType, string> = {
-  step: "Step zones",
-  linear: "Linear",
-  inverse: "Inverse",
-  logistic: "Logistic",
-  logarithmic: "Logarithmic",
-  exponential: "Exponential",
-};
+  step: 'Step zones',
+  linear: 'Linear',
+  inverse: 'Inverse',
+  logistic: 'Logistic',
+  logarithmic: 'Logarithmic',
+  exponential: 'Exponential',
+}
 
 // ── Snap tiers for each slider type ──────────────────────────────────────────
 
@@ -46,23 +46,16 @@ const STRENGTH_SNAP_TIERS: SnapTier[] = [
   { maxYOffset: 30, step: 0.05 },
   { maxYOffset: 45, step: 0.1 },
   { maxYOffset: Infinity, step: 0.5 },
-];
+]
 
 const SPEED_SNAP_TIERS: SnapTier[] = [
   { maxYOffset: 15, step: 0.001 },
   { maxYOffset: 30, step: 0.005 },
   { maxYOffset: 45, step: 0.01 },
   { maxYOffset: Infinity, step: 0.02 },
-];
+]
 
-
-function GraphSelect({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function GraphSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <RadixSelect.Root value={value} onValueChange={onChange}>
       <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
@@ -97,17 +90,11 @@ function GraphSelect({
         </RadixSelect.Content>
       </RadixSelect.Portal>
     </RadixSelect.Root>
-  );
+  )
 }
 
-function ThemeSelect({
-  value,
-  onChange,
-}: {
-  value: Theme;
-  onChange: (v: Theme) => void;
-}) {
-  const current = THEMES.find((t) => t.id === value)!;
+function ThemeSelect({ value, onChange }: { value: Theme; onChange: (v: Theme) => void }) {
+  const current = THEMES.find((t) => t.id === value)!
   return (
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as Theme)}>
       <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
@@ -154,15 +141,15 @@ function ThemeSelect({
         </RadixSelect.Content>
       </RadixSelect.Portal>
     </RadixSelect.Root>
-  );
+  )
 }
 
 function CurveSelect({
   value,
   onChange,
 }: {
-  value: FunctionType;
-  onChange: (v: FunctionType) => void;
+  value: FunctionType
+  onChange: (v: FunctionType) => void
 }) {
   return (
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as FunctionType)}>
@@ -195,16 +182,10 @@ function CurveSelect({
         </RadixSelect.Content>
       </RadixSelect.Portal>
     </RadixSelect.Root>
-  );
+  )
 }
 
-function ForceSwitch({
-  checked,
-  onChange,
-}: {
-  checked: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function ForceSwitch({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <Switch.Root
       checked={checked}
@@ -213,7 +194,7 @@ function ForceSwitch({
     >
       <Switch.Thumb className="pointer-events-none block h-[14px] w-[14px] translate-x-0 rounded-full bg-white/80 shadow-sm ring-0 transition-transform data-[state=checked]:translate-x-[14px]" />
     </Switch.Root>
-  );
+  )
 }
 
 // ── Force section ─────────────────────────────────────────────────────────────
@@ -226,23 +207,23 @@ function ForceSection({
   onChange,
   description,
 }: {
-  icon: ReactNode;
-  label: string;
-  config: ForceConfig;
-  maxStrength?: number;
-  onChange: (c: ForceConfig) => void;
-  description?: string;
+  icon: ReactNode
+  label: string
+  config: ForceConfig
+  maxStrength?: number
+  onChange: (c: ForceConfig) => void
+  description?: string
 }) {
   return (
     <div className="rounded-lg border border-accent/10 bg-white/[0.025]">
       <div className="flex items-center gap-2.5 px-3 py-2.5">
         <span
-          className={`shrink-0 transition-opacity ${config.enabled ? "text-accent opacity-90" : "text-accent/30"}`}
+          className={`shrink-0 transition-opacity ${config.enabled ? 'text-accent opacity-90' : 'text-accent/30'}`}
         >
           {icon}
         </span>
         <span
-          className={`flex-1 text-xs font-medium leading-tight transition-colors ${config.enabled ? "text-accent/90" : "text-accent/30"}`}
+          className={`flex-1 text-xs font-medium leading-tight transition-colors ${config.enabled ? 'text-accent/90' : 'text-accent/30'}`}
         >
           {label}
         </span>
@@ -273,11 +254,11 @@ function ForceSection({
 
       <div
         className="grid transition-[grid-template-rows] duration-200 ease-in-out"
-        style={{ gridTemplateRows: config.enabled ? "1fr" : "0fr" }}
+        style={{ gridTemplateRows: config.enabled ? '1fr' : '0fr' }}
       >
         <div className="overflow-hidden">
           <div
-            className={`border-t border-accent/8 px-3 py-2.5 space-y-2.5 transition-opacity duration-200 ${config.enabled ? "opacity-100" : "opacity-0"}`}
+            className={`border-t border-accent/8 px-3 py-2.5 space-y-2.5 transition-opacity duration-200 ${config.enabled ? 'opacity-100' : 'opacity-0'}`}
           >
             <div className="flex items-center gap-4">
               <span className="text-[10px] text-accent/40 w-12 shrink-0 uppercase tracking-wide">
@@ -308,7 +289,7 @@ function ForceSection({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 // ── Global slider row ─────────────────────────────────────────────────────────
@@ -324,26 +305,35 @@ function GlobalRow({
   decimals = 3,
   onChange,
 }: {
-  icon: ReactNode;
-  label: string;
-  value: number;
-  min: number;
-  max: number;
-  snapTiers: SnapTier[];
-  mobileStep?: number;
-  decimals?: number;
-  onChange: (v: number) => void;
+  icon: ReactNode
+  label: string
+  value: number
+  min: number
+  max: number
+  snapTiers: SnapTier[]
+  mobileStep?: number
+  decimals?: number
+  onChange: (v: number) => void
 }) {
   return (
     <div className="flex items-center gap-4">
       <span className="shrink-0 text-accent/50">{icon}</span>
-      <span className="text-[10px] text-accent/50 w-12 shrink-0 uppercase tracking-wide">{label}</span>
-      <ScrubSlider value={value} min={min} max={max} snapTiers={snapTiers} mobileStep={mobileStep} onChange={onChange} />
+      <span className="text-[10px] text-accent/50 w-12 shrink-0 uppercase tracking-wide">
+        {label}
+      </span>
+      <ScrubSlider
+        value={value}
+        min={min}
+        max={max}
+        snapTiers={snapTiers}
+        mobileStep={mobileStep}
+        onChange={onChange}
+      />
       <span className="text-[11px] tabular-nums text-accent/60 w-10 text-right">
         {value.toFixed(decimals)}
       </span>
     </div>
-  );
+  )
 }
 
 // ── Icon button ───────────────────────────────────────────────────────────────
@@ -354,45 +344,46 @@ function IconBtn({
   title,
   accent,
 }: {
-  onClick: () => void;
-  children: ReactNode;
-  title?: string;
-  accent?: boolean;
+  onClick: () => void
+  children: ReactNode
+  title?: string
+  accent?: boolean
 }) {
   return (
     <button
       onClick={onClick}
       title={title}
       className={`flex items-center justify-center gap-1.5 flex-1 rounded-lg border px-2.5 py-1.5 text-[11px] font-semibold transition-colors
-        ${accent
-          ? "border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 active:bg-accent/30"
-          : "border-accent/15 bg-white/[0.03] text-accent/70 hover:bg-accent/10 hover:text-accent active:bg-accent/20"
+        ${
+          accent
+            ? 'border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 active:bg-accent/30'
+            : 'border-accent/15 bg-white/[0.03] text-accent/70 hover:bg-accent/10 hover:text-accent active:bg-accent/20'
         }`}
     >
       {children}
     </button>
-  );
+  )
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
 
 interface ControlPanelProps {
-  config: PhysicsConfig;
-  onChange: (config: PhysicsConfig) => void;
-  onAddHeat: () => void;
-  onReset: () => void;
-  onZoomIn: () => void;
-  onZoomOut: () => void;
-  selectedGraphId: string;
-  onGraphChange: (id: string) => void;
-  theme: Theme;
-  onThemeChange: (t: Theme) => void;
-  nodeColors: boolean;
-  onNodeColorsChange: (v: boolean) => void;
-  dimensionMode: DimensionMode;
-  onDimensionModeChange: (m: DimensionMode) => void;
-  linkWidth: boolean;
-  onLinkWidthChange: (v: boolean) => void;
+  config: PhysicsConfig
+  onChange: (config: PhysicsConfig) => void
+  onAddHeat: () => void
+  onReset: () => void
+  onZoomIn: () => void
+  onZoomOut: () => void
+  selectedGraphId: string
+  onGraphChange: (id: string) => void
+  theme: Theme
+  onThemeChange: (t: Theme) => void
+  nodeColors: boolean
+  onNodeColorsChange: (v: boolean) => void
+  dimensionMode: DimensionMode
+  onDimensionModeChange: (m: DimensionMode) => void
+  linkWidth: boolean
+  onLinkWidthChange: (v: boolean) => void
 }
 
 export function ControlPanel({
@@ -413,22 +404,18 @@ export function ControlPanel({
   linkWidth,
   onLinkWidthChange,
 }: ControlPanelProps) {
-  const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) =>
-    onChange({ ...config, [key]: fc });
+  const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) => onChange({ ...config, [key]: fc })
 
   return (
     <div className="h-full w-64 shrink-0 flex flex-col border-r border-accent/10 bg-panel/95 shadow-2xl text-accent backdrop-blur-sm">
       {/* Header */}
       <div className="px-4 py-3 border-b border-accent/10">
-        <span className="text-sm font-bold tracking-[0.15em] uppercase text-accent/80">
-          Unfurl
-        </span>
+        <span className="text-sm font-bold tracking-[0.15em] uppercase text-accent/80">Unfurl</span>
       </div>
 
       <ScrollArea.Root className="flex-1 min-h-0">
         <ScrollArea.Viewport className="h-full w-full">
           <div className="px-3 py-3 space-y-2.5">
-
             {/* Graph selector */}
             <GraphSelect value={selectedGraphId} onChange={onGraphChange} />
 
@@ -440,14 +427,14 @@ export function ControlPanel({
               <IconBtn
                 onClick={() => onChange({ ...config, paused: !config.paused })}
                 accent={config.paused}
-                title={config.paused ? "Resume simulation" : "Pause simulation"}
+                title={config.paused ? 'Resume simulation' : 'Pause simulation'}
               >
                 {config.paused ? (
                   <Play size={11} weight="fill" />
                 ) : (
                   <Pause size={11} weight="fill" />
                 )}
-                {config.paused ? "Play" : "Pause"}
+                {config.paused ? 'Play' : 'Pause'}
               </IconBtn>
               <IconBtn onClick={onAddHeat} title="Inject kinetic energy">
                 <Fire size={11} weight="fill" className="text-orange-400/80" />
@@ -498,21 +485,27 @@ export function ControlPanel({
             {/* Node colors toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
               <Swatches size={12} className="text-accent/50 shrink-0" />
-              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">Node Colors</span>
+              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
+                Node Colors
+              </span>
               <ForceSwitch checked={nodeColors} onChange={onNodeColorsChange} />
             </div>
 
             {/* Link width toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
               <Network size={12} className="text-accent/50 shrink-0" />
-              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">Link Width</span>
+              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
+                Link Width
+              </span>
               <ForceSwitch checked={linkWidth} onChange={onLinkWidthChange} />
             </div>
 
             {/* 2D / 3D mode toggle */}
             <div className="rounded-lg border border-accent/10 bg-white/[0.025] px-3 py-2 flex items-center gap-2">
               <VectorThree size={12} className="text-accent/50 shrink-0" />
-              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">3D Mode</span>
+              <span className="flex-1 text-[10px] text-accent/50 uppercase tracking-wide">
+                3D Mode
+              </span>
               <ForceSwitch
                 checked={dimensionMode === '3d'}
                 onChange={(v) => onDimensionModeChange(v ? '3d' : '2d')}
@@ -533,21 +526,21 @@ export function ControlPanel({
                 icon={<ArrowsIn size={14} weight="duotone" />}
                 label="Gravity"
                 config={config.centerPull}
-                onChange={(fc) => setForce("centerPull", fc)}
+                onChange={(fc) => setForce('centerPull', fc)}
                 description="Pulls every node toward the center of the canvas. Keeps the graph compact and prevents nodes from drifting off-screen."
               />
               <ForceSection
                 icon={<ArrowsOut size={14} weight="duotone" />}
                 label="Charge Repulsion"
                 config={config.basicRepulsion}
-                onChange={(fc) => setForce("basicRepulsion", fc)}
+                onChange={(fc) => setForce('basicRepulsion', fc)}
                 description="Each node repels every other node like an electric charge. Spreads the graph out and prevents nodes from overlapping."
               />
               <ForceSection
                 icon={<Magnet size={14} weight="duotone" />}
                 label="Link Spring"
                 config={config.springAttraction}
-                onChange={(fc) => setForce("springAttraction", fc)}
+                onChange={(fc) => setForce('springAttraction', fc)}
                 description="Edges act as springs that pull connected nodes toward each other. Higher strength draws linked nodes closer together."
               />
               <ForceSection
@@ -555,32 +548,31 @@ export function ControlPanel({
                 label="Topological Repulsion"
                 config={config.graphDistanceRepulsion}
                 maxStrength={10}
-                onChange={(fc) => setForce("graphDistanceRepulsion", fc)}
+                onChange={(fc) => setForce('graphDistanceRepulsion', fc)}
                 description="Pushes nodes apart based on their graph distance — nodes many hops away from each other are pushed further apart, revealing the network's structure."
               />
               <ForceSection
                 icon={<ChartBar size={14} weight="duotone" />}
                 label="Hub Gravity"
                 config={config.degreeDrift}
-                onChange={(fc) => setForce("degreeDrift", fc)}
+                onChange={(fc) => setForce('degreeDrift', fc)}
                 description="Pulls nodes toward the center with force proportional to their degree. Nodes with many connections naturally migrate toward the center of the layout."
               />
               <ForceSection
                 icon={<CirclesThree size={14} weight="duotone" />}
                 label="Hub Repulsion"
                 config={config.degreeRepulsion}
-                onChange={(fc) => setForce("degreeRepulsion", fc)}
+                onChange={(fc) => setForce('degreeRepulsion', fc)}
                 description="Pushes nodes away from others with force proportional to their degree. Gives highly-connected nodes more visual breathing room."
               />
               <ForceSection
                 icon={<Network size={14} weight="duotone" />}
                 label="Centrality Gravity"
                 config={config.eigenvectorDrift}
-                onChange={(fc) => setForce("eigenvectorDrift", fc)}
+                onChange={(fc) => setForce('eigenvectorDrift', fc)}
                 description="Pulls nodes toward the center weighted by eigenvector centrality — a measure of influence that accounts for the quality of a node's connections, not just the count."
               />
             </div>
-
           </div>
         </ScrollArea.Viewport>
         <ScrollArea.Scrollbar
@@ -591,5 +583,5 @@ export function ControlPanel({
         </ScrollArea.Scrollbar>
       </ScrollArea.Root>
     </div>
-  );
+  )
 }

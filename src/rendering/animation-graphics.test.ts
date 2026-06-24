@@ -1,63 +1,60 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { AnimationGraphics } from "./animation-graphics";
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { AnimationGraphics } from './animation-graphics'
 
 afterEach(() => {
-  vi.restoreAllMocks();
-  vi.unstubAllGlobals();
-});
+  vi.restoreAllMocks()
+  vi.unstubAllGlobals()
+})
 
-describe("AnimationGraphics", () => {
-  it("stores the update callback", () => {
-    const onUpdate = vi.fn();
-    expect(new AnimationGraphics(onUpdate).onUpdate).toBe(onUpdate);
-  });
+describe('AnimationGraphics', () => {
+  it('stores the update callback', () => {
+    const onUpdate = vi.fn()
+    expect(new AnimationGraphics(onUpdate).onUpdate).toBe(onUpdate)
+  })
 
-  it("invokes the callback with cumulative time and per-frame delta", () => {
+  it('invokes the callback with cumulative time and per-frame delta', () => {
     // capture the rAF callback so we can drive frames manually
-    let frame: ((time?: number) => void) | null = null;
-    vi.stubGlobal("requestAnimationFrame", (cb: (time?: number) => void) => {
-      frame = cb;
-      return 0;
-    });
+    let frame: ((time?: number) => void) | null = null
+    vi.stubGlobal('requestAnimationFrame', (cb: (time?: number) => void) => {
+      frame = cb
+      return 0
+    })
 
-    const updates: Array<[number, number]> = [];
+    const updates: Array<[number, number]> = []
     const graphics = new AnimationGraphics((currentTime, deltaTime) => {
-      updates.push([currentTime, deltaTime]);
-    });
+      updates.push([currentTime, deltaTime])
+    })
 
-    graphics.start();
+    graphics.start()
     // first synchronous tick: currentTime defaults to 0, delta 0
-    expect(updates[0]).toEqual([0, 0]);
+    expect(updates[0]).toEqual([0, 0])
 
-    frame!(16);
-    expect(updates[1]).toEqual([16, 16]);
+    frame!(16)
+    expect(updates[1]).toEqual([16, 16])
 
-    frame!(20);
-    expect(updates[2]).toEqual([20, 4]);
-  });
+    frame!(20)
+    expect(updates[2]).toEqual([20, 4])
+  })
 
-  it("clamps a large delta from a paused/backgrounded tab", () => {
-    let frame: ((time?: number) => void) | null = null;
-    vi.stubGlobal("requestAnimationFrame", (cb: (time?: number) => void) => {
-      frame = cb;
-      return 0;
-    });
+  it('clamps a large delta from a paused/backgrounded tab', () => {
+    let frame: ((time?: number) => void) | null = null
+    vi.stubGlobal('requestAnimationFrame', (cb: (time?: number) => void) => {
+      frame = cb
+      return 0
+    })
 
-    const updates: Array<[number, number]> = [];
-    const graphics = new AnimationGraphics(
-      (currentTime, deltaTime) => {
-        updates.push([currentTime, deltaTime]);
-      },
-      32
-    );
+    const updates: Array<[number, number]> = []
+    const graphics = new AnimationGraphics((currentTime, deltaTime) => {
+      updates.push([currentTime, deltaTime])
+    }, 32)
 
-    graphics.start();
-    frame!(16);
-    expect(updates[1]).toEqual([16, 16]);
+    graphics.start()
+    frame!(16)
+    expect(updates[1]).toEqual([16, 16])
 
     // Simulate ~5s of throttled rAF while the window was unfocused: the raw
     // delta is huge, but the callback must receive the clamped maximum.
-    frame!(5016);
-    expect(updates[2]).toEqual([5016, 32]);
-  });
-});
+    frame!(5016)
+    expect(updates[2]).toEqual([5016, 32])
+  })
+})

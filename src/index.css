@@ -1,5 +1,5 @@
-@import "@fontsource-variable/quicksand";
-@import "tailwindcss";
+@import '@fontsource-variable/quicksand';
+@import 'tailwindcss';
 
 @theme {
   --color-accent: #818cf8;
@@ -9,12 +9,12 @@
   --color-tooltip: #141720;
   --color-body: #0f1117;
 
-  --font-quicksand: "Quicksand Variable", sans-serif;
+  --font-quicksand: 'Quicksand Variable', sans-serif;
 }
 
 /* ── Per-theme overrides ───────────────────────────────────────────────────── */
 
-[data-theme="slate-dark"] {
+[data-theme='slate-dark'] {
   --color-accent: #818cf8;
   --color-accent-soft: #c7d2fe;
   --color-surface: #0d1117;
@@ -24,21 +24,21 @@
   --color-edge: rgba(129, 140, 248, 0.3);
 
   /* Slightly pastel — pops cleanly on very dark blue-gray */
-  --color-group-0:  #7dd3fc;
-  --color-group-1:  #fca5a5;
-  --color-group-2:  #86efac;
-  --color-group-3:  #fde047;
-  --color-group-4:  #d8b4fe;
-  --color-group-5:  #6ee7b7;
-  --color-group-6:  #fdba74;
-  --color-group-7:  #93c5fd;
-  --color-group-8:  #f9a8d4;
-  --color-group-9:  #bef264;
+  --color-group-0: #7dd3fc;
+  --color-group-1: #fca5a5;
+  --color-group-2: #86efac;
+  --color-group-3: #fde047;
+  --color-group-4: #d8b4fe;
+  --color-group-5: #6ee7b7;
+  --color-group-6: #fdba74;
+  --color-group-7: #93c5fd;
+  --color-group-8: #f9a8d4;
+  --color-group-9: #bef264;
   --color-group-10: #5eead4;
   --color-group-11: #fcd34d;
 }
 
-[data-theme="warm-charcoal"] {
+[data-theme='warm-charcoal'] {
   --color-accent: #fbbf24;
   --color-accent-soft: #fde68a;
   --color-surface: #1a1720;
@@ -48,21 +48,21 @@
   --color-edge: rgba(251, 191, 36, 0.3);
 
   /* Warm, rich hues — no cold blues/cyans */
-  --color-group-0:  #f87171;
-  --color-group-1:  #fb923c;
-  --color-group-2:  #fbbf24;
-  --color-group-3:  #f472b6;
-  --color-group-4:  #c084fc;
-  --color-group-5:  #86efac;
-  --color-group-6:  #fda4af;
-  --color-group-7:  #a78bfa;
-  --color-group-8:  #fde68a;
-  --color-group-9:  #e879f9;
+  --color-group-0: #f87171;
+  --color-group-1: #fb923c;
+  --color-group-2: #fbbf24;
+  --color-group-3: #f472b6;
+  --color-group-4: #c084fc;
+  --color-group-5: #86efac;
+  --color-group-6: #fda4af;
+  --color-group-7: #a78bfa;
+  --color-group-8: #fde68a;
+  --color-group-9: #e879f9;
   --color-group-10: #4ade80;
   --color-group-11: #34d399;
 }
 
-[data-theme="parchment"] {
+[data-theme='parchment'] {
   --color-accent: #0f172a;
   --color-accent-soft: #475569;
   --color-surface: #e2e8f0;
@@ -72,21 +72,21 @@
   --color-edge: rgba(15, 23, 42, 0.4);
 
   /* 700-level saturates — high contrast on pure white */
-  --color-group-0:  #b91c1c;
-  --color-group-1:  #1d4ed8;
-  --color-group-2:  #15803d;
-  --color-group-3:  #b45309;
-  --color-group-4:  #6d28d9;
-  --color-group-5:  #0369a1;
-  --color-group-6:  #c2410c;
-  --color-group-7:  #be185d;
-  --color-group-8:  #047857;
-  --color-group-9:  #4d7c0f;
+  --color-group-0: #b91c1c;
+  --color-group-1: #1d4ed8;
+  --color-group-2: #15803d;
+  --color-group-3: #b45309;
+  --color-group-4: #6d28d9;
+  --color-group-5: #0369a1;
+  --color-group-6: #c2410c;
+  --color-group-7: #be185d;
+  --color-group-8: #047857;
+  --color-group-9: #4d7c0f;
   --color-group-10: #0f766e;
   --color-group-11: #7e22ce;
 }
 
-[data-theme="deep-navy"] {
+[data-theme='deep-navy'] {
   --color-accent: #22d3ee;
   --color-accent-soft: #67e8f9;
   --color-surface: #0a0d18;
@@ -96,21 +96,21 @@
   --color-edge: rgba(34, 211, 238, 0.25);
 
   /* Warm-leaning brights that contrast the cool navy */
-  --color-group-0:  #f87171;
-  --color-group-1:  #fbbf24;
-  --color-group-2:  #4ade80;
-  --color-group-3:  #f472b6;
-  --color-group-4:  #fb923c;
-  --color-group-5:  #c084fc;
-  --color-group-6:  #34d399;
-  --color-group-7:  #fde047;
-  --color-group-8:  #a78bfa;
-  --color-group-9:  #86efac;
+  --color-group-0: #f87171;
+  --color-group-1: #fbbf24;
+  --color-group-2: #4ade80;
+  --color-group-3: #f472b6;
+  --color-group-4: #fb923c;
+  --color-group-5: #c084fc;
+  --color-group-6: #34d399;
+  --color-group-7: #fde047;
+  --color-group-8: #a78bfa;
+  --color-group-9: #86efac;
   --color-group-10: #fda4af;
   --color-group-11: #5eead4;
 }
 
-[data-theme="true-gray"] {
+[data-theme='true-gray'] {
   --color-accent: #a3a3a3;
   --color-accent-soft: #d4d4d4;
   --color-surface: #181818;
@@ -120,16 +120,16 @@
   --color-edge: rgba(163, 163, 163, 0.35);
 
   /* Full-saturation brights — maximum contrast on neutral gray */
-  --color-group-0:  #60a5fa;
-  --color-group-1:  #f87171;
-  --color-group-2:  #4ade80;
-  --color-group-3:  #fbbf24;
-  --color-group-4:  #c084fc;
-  --color-group-5:  #34d399;
-  --color-group-6:  #fb923c;
-  --color-group-7:  #38bdf8;
-  --color-group-8:  #a78bfa;
-  --color-group-9:  #f472b6;
+  --color-group-0: #60a5fa;
+  --color-group-1: #f87171;
+  --color-group-2: #4ade80;
+  --color-group-3: #fbbf24;
+  --color-group-4: #c084fc;
+  --color-group-5: #34d399;
+  --color-group-6: #fb923c;
+  --color-group-7: #38bdf8;
+  --color-group-8: #a78bfa;
+  --color-group-9: #f472b6;
   --color-group-10: #a3e635;
   --color-group-11: #2dd4bf;
 }
@@ -138,47 +138,99 @@
 
 body {
   background-color: #000;
-  font-family: "Quicksand Variable", sans-serif;
+  font-family: 'Quicksand Variable', sans-serif;
 }
 
 /* ── Popover animations ────────────────────────────────────────────────────── */
 
 @keyframes popover-in {
-  from { opacity: 0; transform: scale(0.94) translateY(4px); }
-  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 @keyframes popover-out {
-  from { opacity: 1; transform: scale(1)    translateY(0);   }
-  to   { opacity: 0; transform: scale(0.94) translateY(4px); }
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.94) translateY(4px);
+  }
 }
 
 /* ── Select / dropdown animations ─────────────────────────────────────────── */
 
 /* Opens downward */
 @keyframes select-in {
-  from { opacity: 0; clip-path: inset(0 0 100% 0 round 8px); transform: translateY(-6px); }
-  to   { opacity: 1; clip-path: inset(0 0 0%   0 round 8px); transform: translateY(0);    }
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round 8px);
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0 round 8px);
+    transform: translateY(0);
+  }
 }
 @keyframes select-out {
-  from { opacity: 1; clip-path: inset(0 0 0%   0 round 8px); transform: translateY(0);    }
-  to   { opacity: 0; clip-path: inset(0 0 100% 0 round 8px); transform: translateY(-6px); }
+  from {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0 round 8px);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round 8px);
+    transform: translateY(-6px);
+  }
 }
 
 /* Opens upward */
 @keyframes select-in-up {
-  from { opacity: 0; clip-path: inset(100% 0 0 0 round 8px); transform: translateY(6px); }
-  to   { opacity: 1; clip-path: inset(0%   0 0 0 round 8px); transform: translateY(0);   }
+  from {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0 round 8px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0% 0 0 0 round 8px);
+    transform: translateY(0);
+  }
 }
 @keyframes select-out-up {
-  from { opacity: 1; clip-path: inset(0%   0 0 0 round 8px); transform: translateY(0);   }
-  to   { opacity: 0; clip-path: inset(100% 0 0 0 round 8px); transform: translateY(6px); }
+  from {
+    opacity: 1;
+    clip-path: inset(0% 0 0 0 round 8px);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0 round 8px);
+    transform: translateY(6px);
+  }
 }
 
-.dropdown-content[data-state="open"][data-side="bottom"]  { animation: select-in      260ms cubic-bezier(0.16, 1, 0.3, 1); }
-.dropdown-content[data-state="closed"][data-side="bottom"] { animation: select-out     180ms cubic-bezier(0.4,  0, 1, 1);   }
-.dropdown-content[data-state="open"][data-side="top"]     { animation: select-in-up   260ms cubic-bezier(0.16, 1, 0.3, 1); }
-.dropdown-content[data-state="closed"][data-side="top"]   { animation: select-out-up  180ms cubic-bezier(0.4,  0, 1, 1);   }
+.dropdown-content[data-state='open'][data-side='bottom'] {
+  animation: select-in 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dropdown-content[data-state='closed'][data-side='bottom'] {
+  animation: select-out 180ms cubic-bezier(0.4, 0, 1, 1);
+}
+.dropdown-content[data-state='open'][data-side='top'] {
+  animation: select-in-up 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dropdown-content[data-state='closed'][data-side='top'] {
+  animation: select-out-up 180ms cubic-bezier(0.4, 0, 1, 1);
+}
 
 /* Edge color driven by CSS variable so all themes work without JS */
 svg line.edge-visual {

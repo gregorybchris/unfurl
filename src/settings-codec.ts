@@ -1,39 +1,47 @@
-import type { GraphId, Theme } from "@/app";
-import type { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
+import type { GraphId, Theme } from '@/app'
+import type { ForceConfig, FunctionType, PhysicsConfig } from '@/simulation/physics-config'
 
 export interface AppSettings {
-  physicsConfig: PhysicsConfig;
-  selectedGraphId: GraphId;
-  theme: Theme;
-  nodeColors: boolean;
-  dimensionMode: '2d' | '3d';
-  linkWidth: boolean;
+  physicsConfig: PhysicsConfig
+  selectedGraphId: GraphId
+  theme: Theme
+  nodeColors: boolean
+  dimensionMode: '2d' | '3d'
+  linkWidth: boolean
 }
 
-const CODEC_VERSION = 2;
-const TOTAL_BYTES = 15; // 115 bits packed into 15 bytes (120 bits, 5 trailing zero bits padding)
+const CODEC_VERSION = 2
+const TOTAL_BYTES = 15 // 115 bits packed into 15 bytes (120 bits, 5 trailing zero bits padding)
 
 // Frozen enum orderings — never reorder without bumping CODEC_VERSION
 const GRAPH_IDS: GraphId[] = [
-  "les-miserables", "karate", "dolphins", "polbooks", "adjnoun", "football",
-];
-const THEME_IDS: Theme[] = [
-  "slate-dark", "warm-charcoal", "parchment", "deep-navy", "true-gray",
-];
+  'les-miserables',
+  'karate',
+  'dolphins',
+  'polbooks',
+  'adjnoun',
+  'football',
+]
+const THEME_IDS: Theme[] = ['slate-dark', 'warm-charcoal', 'parchment', 'deep-navy', 'true-gray']
 const FN_TYPES: FunctionType[] = [
-  "step", "linear", "inverse", "logistic", "logarithmic", "exponential",
-];
+  'step',
+  'linear',
+  'inverse',
+  'logistic',
+  'logarithmic',
+  'exponential',
+]
 
 // [physicsConfig key, maxStrength, strengthBits] — order is part of the encoding contract
 const FORCE_LAYOUT: [keyof PhysicsConfig, number, number][] = [
-  ["centerPull",             2,  8],
-  ["basicRepulsion",         2,  8],
-  ["springAttraction",       2,  8],
-  ["graphDistanceRepulsion", 10, 10],
-  ["degreeDrift",            2,  8],
-  ["degreeRepulsion",        2,  8],
-  ["eigenvectorDrift",       2,  8],
-];
+  ['centerPull', 2, 8],
+  ['basicRepulsion', 2, 8],
+  ['springAttraction', 2, 8],
+  ['graphDistanceRepulsion', 10, 10],
+  ['degreeDrift', 2, 8],
+  ['degreeRepulsion', 2, 8],
+  ['eigenvectorDrift', 2, 8],
+]
 
 // Bit layout (MSB-first within each byte):
 // [4]  version
@@ -52,103 +60,103 @@ const FORCE_LAYOUT: [keyof PhysicsConfig, number, number][] = [
 // Total: 115 bits → 15 bytes → exactly 20 base64url characters (no padding: 15 % 3 === 0)
 
 class BitWriter {
-  private bytes = new Uint8Array(TOTAL_BYTES);
-  private pos = 0;
+  private bytes = new Uint8Array(TOTAL_BYTES)
+  private pos = 0
 
   write(value: number, bits: number): void {
     for (let i = bits - 1; i >= 0; i--) {
-      if ((value >> i) & 1) this.bytes[this.pos >> 3] |= 1 << (7 - (this.pos & 7));
-      this.pos++;
+      if ((value >> i) & 1) this.bytes[this.pos >> 3] |= 1 << (7 - (this.pos & 7))
+      this.pos++
     }
   }
 
   toBase64Url(): string {
-    let s = "";
-    for (const b of this.bytes) s += String.fromCharCode(b);
-    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_");
+    let s = ''
+    for (const b of this.bytes) s += String.fromCharCode(b)
+    return btoa(s).replace(/\+/g, '-').replace(/\//g, '_')
   }
 }
 
 class BitReader {
-  private pos = 0;
+  private pos = 0
   constructor(private bytes: Uint8Array) {}
 
   read(bits: number): number {
-    let v = 0;
+    let v = 0
     for (let i = bits - 1; i >= 0; i--) {
-      v |= ((this.bytes[this.pos >> 3] >> (7 - (this.pos & 7))) & 1) << i;
-      this.pos++;
+      v |= ((this.bytes[this.pos >> 3] >> (7 - (this.pos & 7))) & 1) << i
+      this.pos++
     }
-    return v;
+    return v
   }
 }
 
 export function encodeSettings(s: AppSettings): string {
-  const w = new BitWriter();
-  const p = s.physicsConfig;
+  const w = new BitWriter()
+  const p = s.physicsConfig
 
-  w.write(CODEC_VERSION, 4);
-  w.write(Math.round((p.simulationSpeed - 0.001) / 0.001), 7);
-  w.write(Math.round((0.92 - 0.8) / 0.001), 8); // reserved (was damping)
-  w.write(p.paused ? 1 : 0, 1);
-  w.write(GRAPH_IDS.indexOf(s.selectedGraphId), 3);
-  w.write(THEME_IDS.indexOf(s.theme), 3);
-  w.write(s.nodeColors ? 1 : 0, 1);
-  w.write(s.dimensionMode === '3d' ? 1 : 0, 1);
-  w.write(s.linkWidth ? 1 : 0, 1);
+  w.write(CODEC_VERSION, 4)
+  w.write(Math.round((p.simulationSpeed - 0.001) / 0.001), 7)
+  w.write(Math.round((0.92 - 0.8) / 0.001), 8) // reserved (was damping)
+  w.write(p.paused ? 1 : 0, 1)
+  w.write(GRAPH_IDS.indexOf(s.selectedGraphId), 3)
+  w.write(THEME_IDS.indexOf(s.theme), 3)
+  w.write(s.nodeColors ? 1 : 0, 1)
+  w.write(s.dimensionMode === '3d' ? 1 : 0, 1)
+  w.write(s.linkWidth ? 1 : 0, 1)
 
   for (const [key, , strengthBits] of FORCE_LAYOUT) {
-    const fc = p[key] as ForceConfig;
-    w.write(fc.enabled ? 1 : 0, 1);
-    w.write(Math.round(fc.strength / 0.01), strengthBits);
-    w.write(FN_TYPES.indexOf(fc.functionType), 3);
+    const fc = p[key] as ForceConfig
+    w.write(fc.enabled ? 1 : 0, 1)
+    w.write(Math.round(fc.strength / 0.01), strengthBits)
+    w.write(FN_TYPES.indexOf(fc.functionType), 3)
   }
 
-  return w.toBase64Url();
+  return w.toBase64Url()
 }
 
 export function decodeSettings(encoded: string): AppSettings | null {
   try {
-    const b64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
-    const binary = atob(b64);
-    if (binary.length !== TOTAL_BYTES) return null;
+    const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
+    const binary = atob(b64)
+    if (binary.length !== TOTAL_BYTES) return null
 
-    const bytes = new Uint8Array(TOTAL_BYTES);
-    for (let i = 0; i < TOTAL_BYTES; i++) bytes[i] = binary.charCodeAt(i);
+    const bytes = new Uint8Array(TOTAL_BYTES)
+    for (let i = 0; i < TOTAL_BYTES; i++) bytes[i] = binary.charCodeAt(i)
 
-    const r = new BitReader(bytes);
+    const r = new BitReader(bytes)
 
-    if (r.read(4) !== CODEC_VERSION) return null;
+    if (r.read(4) !== CODEC_VERSION) return null
 
-    const simulationSpeed = +(r.read(7) * 0.001 + 0.001).toFixed(3);
-    r.read(8); // reserved (was damping)
-    const paused = r.read(1) === 1;
+    const simulationSpeed = +(r.read(7) * 0.001 + 0.001).toFixed(3)
+    r.read(8) // reserved (was damping)
+    const paused = r.read(1) === 1
 
-    const graphIdx = r.read(3);
-    if (graphIdx >= GRAPH_IDS.length) return null;
-    const selectedGraphId = GRAPH_IDS[graphIdx];
+    const graphIdx = r.read(3)
+    if (graphIdx >= GRAPH_IDS.length) return null
+    const selectedGraphId = GRAPH_IDS[graphIdx]
 
-    const themeIdx = r.read(3);
-    if (themeIdx >= THEME_IDS.length) return null;
-    const theme = THEME_IDS[themeIdx];
+    const themeIdx = r.read(3)
+    if (themeIdx >= THEME_IDS.length) return null
+    const theme = THEME_IDS[themeIdx]
 
-    const nodeColors = r.read(1) === 1;
-    const dimensionMode = r.read(1) === 1 ? '3d' : '2d' as const;
-    const linkWidth = r.read(1) === 1;
+    const nodeColors = r.read(1) === 1
+    const dimensionMode = r.read(1) === 1 ? '3d' : ('2d' as const)
+    const linkWidth = r.read(1) === 1
 
-    const physicsConfig = { simulationSpeed, paused } as PhysicsConfig;
+    const physicsConfig = { simulationSpeed, paused } as PhysicsConfig
 
     for (const [key, , strengthBits] of FORCE_LAYOUT) {
-      const enabled = r.read(1) === 1;
-      const strength = +(r.read(strengthBits) * 0.01).toFixed(2);
-      const ftIdx = r.read(3);
-      if (ftIdx >= FN_TYPES.length) return null;
-      const functionType = FN_TYPES[ftIdx];
-      (physicsConfig as Record<string, unknown>)[key] = { enabled, strength, functionType };
+      const enabled = r.read(1) === 1
+      const strength = +(r.read(strengthBits) * 0.01).toFixed(2)
+      const ftIdx = r.read(3)
+      if (ftIdx >= FN_TYPES.length) return null
+      const functionType = FN_TYPES[ftIdx]
+      ;(physicsConfig as Record<string, unknown>)[key] = { enabled, strength, functionType }
     }
 
-    return { physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode, linkWidth };
+    return { physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode, linkWidth }
   } catch {
-    return null;
+    return null
   }
 }

@@ -7,7 +7,7 @@ export class CurveImpl {
    * @return {number}    y-value on the line.
    */
   static linear(m: number, b: number, x: number): number {
-    return m * x + b;
+    return m * x + b
   }
 
   /**
@@ -18,7 +18,7 @@ export class CurveImpl {
    * @return {number}    y-value on the curve.
    */
   static exponential(a: number, b: number, x: number): number {
-    return a * Math.pow(b, x);
+    return a * Math.pow(b, x)
   }
 
   /**
@@ -29,7 +29,7 @@ export class CurveImpl {
    * @return {number}    y-value on the curve.
    */
   static logistic(a: number, b: number, x: number): number {
-    return a / (1 + Math.exp(-b * x));
+    return a / (1 + Math.exp(-b * x))
   }
 
   /**
@@ -40,7 +40,7 @@ export class CurveImpl {
    * @return {number}    y-value on the curve.
    */
   static logarithmic(a: number, b: number, x: number): number {
-    return a * Math.log(x) + b;
+    return a * Math.log(x) + b
   }
 
   /**
@@ -51,6 +51,6 @@ export class CurveImpl {
    * @return {number}    y-value on the curve.
    */
   static polynomial(a: number, b: number, x: number): number {
-    return a * Math.pow(x, b);
+    return a * Math.pow(x, b)
   }
 }
