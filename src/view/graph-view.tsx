@@ -77,6 +77,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   const cameraRef = useRef({
     panX: 0,
     panY: 0,
+    panZ: 0,
     theta: 0.4,       // horizontal orbit angle
     phi: 0.25,        // vertical orbit angle
     distance: DEFAULT_CAMERA_DISTANCE,
@@ -130,10 +131,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     const screenScale = DEFAULT_CAMERA_DISTANCE / distance;
 
     return (worldPos: Vec3) => {
-      // Translate by pan offset (shifts the orbit center)
+      // Translate by pan offset (shifts the orbit center in world space)
       const px = worldPos.x - cam.panX;
       const py = worldPos.y - cam.panY;
-      const pz = worldPos.z;
+      const pz = worldPos.z - cam.panZ;
 
       // Rotate to camera space (cz = distance from camera along forward axis)
       const cx = px * rx + py * ry + pz * rz;
@@ -189,6 +190,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
     resetZoom: () => {
       cameraRef.current.panX = 0;
       cameraRef.current.panY = 0;
+      cameraRef.current.panZ = 0;
       if (dimensionModeRef.current === '3d') {
         cameraRef.current.distance = DEFAULT_CAMERA_DISTANCE;
         cameraRef.current.theta = 0.4;
@@ -249,7 +251,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   }
 
   // Pan and rotate drag state
-  const panDragRef = useRef<{ startX: number; startY: number; startPanX: number; startPanY: number } | null>(null);
+  const panDragRef = useRef<{ startX: number; startY: number; startPanX: number; startPanY: number; startPanZ: number } | null>(null);
   const rotateDragRef = useRef<{ startX: number; startY: number; startTheta: number; startPhi: number } | null>(null);
 
   function onSvgMouseDown(e: React.MouseEvent<SVGSVGElement>) {
@@ -263,6 +265,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
         startY: e.clientY,
         startPanX: cameraRef.current.panX,
         startPanY: cameraRef.current.panY,
+        startPanZ: cameraRef.current.panZ,
       };
     } else if (e.shiftKey && dimensionModeRef.current === '3d') {
       e.preventDefault();
@@ -278,7 +281,7 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       if (panDragRef.current) {
-        const { startX, startY, startPanX, startPanY } = panDragRef.current;
+        const { startX, startY, startPanX, startPanY, startPanZ } = panDragRef.current;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
         if (dimensionModeRef.current === '2d') {
@@ -286,12 +289,13 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
           cameraRef.current.panX = startPanX - dx / displayScaleRef.current;
           cameraRef.current.panY = startPanY - dy / displayScaleRef.current;
         } else {
-          // In 3D, pan along camera right/up basis vectors so direction stays
-          // consistent regardless of how the camera is rotated
+          // In 3D, pan along all three camera right/up basis vector components
+          // so direction stays consistent regardless of how the camera is rotated
           const factor = cameraRef.current.distance / DEFAULT_CAMERA_DISTANCE;
           const cam = cameraRef.current;
           cameraRef.current.panX = startPanX - (dx * cam.rightVec.x - dy * cam.upVec.x) / factor;
           cameraRef.current.panY = startPanY - (dx * cam.rightVec.y - dy * cam.upVec.y) / factor;
+          cameraRef.current.panZ = startPanZ - (dx * cam.rightVec.z - dy * cam.upVec.z) / factor;
         }
         updateCameraAndRedraw();
       } else if (rotateDragRef.current) {
