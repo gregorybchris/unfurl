@@ -9,6 +9,17 @@ export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
+  build: {
+    rolldownOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes("node_modules/react") || id.includes("node_modules/react-dom")) return "react";
+          if (id.includes("node_modules/d3") || id.includes("node_modules/d3-")) return "d3";
+          if (id.includes("node_modules/@radix-ui")) return "radix";
+        },
+      },
+    },
+  },
   test: {
     globals: false,
     environment: "jsdom",
