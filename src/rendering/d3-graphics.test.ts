@@ -26,7 +26,7 @@ describe("D3Graphics", () => {
     new D3Graphics(container, { x: 0, y: 0 }, 5, entities, [], vi.fn(), vi.fn());
 
     expect(container.querySelector("#entities-group")).not.toBeNull();
-    expect(container.querySelectorAll("circle")).toHaveLength(2);
+    expect(container.querySelectorAll("circle.node-visual")).toHaveLength(2);
   });
 
   it("resize centers a fixed-scale viewBox on the focal point", () => {
@@ -83,7 +83,7 @@ describe("D3Graphics", () => {
     const onClick = vi.fn();
     new D3Graphics(container, { x: 0, y: 0 }, 5, entities, [], vi.fn(), onClick);
 
-    container.querySelector("#entity-b")!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    container.querySelector("#entity-b-hit")!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
     expect(onClick).toHaveBeenCalledWith(entities[1]);
   });

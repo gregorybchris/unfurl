@@ -25,6 +25,7 @@ export class D3Graphics<Entity extends IEntity> {
   animationGraphics: AnimationGraphics;
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private elementMap = new Map<string, SVGCircleElement>();
+  private hitElementMap = new Map<string, SVGCircleElement>();
   private lineElements: SVGLineElement[] = [];
   private hitLineElements: SVGLineElement[] = [];
   private dragState: DragState<Entity> | null = null;
@@ -194,15 +195,40 @@ export class D3Graphics<Entity extends IEntity> {
 
   addCircles() {
     const entitiesGroup = this.canvas.append("g").attr("id", "entities-group");
+    const hitRadius = this.radius * 2;
+
+    // Visible circles — no pointer events so the hit layer takes precedence.
     entitiesGroup
-      .selectAll("circle")
+      .selectAll("circle.node-visual")
       .data(this.entities)
       .enter()
       .append("circle")
+      .attr("class", "node-visual")
       .attr("cx", (entity) => entity.position.x)
       .attr("cy", (entity) => entity.position.y)
       .attr("r", this.radius)
       .attr("id", (entity) => this.getSvgElementId(entity))
+      .style("pointer-events", "none")
+      .each((entity, _i, nodes) => {
+        const el = nodes[_i] as SVGCircleElement;
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = entity.id;
+        el.appendChild(title);
+        this.elementMap.set(entity.id, el);
+      });
+
+    // Invisible hit circles — larger radius for easier dragging.
+    entitiesGroup
+      .selectAll("circle.node-hit")
+      .data(this.entities)
+      .enter()
+      .append("circle")
+      .attr("class", "node-hit")
+      .attr("cx", (entity) => entity.position.x)
+      .attr("cy", (entity) => entity.position.y)
+      .attr("r", hitRadius)
+      .attr("id", (entity) => `${this.getSvgElementId(entity)}-hit`)
+      .attr("fill", "transparent")
       .style("cursor", "grab")
       .on("mousedown", (event: MouseEvent, entity) => {
         this.beginNodeDrag(event, entity);
@@ -218,15 +244,22 @@ export class D3Graphics<Entity extends IEntity> {
         this.opts.onHoverEnd?.();
       })
       .each((entity, _i, nodes) => {
-        this.elementMap.set(entity.id, nodes[_i] as SVGCircleElement);
+        this.hitElementMap.set(entity.id, nodes[_i] as SVGCircleElement);
       });
   }
 
   updateCircle(entity: Entity) {
+    const x = String(entity.position.x);
+    const y = String(entity.position.y);
     const el = this.elementMap.get(entity.id);
     if (el) {
-      el.setAttribute("cx", String(entity.position.x));
-      el.setAttribute("cy", String(entity.position.y));
+      el.setAttribute("cx", x);
+      el.setAttribute("cy", y);
+    }
+    const hit = this.hitElementMap.get(entity.id);
+    if (hit) {
+      hit.setAttribute("cx", x);
+      hit.setAttribute("cy", y);
     }
   }
 }
