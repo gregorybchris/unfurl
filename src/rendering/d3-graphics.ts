@@ -210,6 +210,7 @@ export class D3Graphics<Entity extends IEntity> {
       hit.setAttribute("y2", String(pt.y));
       hit.setAttribute("stroke", "transparent");
       hit.setAttribute("stroke-width", "20");
+      hit.setAttribute("class", "edge-hit");
       hit.style.cursor = "crosshair";
       hit.addEventListener("mousemove", (e: MouseEvent) => {
         if (this.dragState) return;
@@ -305,6 +306,17 @@ export class D3Graphics<Entity extends IEntity> {
         this.hitElementMap.set(entity.id, hitEl);
         this.sortEntries.push({ id: entity.id, el: this.elementMap.get(entity.id)!, hitEl, depth: 0 });
       });
+
+    // Fallback: in 3D mode, sortByDepth() reorders DOM elements every frame, which can
+    // prevent mouseleave from firing on hit circles when the cursor moves to empty space.
+    // This SVG-level mousemove handler clears the tooltip whenever the cursor is not
+    // directly over a hit element, regardless of DOM order.
+    this.container.addEventListener("mousemove", (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.classList.contains("node-hit") && !target.classList.contains("edge-hit")) {
+        this.opts.onHoverEnd?.();
+      }
+    });
   }
 
   updateCircle(entity: Entity) {
