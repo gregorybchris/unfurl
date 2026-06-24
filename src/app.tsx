@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { computeEigenvectorCentrality, computeNodeDegrees } from "@/graph/centrality";
 import { floydWarshall } from "@/graph/algo";
 import {
@@ -10,6 +10,7 @@ import {
   makeSymmetric,
 } from "@/graph/graph";
 import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
+import { decodeSettings, encodeSettings } from "@/settings-codec";
 import { ControlPanel } from "@/view/control-panel";
 import { GraphView, GraphViewHandle } from "@/view/graph-view";
 import lesMisData from "./data/les-miserables.json";
@@ -63,12 +64,28 @@ function computeGraphData(jsonGraph: JsonGraph) {
   };
 }
 
+const INITIAL_URL_SETTINGS = (() => {
+  const c = new URLSearchParams(window.location.search).get("c");
+  return c ? decodeSettings(c) : null;
+})();
+
 export default function App() {
-  const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(defaultPhysicsConfig);
-  const [selectedGraphId, setSelectedGraphId] = useState<GraphId>("les-miserables");
-  const [theme, setTheme] = useState<Theme>("slate-dark");
-  const [nodeColors, setNodeColors] = useState(false);
+  const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(
+    INITIAL_URL_SETTINGS?.physicsConfig ?? defaultPhysicsConfig
+  );
+  const [selectedGraphId, setSelectedGraphId] = useState<GraphId>(
+    INITIAL_URL_SETTINGS?.selectedGraphId ?? "les-miserables"
+  );
+  const [theme, setTheme] = useState<Theme>(INITIAL_URL_SETTINGS?.theme ?? "slate-dark");
+  const [nodeColors, setNodeColors] = useState(INITIAL_URL_SETTINGS?.nodeColors ?? false);
   const graphViewRef = useRef<GraphViewHandle>(null);
+
+  useEffect(() => {
+    const encoded = encodeSettings({ physicsConfig, selectedGraphId, theme, nodeColors });
+    const url = new URL(window.location.href);
+    url.searchParams.set("c", encoded);
+    window.history.replaceState(null, "", url.toString());
+  }, [physicsConfig, selectedGraphId, theme, nodeColors]);
 
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
   const { shortestPaths, nodeDegrees, eigenvectorCentrality } = useMemo(
