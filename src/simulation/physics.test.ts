@@ -37,8 +37,8 @@ describe("physics.update", () => {
     // a is repelled toward -x, b toward +x
     expect(a.position.x).toBeLessThan(0);
     expect(b.position.x).toBeGreaterThan(10);
-    expect(a.position.x).toBeCloseTo(-0.0368, 4);
-    expect(b.position.x).toBeCloseTo(10.03588, 4);
+    expect(a.position.x).toBeCloseTo(-0.03544, 4);
+    expect(b.position.x).toBeCloseTo(10.03452, 4);
     expect(a.position.y).toBeCloseTo(0);
     expect(b.position.y).toBeCloseTo(0);
   });

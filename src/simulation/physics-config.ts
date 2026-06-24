@@ -1,4 +1,4 @@
-export type FunctionType = "step" | "linear" | "inverse" | "logistic" | "logarithmic";
+export type FunctionType = "step" | "linear" | "inverse" | "logistic" | "logarithmic" | "exponential";
 
 export type ForceConfig = {
   enabled: boolean;
@@ -24,9 +24,9 @@ export const defaultPhysicsConfig: PhysicsConfig = {
   damping: 0.92,
   paused: false,
   centerPull:             { enabled: true,  strength: 1.0, functionType: "linear"  },
-  basicRepulsion:         { enabled: true,  strength: 1.0, functionType: "step"    },
+  basicRepulsion:         { enabled: true,  strength: 2.0, functionType: "linear"  },
   springAttraction:       { enabled: true,  strength: 1.0, functionType: "linear"  },
-  graphDistanceRepulsion: { enabled: false, strength: 1.0, functionType: "linear"  },
+  graphDistanceRepulsion: { enabled: true,  strength: 0.5, functionType: "linear"  },
   degreeDrift:            { enabled: false, strength: 1.0, functionType: "linear"  },
   degreeRepulsion:        { enabled: false, strength: 1.0, functionType: "linear"  },
   eigenvectorDrift:       { enabled: false, strength: 1.0, functionType: "linear"  },

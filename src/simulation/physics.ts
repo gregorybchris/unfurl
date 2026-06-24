@@ -14,8 +14,8 @@ const REPULSION_OUTER_SQ = REPULSION_OUTER * REPULSION_OUTER;
 const REPULSION_CLOSE_FORCE = -2;
 const REPULSION_FAR_FORCE = -0.15;
 const CENTER_PULL_SLOPE = 0.005;
-const SPRING_K = 0.005;
-const SPRING_REST_LENGTH = 250;
+const SPRING_K = 0.015;
+const SPRING_REST_LENGTH = 100;
 
 // Map Euclidean distance → repulsion magnitude (positive = push away).
 function repulsionByDistance(fn: FunctionType, strength: number, distance: number): number {
@@ -31,6 +31,8 @@ function repulsionByDistance(fn: FunctionType, strength: number, distance: numbe
       return strength * CurveImpl.logistic(1, -0.05, distance - 150);
     case "logarithmic":
       return distance > 0 ? strength * Math.max(0, 1 - Math.log(distance) / Math.log(REPULSION_OUTER)) : strength;
+    case "exponential":
+      return strength * Math.exp(-distance / (REPULSION_OUTER * 0.3));
   }
 }
 
@@ -39,13 +41,16 @@ function driftByCentrality(fn: FunctionType, strength: number, c: number): numbe
   switch (fn) {
     case "step":
     case "linear":
-      return strength * c;
+      return CurveImpl.linear(strength, 0, c);
     case "inverse":
       return c > 0 ? strength / (1 + c) : 0;
     case "logistic":
       return strength * CurveImpl.logistic(1, 6, c - 0.5);
     case "logarithmic":
-      return strength * Math.log(1 + c);
+      return CurveImpl.logarithmic(strength, 0, 1 + c);
+    case "exponential":
+      // Normalized so f(0)=0, f(1)=strength, with exponential acceleration.
+      return strength * (Math.exp(c) - 1) / (Math.E - 1);
   }
 }
 
@@ -167,7 +172,7 @@ export function update(
         if (euclidean === 0) continue;
 
         // Scale strength by graph distance (farther apart in graph → more repulsion).
-        const repulse = repulsionByDistance(fn, fc.strength * graphDist * 0.01, euclidean);
+        const repulse = repulsionByDistance(fn, fc.strength * graphDist * 0.3, euclidean);
         const fx = -(dx / euclidean) * repulse;
         const fy = -(dy / euclidean) * repulse;
         if (!nodeA.pinned) { nodeA.velocity.x += fx; nodeA.velocity.y += fy; }
@@ -191,6 +196,7 @@ export function update(
   if (config.degreeRepulsion.enabled && nodeDegrees.length > 0) {
     const fc = config.degreeRepulsion;
     const fn = fc.functionType === "step" ? "linear" : fc.functionType;
+    const maxDegree = Math.max(1, ...nodeDegrees);
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const nodeA = nodes[i];
@@ -202,7 +208,7 @@ export function update(
 
         const distance = Math.sqrt(distSq);
         const mag = distance === 0 ? 1 : distance;
-        const degreeScale = ((nodeDegrees[i] ?? 0) + (nodeDegrees[j] ?? 0)) / 2;
+        const degreeScale = ((nodeDegrees[i] ?? 0) + (nodeDegrees[j] ?? 0)) / (2 * maxDegree);
         const factor = -repulsionByDistance(fn, fc.strength * degreeScale, distance);
 
         const fx = (dx / mag) * factor;
@@ -221,6 +227,19 @@ export function update(
       const pull = driftByCentrality(config.eigenvectorDrift.functionType, config.eigenvectorDrift.strength, eigenvectorCentrality[i] ?? 0) * CENTER_PULL_SLOPE;
       node.velocity.x += pull * (center.x - node.position.x);
       node.velocity.y += pull * (center.y - node.position.y);
+    }
+  }
+
+  // --- Clamp velocity to prevent runaway nodes ---
+  const MAX_VELOCITY_SQ = 100 * 100;
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (node.pinned) continue;
+    const vSq = node.velocity.x * node.velocity.x + node.velocity.y * node.velocity.y;
+    if (vSq > MAX_VELOCITY_SQ) {
+      const scale = 100 / Math.sqrt(vSq);
+      node.velocity.x *= scale;
+      node.velocity.y *= scale;
     }
   }
 

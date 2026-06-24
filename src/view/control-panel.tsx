@@ -157,7 +157,7 @@ function ForceSection({
           <div
             className={`border-t border-sea-green/8 px-3 py-2.5 space-y-2.5 transition-opacity duration-200 ${config.enabled ? "opacity-100" : "opacity-0"}`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <span className="text-[10px] text-sea-green/40 w-12 shrink-0 uppercase tracking-wide">
                 Strength
               </span>
@@ -173,7 +173,7 @@ function ForceSection({
                 {config.strength.toFixed(2)}
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <span className="text-[10px] text-sea-green/40 w-12 shrink-0 uppercase tracking-wide">
                 Curve
               </span>
@@ -213,7 +213,7 @@ function GlobalRow({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-4">
       <span className="shrink-0 text-sea-green/50">{icon}</span>
       <span className="text-[10px] text-sea-green/50 w-12 shrink-0 uppercase tracking-wide">{label}</span>
       <ScrubSlider value={value} min={min} max={max} snapTiers={snapTiers} mobileStep={mobileStep} onChange={onChange} />
@@ -370,44 +370,44 @@ export function ControlPanel({
             <div className="space-y-1.5">
               <ForceSection
                 icon={<ArrowsIn size={14} weight="duotone" />}
-                label="Center Pull"
+                label="Gravity"
                 config={config.centerPull}
                 onChange={(fc) => setForce("centerPull", fc)}
               />
               <ForceSection
                 icon={<ArrowsOut size={14} weight="duotone" />}
-                label="Basic Repulsion"
+                label="Charge Repulsion"
                 config={config.basicRepulsion}
                 onChange={(fc) => setForce("basicRepulsion", fc)}
               />
               <ForceSection
                 icon={<Magnet size={14} weight="duotone" />}
-                label="Spring Attraction"
+                label="Link Spring"
                 config={config.springAttraction}
                 onChange={(fc) => setForce("springAttraction", fc)}
               />
               <ForceSection
                 icon={<Graph size={14} weight="duotone" />}
-                label="Graph Distance Repulsion"
+                label="Topological Repulsion"
                 config={config.graphDistanceRepulsion}
                 maxStrength={10}
                 onChange={(fc) => setForce("graphDistanceRepulsion", fc)}
               />
               <ForceSection
                 icon={<ChartBar size={14} weight="duotone" />}
-                label="Degree Centrality Drift"
+                label="Hub Gravity"
                 config={config.degreeDrift}
                 onChange={(fc) => setForce("degreeDrift", fc)}
               />
               <ForceSection
                 icon={<CirclesThree size={14} weight="duotone" />}
-                label="Degree Centrality Repulsion"
+                label="Hub Repulsion"
                 config={config.degreeRepulsion}
                 onChange={(fc) => setForce("degreeRepulsion", fc)}
               />
               <ForceSection
                 icon={<Network size={14} weight="duotone" />}
-                label="Eigenvector Drift"
+                label="Centrality Gravity"
                 config={config.eigenvectorDrift}
                 onChange={(fc) => setForce("eigenvectorDrift", fc)}
               />
