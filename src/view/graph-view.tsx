@@ -184,7 +184,6 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       if (dimensionModeRef.current === '3d') {
         cameraRef.current.distance = Math.max(100, Math.min(5000, cameraRef.current.distance / factor));
         rebuildProjection();
-        forceRedrawAll();
       } else {
         setScale((prev) => Math.max(MIN_SCALE, Math.min(MAX_SCALE, prev * factor)));
       }
@@ -418,8 +417,10 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       const factor = e.deltaY > 0 ? 0.93 : 1.07;
       if (dimensionModeRef.current === '3d') {
         cameraRef.current.distance = Math.max(100, Math.min(5000, cameraRef.current.distance / factor));
+        // Only rebuild projection; the animation loop renders the change on the next frame.
+        // Calling forceRedrawAll() here caused stacked DOM writes when trackpad inertia
+        // fired many wheel events per frame.
         rebuildProjection();
-        forceRedrawAll();
       } else {
         setScale((prev) => Math.max(MIN_SCALE, Math.min(MAX_SCALE, prev * factor)));
       }
