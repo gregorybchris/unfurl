@@ -65,18 +65,18 @@ function GraphSelect({
 }) {
   return (
     <RadixSelect.Root value={value} onValueChange={onChange}>
-      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
+      <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <div className="flex items-center gap-2 min-w-0">
           <Graph size={11} className="shrink-0 text-accent/60" />
           <RadixSelect.Value />
         </div>
-        <RadixSelect.Icon className="shrink-0 text-accent/40">
+        <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
         <RadixSelect.Content
-          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
+          className="dropdown-content bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
           position="popper"
           sideOffset={4}
         >
@@ -110,7 +110,7 @@ function ThemeSelect({
   const current = THEMES.find((t) => t.id === value)!;
   return (
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as Theme)}>
-      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
+      <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <div className="flex items-center gap-2 min-w-0">
           <Palette size={11} className="shrink-0 text-accent/60" />
           <div className="flex items-center gap-1.5 min-w-0">
@@ -121,13 +121,13 @@ function ThemeSelect({
             <RadixSelect.Value />
           </div>
         </div>
-        <RadixSelect.Icon className="shrink-0 text-accent/40">
+        <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
         <RadixSelect.Content
-          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
+          className="dropdown-content bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
           position="popper"
           sideOffset={4}
         >
@@ -166,15 +166,15 @@ function CurveSelect({
 }) {
   return (
     <RadixSelect.Root value={value} onValueChange={(v) => onChange(v as FunctionType)}>
-      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
+      <RadixSelect.Trigger className="group flex items-center justify-between w-full bg-white/5 border border-accent/15 rounded-md px-2.5 py-1.5 text-[11px] text-accent/80 hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-1 focus:ring-accent/30 gap-1 transition-colors cursor-pointer">
         <RadixSelect.Value />
-        <RadixSelect.Icon className="shrink-0 text-accent/40">
+        <RadixSelect.Icon className="shrink-0 text-accent/40 transition-transform duration-200 group-data-[state=open]:rotate-180">
           <CaretDown size={9} weight="bold" />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
         <RadixSelect.Content
-          className="bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[10rem]"
+          className="dropdown-content bg-panel border border-accent/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[10rem]"
           position="popper"
           sideOffset={4}
         >
