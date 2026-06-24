@@ -4,7 +4,7 @@ import { EntityState, IEntity } from "@/simulation/entity";
 import { D3Graphics } from "./d3-graphics";
 
 function makeEntity(id: string, x: number, y: number): IEntity {
-  return { id, position: { x, y }, publisher: new Publisher<EntityState>() };
+  return { id, position: { x, y, z: 0 }, publisher: new Publisher<EntityState>() };
 }
 
 let container: SVGSVGElement;
@@ -59,7 +59,7 @@ describe("D3Graphics", () => {
     const entities = [makeEntity("a", 1, 2)];
     const g = new D3Graphics(container, { x: 0, y: 0 }, 5, entities, [], vi.fn(), vi.fn());
 
-    entities[0].position = { x: 50, y: 60 };
+    entities[0].position = { x: 50, y: 60, z: 0 };
     g.updateCircle(entities[0]);
 
     const circle = container.querySelector("#entity-a")!;
@@ -71,7 +71,7 @@ describe("D3Graphics", () => {
     const entities = [makeEntity("a", 1, 2)];
     new D3Graphics(container, { x: 0, y: 0 }, 5, entities, [], vi.fn(), vi.fn());
 
-    entities[0].publisher.publish({ id: "a", position: { x: 7, y: 8 } });
+    entities[0].publisher.publish({ id: "a", position: { x: 7, y: 8, z: 0 } });
 
     const circle = container.querySelector("#entity-a")!;
     expect(circle.getAttribute("cx")).toBe("7");
