@@ -6,10 +6,11 @@ export interface AppSettings {
   selectedGraphId: GraphId;
   theme: Theme;
   nodeColors: boolean;
+  dimensionMode: '2d' | '3d';
 }
 
-const CODEC_VERSION = 0;
-const TOTAL_BYTES = 15; // 113 bits packed into 15 bytes (120 bits, 7 trailing zero bits padding)
+const CODEC_VERSION = 1;
+const TOTAL_BYTES = 15; // 114 bits packed into 15 bytes (120 bits, 6 trailing zero bits padding)
 
 // Frozen enum orderings — never reorder without bumping CODEC_VERSION
 const GRAPH_IDS: GraphId[] = [
@@ -41,11 +42,12 @@ const FORCE_LAYOUT: [keyof PhysicsConfig, number, number][] = [
 // [3]  selectedGraphId  — index into GRAPH_IDS
 // [3]  theme            — index into THEME_IDS
 // [1]  nodeColors
+// [1]  dimensionMode    — 0=2d, 1=3d
 // Per force × 7 (in FORCE_LAYOUT order):
 // [1]  enabled
 // [8 or 10]  strength   — quantized as round(v / 0.01)
 // [3]  functionType     — index into FN_TYPES
-// Total: 113 bits → 15 bytes → exactly 20 base64url characters (no padding: 15 % 3 === 0)
+// Total: 114 bits → 15 bytes → exactly 20 base64url characters (no padding: 15 % 3 === 0)
 
 class BitWriter {
   private bytes = new Uint8Array(TOTAL_BYTES);
@@ -90,6 +92,7 @@ export function encodeSettings(s: AppSettings): string {
   w.write(GRAPH_IDS.indexOf(s.selectedGraphId), 3);
   w.write(THEME_IDS.indexOf(s.theme), 3);
   w.write(s.nodeColors ? 1 : 0, 1);
+  w.write(s.dimensionMode === '3d' ? 1 : 0, 1);
 
   for (const [key, , strengthBits] of FORCE_LAYOUT) {
     const fc = p[key] as ForceConfig;
@@ -127,6 +130,7 @@ export function decodeSettings(encoded: string): AppSettings | null {
     const theme = THEME_IDS[themeIdx];
 
     const nodeColors = r.read(1) === 1;
+    const dimensionMode = r.read(1) === 1 ? '3d' : '2d' as const;
 
     const physicsConfig = { simulationSpeed, damping, paused } as PhysicsConfig;
 
@@ -139,7 +143,7 @@ export function decodeSettings(encoded: string): AppSettings | null {
       (physicsConfig as Record<string, unknown>)[key] = { enabled, strength, functionType };
     }
 
-    return { physicsConfig, selectedGraphId, theme, nodeColors };
+    return { physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode };
   } catch {
     return null;
   }

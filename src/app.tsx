@@ -12,7 +12,7 @@ import {
 import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
 import { decodeSettings, encodeSettings } from "@/settings-codec";
 import { ControlPanel } from "@/view/control-panel";
-import { GraphView, GraphViewHandle } from "@/view/graph-view";
+import { DimensionMode, GraphView, GraphViewHandle } from "@/view/graph-view";
 import lesMisData from "./data/les-miserables.json";
 import karateData from "./data/karate.json";
 import dolphinsData from "./data/dolphins.json";
@@ -78,14 +78,17 @@ export default function App() {
   );
   const [theme, setTheme] = useState<Theme>(INITIAL_URL_SETTINGS?.theme ?? "slate-dark");
   const [nodeColors, setNodeColors] = useState(INITIAL_URL_SETTINGS?.nodeColors ?? false);
+  const [dimensionMode, setDimensionMode] = useState<DimensionMode>(
+    INITIAL_URL_SETTINGS?.dimensionMode ?? '2d'
+  );
   const graphViewRef = useRef<GraphViewHandle>(null);
 
   useEffect(() => {
-    const encoded = encodeSettings({ physicsConfig, selectedGraphId, theme, nodeColors });
+    const encoded = encodeSettings({ physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode });
     const url = new URL(window.location.href);
     url.searchParams.set("c", encoded);
     window.history.replaceState(null, "", url.toString());
-  }, [physicsConfig, selectedGraphId, theme, nodeColors]);
+  }, [physicsConfig, selectedGraphId, theme, nodeColors, dimensionMode]);
 
   const selectedGraph = GRAPH_OPTIONS.find((g) => g.id === selectedGraphId)!;
   const { shortestPaths, nodeDegrees, eigenvectorCentrality } = useMemo(
@@ -115,6 +118,8 @@ export default function App() {
           onThemeChange={setTheme}
           nodeColors={nodeColors}
           onNodeColorsChange={setNodeColors}
+          dimensionMode={dimensionMode}
+          onDimensionModeChange={setDimensionMode}
         />
         <div className="flex-1 min-w-0">
           <GraphView
@@ -127,6 +132,7 @@ export default function App() {
             nodeDegrees={nodeDegrees}
             eigenvectorCentrality={eigenvectorCentrality}
             nodeColors={nodeColors}
+            dimensionMode={dimensionMode}
           />
         </div>
       </div>

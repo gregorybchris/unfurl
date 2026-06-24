@@ -1,25 +1,36 @@
 import { Subscriber } from "@/events/pubsub";
-import { Vector } from "@/math/math";
+import { Vec2 } from "@/math/vec2";
+import { Vec3 } from "@/math/vec3";
 import { IEntity } from "@/simulation/entity";
 import * as d3 from "d3";
 import { AnimationGraphics, UpdateFuncType } from "./animation-graphics";
 
 export type EdgeRef<Entity> = { source: Entity; target: Entity; value?: number };
 
-const GROUP_COLOR_COUNT = 12;
+export type ProjectionFn = (worldPos: Vec3) => { x: number; y: number; scale: number; depth: number };
+
+const GROUP_COLORS = [
+  '#60a5fa', '#f87171', '#4ade80', '#fbbf24', '#c084fc',
+  '#34d399', '#fb923c', '#38bdf8', '#a78bfa', '#f472b6',
+  '#a3e635', '#2dd4bf',
+];
 
 export interface D3GraphicsOptions<Entity> {
   onNodeHover?: (entity: Entity, clientX: number, clientY: number) => void;
   onEdgeHover?: (edge: EdgeRef<Entity>, clientX: number, clientY: number) => void;
   onHoverEnd?: () => void;
   nodeGroupMap?: Map<string, number>;
+  projectionFn?: ProjectionFn;
+  onNodeDragDelta?: (entity: Entity, svgDx: number, svgDy: number) => void;
 }
 
-type DragState<Entity> = { entity: Entity; lastMouse: Vector };
+type DragState<Entity> = { entity: Entity; lastMouse: Vec2 };
+
+const defaultProjection: ProjectionFn = (pos) => ({ x: pos.x, y: pos.y, scale: 1, depth: 0 });
 
 export class D3Graphics<Entity extends IEntity> {
   container: SVGSVGElement;
-  center: Vector;
+  center: Vec2;
   radius: number;
   entities: Entity[];
   edges: EdgeRef<Entity>[];
@@ -37,7 +48,7 @@ export class D3Graphics<Entity extends IEntity> {
 
   constructor(
     container: SVGSVGElement,
-    center: Vector,
+    center: Vec2,
     radius: number,
     entities: Entity[],
     edges: EdgeRef<Entity>[],
@@ -74,6 +85,10 @@ export class D3Graphics<Entity extends IEntity> {
     });
   }
 
+  private project(pos: Vec3) {
+    return (this.opts.projectionFn ?? defaultProjection)(pos);
+  }
+
   // Map the element's pixel size onto a world-space viewBox centered on the focal
   // point, at a fixed `scale` (px per world unit). A larger element therefore
   // reveals more of the scene around the center instead of rescaling the content.
@@ -98,7 +113,7 @@ export class D3Graphics<Entity extends IEntity> {
     return `entity-${entity.id}`;
   }
 
-  private clientToSVG(event: MouseEvent): Vector {
+  private clientToSVG(event: MouseEvent): Vec2 {
     const svgEl = this.canvas.node()!;
     const pt = svgEl.createSVGPoint();
     pt.x = event.clientX;
@@ -115,9 +130,13 @@ export class D3Graphics<Entity extends IEntity> {
     this.dragState.lastMouse = mouse;
 
     const { entity } = this.dragState;
-    entity.position.x += dx;
-    entity.position.y += dy;
-    entity.publisher.publish({ id: entity.id, position: { x: entity.position.x, y: entity.position.y } });
+    if (this.opts.onNodeDragDelta) {
+      this.opts.onNodeDragDelta(entity, dx, dy);
+    } else {
+      entity.position.x += dx;
+      entity.position.y += dy;
+    }
+    entity.publisher.publish({ id: entity.id, position: entity.position });
   }
 
   private beginNodeDrag(event: MouseEvent, entity: Entity): void {
@@ -143,10 +162,10 @@ export class D3Graphics<Entity extends IEntity> {
   setNodeColors(enabled: boolean): void {
     for (const [id, el] of this.elementMap) {
       if (enabled) {
-        const group = (this.nodeGroupMap.get(id) ?? 0) % GROUP_COLOR_COUNT;
-        el.style.fill = `var(--color-group-${group})`;
+        const group = this.nodeGroupMap.get(id);
+        el.setAttribute("fill", GROUP_COLORS[(group ?? 0) % GROUP_COLORS.length]);
       } else {
-        el.style.fill = "";
+        el.removeAttribute("fill");
       }
     }
   }
@@ -156,12 +175,14 @@ export class D3Graphics<Entity extends IEntity> {
     const groupEl = linesGroup.node()!;
     for (let i = 0; i < this.edges.length; i++) {
       const edge = this.edges[i];
+      const ps = this.project(edge.source.position);
+      const pt = this.project(edge.target.position);
 
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      line.setAttribute("x1", String(edge.source.position.x));
-      line.setAttribute("y1", String(edge.source.position.y));
-      line.setAttribute("x2", String(edge.target.position.x));
-      line.setAttribute("y2", String(edge.target.position.y));
+      line.setAttribute("x1", String(ps.x));
+      line.setAttribute("y1", String(ps.y));
+      line.setAttribute("x2", String(pt.x));
+      line.setAttribute("y2", String(pt.y));
       line.setAttribute("class", "edge-visual");
       line.style.pointerEvents = "none";
       groupEl.appendChild(line);
@@ -169,10 +190,10 @@ export class D3Graphics<Entity extends IEntity> {
 
       // Invisible wider line for hover hit detection.
       const hit = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      hit.setAttribute("x1", String(edge.source.position.x));
-      hit.setAttribute("y1", String(edge.source.position.y));
-      hit.setAttribute("x2", String(edge.target.position.x));
-      hit.setAttribute("y2", String(edge.target.position.y));
+      hit.setAttribute("x1", String(ps.x));
+      hit.setAttribute("y1", String(ps.y));
+      hit.setAttribute("x2", String(pt.x));
+      hit.setAttribute("y2", String(pt.y));
       hit.setAttribute("stroke", "transparent");
       hit.setAttribute("stroke-width", "20");
       hit.style.cursor = "crosshair";
@@ -191,20 +212,18 @@ export class D3Graphics<Entity extends IEntity> {
   updateLines() {
     for (let i = 0; i < this.edges.length; i++) {
       const edge = this.edges[i];
-      const x1 = String(edge.source.position.x);
-      const y1 = String(edge.source.position.y);
-      const x2 = String(edge.target.position.x);
-      const y2 = String(edge.target.position.y);
+      const ps = this.project(edge.source.position);
+      const pt = this.project(edge.target.position);
       const line = this.lineElements[i];
-      line.setAttribute("x1", x1);
-      line.setAttribute("y1", y1);
-      line.setAttribute("x2", x2);
-      line.setAttribute("y2", y2);
+      line.setAttribute("x1", String(ps.x));
+      line.setAttribute("y1", String(ps.y));
+      line.setAttribute("x2", String(pt.x));
+      line.setAttribute("y2", String(pt.y));
       const hit = this.hitLineElements[i];
-      hit.setAttribute("x1", x1);
-      hit.setAttribute("y1", y1);
-      hit.setAttribute("x2", x2);
-      hit.setAttribute("y2", y2);
+      hit.setAttribute("x1", String(ps.x));
+      hit.setAttribute("y1", String(ps.y));
+      hit.setAttribute("x2", String(pt.x));
+      hit.setAttribute("y2", String(pt.y));
     }
   }
 
@@ -219,9 +238,9 @@ export class D3Graphics<Entity extends IEntity> {
       .enter()
       .append("circle")
       .attr("class", "node-visual")
-      .attr("cx", (entity) => entity.position.x)
-      .attr("cy", (entity) => entity.position.y)
-      .attr("r", this.radius)
+      .attr("cx", (entity) => this.project(entity.position).x)
+      .attr("cy", (entity) => this.project(entity.position).y)
+      .attr("r", (entity) => this.radius * this.project(entity.position).scale)
       .attr("id", (entity) => this.getSvgElementId(entity))
       .style("pointer-events", "none")
       .each((entity, _i, nodes) => {
@@ -232,20 +251,21 @@ export class D3Graphics<Entity extends IEntity> {
         this.elementMap.set(entity.id, el);
       });
 
-    // Invisible hit circles — larger radius for easier dragging.
+    // Invisible hit circles — fixed screen-space radius for consistent hit area.
     entitiesGroup
       .selectAll("circle.node-hit")
       .data(this.entities)
       .enter()
       .append("circle")
       .attr("class", "node-hit")
-      .attr("cx", (entity) => entity.position.x)
-      .attr("cy", (entity) => entity.position.y)
+      .attr("cx", (entity) => this.project(entity.position).x)
+      .attr("cy", (entity) => this.project(entity.position).y)
       .attr("r", hitRadius)
       .attr("id", (entity) => `${this.getSvgElementId(entity)}-hit`)
       .attr("fill", "transparent")
       .style("cursor", "grab")
       .on("mousedown", (event: MouseEvent, entity) => {
+        if (event.metaKey || event.shiftKey) return;
         this.beginNodeDrag(event, entity);
       })
       .on("click", (_, entity) => {
@@ -264,17 +284,34 @@ export class D3Graphics<Entity extends IEntity> {
   }
 
   updateCircle(entity: Entity) {
-    const x = String(entity.position.x);
-    const y = String(entity.position.y);
+    const p = this.project(entity.position);
     const el = this.elementMap.get(entity.id);
     if (el) {
-      el.setAttribute("cx", x);
-      el.setAttribute("cy", y);
+      el.setAttribute("cx", String(p.x));
+      el.setAttribute("cy", String(p.y));
+      el.setAttribute("r", String(this.radius * p.scale));
+      el.setAttribute("fill-opacity", String(Math.max(0.2, Math.min(1, p.scale))));
     }
     const hit = this.hitElementMap.get(entity.id);
     if (hit) {
-      hit.setAttribute("cx", x);
-      hit.setAttribute("cy", y);
+      hit.setAttribute("cx", String(p.x));
+      hit.setAttribute("cy", String(p.y));
+    }
+  }
+
+  // Re-sort node SVG elements by depth so closer nodes paint over farther ones.
+  sortByDepth(): void {
+    const group = this.canvas.select<SVGGElement>("#entities-group").node();
+    if (!group) return;
+    const entries = [...this.elementMap.entries()].map(([id, el]) => {
+      const entity = this.entities.find((e) => e.id === id)!;
+      return { el, hitEl: this.hitElementMap.get(id)!, depth: this.project(entity.position).depth };
+    });
+    // Sort descending by depth (most distant first = painted underneath)
+    entries.sort((a, b) => b.depth - a.depth);
+    for (const { el, hitEl } of entries) {
+      group.appendChild(el);
+      group.appendChild(hitEl);
     }
   }
 }
