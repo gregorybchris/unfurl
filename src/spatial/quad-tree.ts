@@ -1,112 +1,115 @@
-import { Vec2 } from "@/math/vec2";
-import { QuadBox, QuadBoxImpl } from "./quad-box";
-
 export interface Item {
   id: string;
-  position: Vec2;
+  position: { x: number; y: number };
 }
 
-type Children = {
-  nw: QuadTree;
-  ne: QuadTree;
-  sw: QuadTree;
-  se: QuadTree;
-};
+const CELL_CAPACITY = 8;
 
-export type QuadTree = {
-  size: number;
-  cellCapacity: number;
-  box: QuadBox;
-  items: Item[];
-  children: Children | null;
-};
+class PooledNode {
+  minX = 0; maxX = 0; minY = 0; maxY = 0;
+  readonly items: Array<Item | null>;
+  count = 0;
+  nw: PooledNode | null = null;
+  ne: PooledNode | null = null;
+  sw: PooledNode | null = null;
+  se: PooledNode | null = null;
 
+  constructor() {
+    this.items = new Array<Item | null>(CELL_CAPACITY).fill(null);
+  }
+
+  reset(minX: number, maxX: number, minY: number, maxY: number): void {
+    this.minX = minX; this.maxX = maxX;
+    this.minY = minY; this.maxY = maxY;
+    this.count = 0;
+    this.nw = this.ne = this.sw = this.se = null;
+  }
+}
+
+// Mutable, pool-backed quad-tree. Rebuild each frame via build(); the pool
+// is reused across calls so steady-state operation allocates nothing on the heap.
 export class QuadTreeImpl {
-  static new(box: QuadBox, cellCapacity: number): QuadTree {
-    return {
-      size: 0,
-      cellCapacity,
-      box,
-      items: [],
-      children: null,
-    };
+  private pool: PooledNode[] = [];
+  private poolIdx = 0;
+  private root: PooledNode | null = null;
+
+  private alloc(minX: number, maxX: number, minY: number, maxY: number): PooledNode {
+    let node: PooledNode;
+    if (this.poolIdx < this.pool.length) {
+      node = this.pool[this.poolIdx];
+    } else {
+      node = new PooledNode();
+      this.pool.push(node);
+    }
+    this.poolIdx++;
+    node.reset(minX, maxX, minY, maxY);
+    return node;
   }
 
-  // Insert an item into a quadtree, dividing if necessary.
-  static insert(tree: QuadTree, item: Item): QuadTree {
-    if (!QuadBoxImpl.boxContains(tree.box, item.position)) {
-      return tree;
+  // Build the tree from items. minX/maxX/minY/maxY must tightly enclose all positions.
+  build(items: readonly Item[], minX: number, maxX: number, minY: number, maxY: number): void {
+    this.poolIdx = 0;
+    const pad = 1 + (maxX - minX + maxY - minY) * 0.001;
+    this.root = this.alloc(minX - pad, maxX + pad, minY - pad, maxY + pad);
+    for (const item of items) {
+      this._insert(this.root, item);
     }
-
-    if (tree.children === null && tree.items.length < tree.cellCapacity) {
-      return {
-        ...tree,
-        size: tree.size + 1,
-        items: [...tree.items, item],
-      };
-    }
-
-    if (tree.children === null) {
-      tree = QuadTreeImpl.divide(tree);
-    }
-
-    if (tree.children === null) {
-      // This should never happen
-      console.error("Divide failed");
-      return tree;
-    }
-
-    return {
-      ...tree,
-      size: tree.size + 1,
-      children: {
-        nw: QuadTreeImpl.insert(tree.children.nw, item),
-        ne: QuadTreeImpl.insert(tree.children.ne, item),
-        sw: QuadTreeImpl.insert(tree.children.sw, item),
-        se: QuadTreeImpl.insert(tree.children.se, item),
-      },
-    };
   }
 
-  // Create four children, dividing a tree into four of equal area.
-  static divide(tree: QuadTree): QuadTree {
-    const capacity = tree.cellCapacity;
-    const x = tree.box.center.x;
-    const y = tree.box.center.y;
-    const hhs = tree.box.halfSize / 2;
-    return {
-      ...tree,
-      children: {
-        nw: QuadTreeImpl.new({ center: { x: x - hhs, y: y + hhs }, halfSize: hhs }, capacity),
-        ne: QuadTreeImpl.new({ center: { x: x + hhs, y: y + hhs }, halfSize: hhs }, capacity),
-        sw: QuadTreeImpl.new({ center: { x: x - hhs, y: y - hhs }, halfSize: hhs }, capacity),
-        se: QuadTreeImpl.new({ center: { x: x + hhs, y: y - hhs }, halfSize: hhs }, capacity),
-      },
-    };
-  }
-
-  // Find all items contained within a given box.
-  static query(tree: QuadTree, box: QuadBox): Item[] {
-    if (!QuadBoxImpl.boxIntersects(tree.box, box)) {
-      return [];
-    }
-
-    const items: Item[] = [];
-    for (let i = 0; i < tree.items.length; i++) {
-      if (QuadBoxImpl.boxContains(box, tree.items[i].position)) {
-        items.push(tree.items[i]);
+  private _insert(node: PooledNode, item: Item): void {
+    if (node.nw === null) {
+      if (node.count < CELL_CAPACITY) {
+        node.items[node.count++] = item;
+        return;
       }
+      // Leaf is full — subdivide and redistribute existing items.
+      const midX = (node.minX + node.maxX) * 0.5;
+      const midY = (node.minY + node.maxY) * 0.5;
+      node.nw = this.alloc(node.minX, midX, midY, node.maxY);
+      node.ne = this.alloc(midX, node.maxX, midY, node.maxY);
+      node.sw = this.alloc(node.minX, midX, node.minY, midY);
+      node.se = this.alloc(midX, node.maxX, node.minY, midY);
+      for (let i = 0; i < node.count; i++) {
+        this._insertIntoChild(node, node.items[i]!);
+      }
+      node.count = 0;
     }
+    this._insertIntoChild(node, item);
+  }
 
-    if (tree.children === null) {
-      return items;
+  private _insertIntoChild(node: PooledNode, item: Item): void {
+    const midX = (node.minX + node.maxX) * 0.5;
+    const midY = (node.minY + node.maxY) * 0.5;
+    // Each item goes into exactly one child quadrant.
+    const child = item.position.x <= midX
+      ? (item.position.y >= midY ? node.nw! : node.sw!)
+      : (item.position.y >= midY ? node.ne! : node.se!);
+    this._insert(child, item);
+  }
+
+  // Append all items within [minX,maxX]×[minY,maxY] into `out`.
+  // Caller must clear `out` before each call.
+  query(minX: number, maxX: number, minY: number, maxY: number, out: Item[]): void {
+    if (this.root !== null) this._query(this.root, minX, maxX, minY, maxY, out);
+  }
+
+  private _query(
+    node: PooledNode,
+    minX: number, maxX: number,
+    minY: number, maxY: number,
+    out: Item[],
+  ): void {
+    if (maxX < node.minX || minX > node.maxX || maxY < node.minY || minY > node.maxY) return;
+    for (let i = 0; i < node.count; i++) {
+      const item = node.items[i]!;
+      const x = item.position.x, y = item.position.y;
+      if (x >= minX && x <= maxX && y >= minY && y <= maxY) out.push(item);
     }
-
-    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.nw, box));
-    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.ne, box));
-    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.sw, box));
-    Array.prototype.push.apply(items, QuadTreeImpl.query(tree.children.se, box));
-
-    return items;
+    if (node.nw !== null) {
+      this._query(node.nw, minX, maxX, minY, maxY, out);
+      this._query(node.ne!, minX, maxX, minY, maxY, out);
+      this._query(node.sw!, minX, maxX, minY, maxY, out);
+      this._query(node.se!, minX, maxX, minY, maxY, out);
+    }
   }
 }

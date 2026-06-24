@@ -1,97 +1,90 @@
-import { describe, expect, it } from "vitest";
-import { QuadBox } from "./quad-box";
+import { describe, expect, it, beforeEach } from "vitest";
 import { Item, QuadTreeImpl } from "./quad-tree";
-
-const rootBox: QuadBox = { center: { x: 0, y: 0 }, halfSize: 10 };
 
 function item(id: string, x: number, y: number): Item {
   return { id, position: { x, y } };
 }
 
-describe("QuadTreeImpl", () => {
-  describe("new", () => {
-    it("creates an empty leaf", () => {
-      const tree = QuadTreeImpl.new(rootBox, 4);
-      expect(tree.size).toBe(0);
-      expect(tree.items).toEqual([]);
-      expect(tree.children).toBeNull();
-      expect(tree.cellCapacity).toBe(4);
-    });
-  });
+let tree: QuadTreeImpl;
+const queryBuf: Item[] = [];
 
-  describe("insert", () => {
-    it("ignores items outside the box", () => {
-      const tree = QuadTreeImpl.new(rootBox, 4);
-      const result = QuadTreeImpl.insert(tree, item("far", 100, 100));
-      expect(result.size).toBe(0);
-      expect(result.items).toEqual([]);
-    });
+function query(minX: number, maxX: number, minY: number, maxY: number): Item[] {
+  queryBuf.length = 0;
+  tree.query(minX, maxX, minY, maxY, queryBuf);
+  return [...queryBuf];
+}
 
-    it("stores items in the leaf until capacity is reached", () => {
-      let tree = QuadTreeImpl.new(rootBox, 2);
-      tree = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      tree = QuadTreeImpl.insert(tree, item("b", 2, 2));
-      expect(tree.size).toBe(2);
-      expect(tree.children).toBeNull();
-      expect(tree.items.map((i) => i.id)).toEqual(["a", "b"]);
+beforeEach(() => {
+  tree = new QuadTreeImpl();
+});
+
+describe("QuadTreeImpl (mutable pool)", () => {
+  describe("build + query basics", () => {
+    it("returns nothing from an empty tree", () => {
+      tree.build([], 0, 10, 0, 10);
+      expect(query(-100, 100, -100, 100)).toEqual([]);
     });
 
-    it("subdivides once capacity is exceeded", () => {
-      let tree = QuadTreeImpl.new(rootBox, 2);
-      tree = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      tree = QuadTreeImpl.insert(tree, item("b", 2, 2));
-      tree = QuadTreeImpl.insert(tree, item("c", 3, 3));
-      expect(tree.size).toBe(3);
-      expect(tree.children).not.toBeNull();
-      // the overflow item lands in the north-east quadrant
-      expect(tree.children?.ne.items.map((i) => i.id)).toEqual(["c"]);
+    it("finds a single item within its bounds", () => {
+      tree.build([item("a", 3, 3)], 0, 10, 0, 10);
+      expect(query(0, 10, 0, 10).map(i => i.id)).toEqual(["a"]);
     });
 
-    it("treats inserts as immutable (returns a new tree)", () => {
-      const tree = QuadTreeImpl.new(rootBox, 2);
-      const next = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      expect(tree.size).toBe(0);
-      expect(next.size).toBe(1);
-      expect(next).not.toBe(tree);
+    it("excludes an item outside the query box", () => {
+      tree.build([item("a", 1, 1), item("b", 9, 9)], 0, 10, 0, 10);
+      expect(query(0, 5, 0, 5).map(i => i.id)).toEqual(["a"]);
     });
-  });
 
-  describe("divide", () => {
-    it("creates four equally-sized child quadrants", () => {
-      const tree = QuadTreeImpl.divide(QuadTreeImpl.new(rootBox, 4));
-      const children = tree.children!;
-      expect(children.nw.box).toEqual({ center: { x: -5, y: 5 }, halfSize: 5 });
-      expect(children.ne.box).toEqual({ center: { x: 5, y: 5 }, halfSize: 5 });
-      expect(children.sw.box).toEqual({ center: { x: -5, y: -5 }, halfSize: 5 });
-      expect(children.se.box).toEqual({ center: { x: 5, y: -5 }, halfSize: 5 });
+    it("returns nothing for a non-intersecting query box", () => {
+      tree.build([item("a", 1, 1)], 0, 10, 0, 10);
+      expect(query(100, 200, 100, 200)).toEqual([]);
     });
-  });
 
-  describe("query", () => {
-    it("returns every item within a covering box", () => {
-      let tree = QuadTreeImpl.new(rootBox, 2);
-      tree = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      tree = QuadTreeImpl.insert(tree, item("b", 2, 2));
-      tree = QuadTreeImpl.insert(tree, item("c", 3, 3));
-
-      const found = QuadTreeImpl.query(tree, rootBox).map((i) => i.id).sort();
+    it("returns all items in a covering query", () => {
+      const items = [item("a", 1, 1), item("b", 5, 5), item("c", 9, 9)];
+      tree.build(items, 0, 10, 0, 10);
+      const found = query(-100, 100, -100, 100).map(i => i.id).sort();
       expect(found).toEqual(["a", "b", "c"]);
     });
+  });
 
-    it("returns only items inside the query box", () => {
-      let tree = QuadTreeImpl.new(rootBox, 2);
-      tree = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      tree = QuadTreeImpl.insert(tree, item("b", 2, 2));
-      tree = QuadTreeImpl.insert(tree, item("c", 3, 3));
-
-      const found = QuadTreeImpl.query(tree, { center: { x: 3, y: 3 }, halfSize: 1 });
-      expect(found.map((i) => i.id)).toEqual(["c"]);
+  describe("subdivision (> CELL_CAPACITY items)", () => {
+    it("handles more than 8 items without duplication", () => {
+      const items = Array.from({ length: 20 }, (_, i) => item(`n${i}`, i * 0.5, i * 0.3));
+      tree.build(items, 0, 10, 0, 6);
+      const found = query(-100, 100, -100, 100).map(i => i.id).sort();
+      expect(found).toEqual(items.map(i => i.id).sort());
     });
 
-    it("returns nothing for a non-intersecting box", () => {
-      let tree = QuadTreeImpl.new(rootBox, 2);
-      tree = QuadTreeImpl.insert(tree, item("a", 1, 1));
-      expect(QuadTreeImpl.query(tree, { center: { x: 100, y: 100 }, halfSize: 1 })).toEqual([]);
+    it("each item appears at most once in a query result", () => {
+      const items = Array.from({ length: 50 }, (_, i) =>
+        item(`n${i}`, (i % 10) * 1.1, Math.floor(i / 10) * 1.1),
+      );
+      tree.build(items, 0, 11, 0, 11);
+      const found = query(-100, 100, -100, 100);
+      const ids = found.map(i => i.id);
+      expect(ids.length).toBe(new Set(ids).size); // no duplicates
+      expect(ids.length).toBe(50);
+    });
+  });
+
+  describe("pool reuse", () => {
+    it("produces correct results after rebuilding the tree", () => {
+      tree.build([item("a", 1, 1), item("b", 9, 9)], 0, 10, 0, 10);
+      expect(query(0, 5, 0, 5).map(i => i.id)).toEqual(["a"]);
+
+      // Rebuild with different data — pool nodes are reused.
+      tree.build([item("c", 3, 3), item("d", 7, 7)], 0, 10, 0, 10);
+      const found = query(0, 10, 0, 10).map(i => i.id).sort();
+      expect(found).toEqual(["c", "d"]);
+    });
+  });
+
+  describe("3D bodies (position has x, y, z)", () => {
+    it("finds 3D bodies using XY coordinates", () => {
+      const body = { id: "v", position: { x: 5, y: 5, z: 100 } };
+      tree.build([body], 0, 10, 0, 10);
+      expect(query(0, 10, 0, 10).map(i => i.id)).toEqual(["v"]);
     });
   });
 });

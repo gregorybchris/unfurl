@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Publisher } from "@/events/pubsub";
 import { Vec3 } from "@/math/vec3";
 import { Body } from "./body";
@@ -44,18 +44,6 @@ describe("physics.update", () => {
     expect(b.position.y).toBeCloseTo(0);
     expect(a.position.z).toBeCloseTo(0);
     expect(b.position.z).toBeCloseTo(0);
-  });
-
-  it("publishes each node's updated state to its subscribers", () => {
-    const center: Vec3 = { x: 0, y: 0, z: 0 };
-    const node = makeNode("n0", { x: 0, y: 0, z: 0 });
-    const listener = vi.fn();
-    node.publisher.subscribers.push({ receive: listener } as never);
-
-    update([node], [], 16, center, defaultPhysicsConfig, [], [], []);
-
-    expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith({ id: "n0", position: { x: 0, y: 0, z: 0 } });
   });
 
   it("dampens velocity over repeated ticks toward the center", () => {

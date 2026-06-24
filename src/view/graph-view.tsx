@@ -246,7 +246,8 @@ export const GraphView = forwardRef<GraphViewHandle, GraphViewProps>(function Gr
       }
     }
 
-    // Z-sort in 3D
+    // Push updated positions to SVG, then depth-sort so sortByDepth uses fresh positions.
+    d3Graphics.current?.updateCircles();
     if (dimensionModeRef.current === '3d') {
       d3Graphics.current?.sortByDepth();
     }

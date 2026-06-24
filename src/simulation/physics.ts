@@ -1,7 +1,6 @@
 import { AdjMatrix } from "@/graph/graph";
 import { CurveImpl, INF } from "@/math/math";
 import { Vec3 } from "@/math/vec3";
-import { QuadBoxImpl } from "@/spatial/quad-box";
 import { QuadTreeImpl } from "@/spatial/quad-tree";
 import { Body } from "./body";
 import { FunctionType, PhysicsConfig } from "./physics-config";
@@ -17,6 +16,23 @@ const REPULSION_FAR_FORCE = -0.15;
 const CENTER_PULL_SLOPE = 0.005;
 const SPRING_K = 0.05;
 const SPRING_REST_LENGTH = 100;
+const MAX_VELOCITY_SQ = 100 * 100;
+
+// Module-level singletons — no heap allocation after the first frame.
+const _tree = new QuadTreeImpl();
+const _queryBuf: Body[] = [];
+let _cachedNodes: Body[] | null = null;
+let _nodeIndexMap: Map<string, number> = new Map();
+
+// Cache the id→index map keyed by the nodes array reference.
+// In practice the same array is passed every frame, so this rebuilds at most once.
+function getNodeIndexMap(nodes: Body[]): Map<string, number> {
+  if (nodes !== _cachedNodes) {
+    _cachedNodes = nodes;
+    _nodeIndexMap = new Map(nodes.map((n, i) => [n.id, i]));
+  }
+  return _nodeIndexMap;
+}
 
 // Map Euclidean distance → repulsion magnitude (positive = push away).
 function repulsionByDistance(fn: FunctionType, strength: number, distance: number): number {
@@ -68,9 +84,7 @@ export function update(
   if (config.paused) return;
 
   const timeFactor = config.simulationSpeed * deltaTime;
-
-  // Build id → index map (used for quadtree pair dedup).
-  const nodeIndexMap = new Map<string, number>(nodes.map((n, i) => [n.id, i]));
+  const nodeIndexMap = getNodeIndexMap(nodes);
 
   // --- Center Pull ---
   if (config.centerPull.enabled) {
@@ -88,28 +102,27 @@ export function update(
   if (config.basicRepulsion.enabled && nodes.length > 0) {
     const fc = config.basicRepulsion;
 
-    // Build a bounding quadtree from current node positions (uses XY only; acceptable 3D approximation).
+    // Compute tight XY bounds for the tree.
     let minX = nodes[0].position.x, maxX = minX;
     let minY = nodes[0].position.y, maxY = minY;
-    for (const n of nodes) {
-      if (n.position.x < minX) minX = n.position.x;
-      if (n.position.x > maxX) maxX = n.position.x;
-      if (n.position.y < minY) minY = n.position.y;
-      if (n.position.y > maxY) maxY = n.position.y;
+    for (let i = 1; i < nodes.length; i++) {
+      const p = nodes[i].position;
+      if (p.x < minX) minX = p.x; else if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y; else if (p.y > maxY) maxY = p.y;
     }
-    const halfSize = Math.max(maxX - minX, maxY - minY) / 2 + 500;
-    const treeCenter = { x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
-    let tree = QuadTreeImpl.new({ center: treeCenter, halfSize }, 4);
-    for (const node of nodes) {
-      tree = QuadTreeImpl.insert(tree, node);
-    }
+    _tree.build(nodes, minX, maxX, minY, maxY);
 
     for (let i = 0; i < nodes.length; i++) {
       const nodeA = nodes[i];
-      const queryBox = QuadBoxImpl.fromRadius(nodeA.position, REPULSION_OUTER);
-      const neighbors = QuadTreeImpl.query(tree, queryBox);
+      _queryBuf.length = 0;
+      _tree.query(
+        nodeA.position.x - REPULSION_OUTER, nodeA.position.x + REPULSION_OUTER,
+        nodeA.position.y - REPULSION_OUTER, nodeA.position.y + REPULSION_OUTER,
+        _queryBuf,
+      );
 
-      for (const neighbor of neighbors) {
+      for (let k = 0; k < _queryBuf.length; k++) {
+        const neighbor = _queryBuf[k] as Body;
         const j = nodeIndexMap.get(neighbor.id)!;
         if (j <= i) continue; // each pair exactly once
 
@@ -150,8 +163,9 @@ export function update(
       const dx = nodeB.position.x - nodeA.position.x;
       const dy = nodeB.position.y - nodeA.position.y;
       const dz = nodeB.position.z - nodeA.position.z;
-      const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-      if (distance === 0) continue;
+      const distSq = dx * dx + dy * dy + dz * dz;
+      if (distSq === 0) continue;
+      const distance = Math.sqrt(distSq);
       const force = k * (distance - SPRING_REST_LENGTH);
       const fx = (dx / distance) * force;
       const fy = (dy / distance) * force;
@@ -165,6 +179,11 @@ export function update(
   if (config.graphDistanceRepulsion.enabled && graphDistances.length > 0) {
     const fc = config.graphDistanceRepulsion;
     const fn = fc.functionType === "step" ? "linear" : fc.functionType;
+    // For function types whose force approaches zero at large distances, use a tighter
+    // cutoff to skip most pairs cheaply (avoids sqrt for ~80%+ of O(n²) candidates).
+    const cutoffSq = (fn === "linear" || fn === "logarithmic")
+      ? REPULSION_OUTER_SQ
+      : REPULSION_OUTER_SQ * 4;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const graphDist = graphDistances[i]?.[j];
@@ -175,10 +194,11 @@ export function update(
         const dx = nodeB.position.x - nodeA.position.x;
         const dy = nodeB.position.y - nodeA.position.y;
         const dz = nodeB.position.z - nodeA.position.z;
-        const euclidean = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (euclidean === 0) continue;
+        const distSq = dx * dx + dy * dy + dz * dz;
+        if (distSq === 0 || distSq >= cutoffSq) continue;
 
         // Scale strength by graph distance (farther apart in graph → more repulsion).
+        const euclidean = Math.sqrt(distSq);
         const repulse = repulsionByDistance(fn, fc.strength * graphDist * 0.3, euclidean);
         const fx = -(dx / euclidean) * repulse;
         const fy = -(dy / euclidean) * repulse;
@@ -205,7 +225,10 @@ export function update(
   if (config.degreeRepulsion.enabled && nodeDegrees.length > 0) {
     const fc = config.degreeRepulsion;
     const fn = fc.functionType === "step" ? "linear" : fc.functionType;
-    const maxDegree = Math.max(1, ...nodeDegrees);
+    let maxDegree = 1;
+    for (let k = 0; k < nodeDegrees.length; k++) {
+      if (nodeDegrees[k] > maxDegree) maxDegree = nodeDegrees[k];
+    }
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const nodeA = nodes[i];
@@ -243,7 +266,6 @@ export function update(
   }
 
   // --- Clamp velocity to prevent runaway nodes ---
-  const MAX_VELOCITY_SQ = 100 * 100;
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     if (node.pinned) continue;
@@ -263,7 +285,6 @@ export function update(
       node.velocity.x = 0;
       node.velocity.y = 0;
       node.velocity.z = 0;
-      node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y, z: node.position.z } });
       continue;
     }
     node.velocity.x *= 0.92;
@@ -272,7 +293,6 @@ export function update(
     node.position.x += node.velocity.x * timeFactor;
     node.position.y += node.velocity.y * timeFactor;
     node.position.z += node.velocity.z * timeFactor;
-    node.publisher.publish({ id: node.id, position: { x: node.position.x, y: node.position.y, z: node.position.z } });
   }
 }
 

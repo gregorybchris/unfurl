@@ -40,6 +40,8 @@ export class D3Graphics<Entity extends IEntity> {
   canvas: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private elementMap = new Map<string, SVGCircleElement>();
   private hitElementMap = new Map<string, SVGCircleElement>();
+  private entityMap = new Map<string, Entity>();
+  private sortEntries: Array<{ id: string; el: SVGCircleElement; hitEl: SVGCircleElement; depth: number }> = [];
   private lineElements: SVGLineElement[] = [];
   private hitLineElements: SVGLineElement[] = [];
   private edgeBaseWidths: number[] = [];
@@ -138,7 +140,7 @@ export class D3Graphics<Entity extends IEntity> {
       entity.position.x += dx;
       entity.position.y += dy;
     }
-    entity.publisher.publish({ id: entity.id, position: entity.position });
+    this.updateCircle(entity);
   }
 
   private beginNodeDrag(event: MouseEvent, entity: Entity): void {
@@ -268,6 +270,7 @@ export class D3Graphics<Entity extends IEntity> {
         title.textContent = entity.id;
         el.appendChild(title);
         this.elementMap.set(entity.id, el);
+        this.entityMap.set(entity.id, entity);
       });
 
     // Invisible hit circles — fixed screen-space radius for consistent hit area.
@@ -298,7 +301,9 @@ export class D3Graphics<Entity extends IEntity> {
         this.opts.onHoverEnd?.();
       })
       .each((entity, _i, nodes) => {
-        this.hitElementMap.set(entity.id, nodes[_i] as SVGCircleElement);
+        const hitEl = nodes[_i] as SVGCircleElement;
+        this.hitElementMap.set(entity.id, hitEl);
+        this.sortEntries.push({ id: entity.id, el: this.elementMap.get(entity.id)!, hitEl, depth: 0 });
       });
   }
 
@@ -318,14 +323,24 @@ export class D3Graphics<Entity extends IEntity> {
     }
   }
 
+  // Batch-update all circles. Called once per frame from the animation loop so
+  // physics.ts does not need to publish individual position events.
+  updateCircles(): void {
+    for (let i = 0; i < this.entities.length; i++) {
+      this.updateCircle(this.entities[i]);
+    }
+  }
+
   // Re-sort node SVG elements by depth so closer nodes paint over farther ones.
   sortByDepth(): void {
     const group = this.canvas.select<SVGGElement>("#entities-group").node();
     if (!group) return;
-    const entries = [...this.elementMap.entries()].map(([id, el]) => {
-      const entity = this.entities.find((e) => e.id === id)!;
-      return { el, hitEl: this.hitElementMap.get(id)!, depth: this.project(entity.position).depth };
-    });
+    const entries = this.sortEntries;
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      // O(1) entity lookup via entityMap instead of O(n) entities.find()
+      entry.depth = this.project(this.entityMap.get(entry.id)!.position).depth;
+    }
     // Sort descending by depth (most distant first = painted underneath)
     entries.sort((a, b) => b.depth - a.depth);
     for (const { el, hitEl } of entries) {
