@@ -14,7 +14,7 @@ const REPULSION_OUTER_SQ = REPULSION_OUTER * REPULSION_OUTER;
 const REPULSION_CLOSE_FORCE = -2;
 const REPULSION_FAR_FORCE = -0.15;
 const CENTER_PULL_SLOPE = 0.005;
-const SPRING_K = 0.015;
+const SPRING_K = 0.05;
 const SPRING_REST_LENGTH = 100;
 
 // Map Euclidean distance → repulsion magnitude (positive = push away).
