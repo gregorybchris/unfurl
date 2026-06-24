@@ -1,24 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { computeEigenvectorCentrality, computeNodeDegrees } from "@/graph/centrality";
 import { floydWarshall } from "@/graph/algo";
-import {
-  fillAdjMatrixInf,
-  Graph,
-  graphToAdjMatrix,
-  JsonGraph,
-  jsonToGraph,
-  makeSymmetric,
-} from "@/graph/graph";
-import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
+import { computeEigenvectorCentrality, computeNodeDegrees } from "@/graph/centrality";
+import { fillAdjMatrixInf, Graph, graphToAdjMatrix, JsonGraph, jsonToGraph, makeSymmetric } from "@/graph/graph";
 import { decodeSettings, encodeSettings } from "@/settings-codec";
+import { defaultPhysicsConfig, PhysicsConfig } from "@/simulation/physics-config";
 import { ControlPanel } from "@/view/control-panel";
 import { DimensionMode, GraphView, GraphViewHandle } from "@/view/graph-view";
-import lesMisData from "./data/les-miserables.json";
-import karateData from "./data/karate.json";
-import dolphinsData from "./data/dolphins.json";
-import polbooksData from "./data/polbooks.json";
+import { useEffect, useMemo, useRef, useState } from "react";
 import adjnounData from "./data/adjnoun.json";
+import dolphinsData from "./data/dolphins.json";
 import footballData from "./data/football.json";
+import karateData from "./data/karate.json";
+import lesMisData from "./data/les-miserables.json";
+import polbooksData from "./data/polbooks.json";
 
 export const GRAPH_OPTIONS = [
   { id: "les-miserables", label: "Les Misérables", data: lesMisData as JsonGraph },
@@ -36,7 +29,7 @@ export type Theme = "slate-dark" | "warm-charcoal" | "parchment" | "deep-navy" |
 export const THEMES: { id: Theme; label: string; swatch: string }[] = [
   { id: "slate-dark", label: "Slate Dark", swatch: "#818cf8" },
   { id: "warm-charcoal", label: "Warm Charcoal", swatch: "#fbbf24" },
-  { id: "parchment", label: "Parchment", swatch: "#4f46e5" },
+  { id: "parchment", label: "Parchment", swatch: "#0f172a" },
   { id: "deep-navy", label: "Deep Navy", swatch: "#22d3ee" },
   { id: "true-gray", label: "True Gray", swatch: "#a3a3a3" },
 ];
@@ -73,16 +66,14 @@ document.documentElement.setAttribute("data-theme", INITIAL_URL_SETTINGS?.theme 
 
 export default function App() {
   const [physicsConfig, setPhysicsConfig] = useState<PhysicsConfig>(
-    INITIAL_URL_SETTINGS?.physicsConfig ?? defaultPhysicsConfig
+    INITIAL_URL_SETTINGS?.physicsConfig ?? defaultPhysicsConfig,
   );
   const [selectedGraphId, setSelectedGraphId] = useState<GraphId>(
-    INITIAL_URL_SETTINGS?.selectedGraphId ?? "les-miserables"
+    INITIAL_URL_SETTINGS?.selectedGraphId ?? "les-miserables",
   );
   const [theme, setTheme] = useState<Theme>(INITIAL_URL_SETTINGS?.theme ?? "slate-dark");
   const [nodeColors, setNodeColors] = useState(INITIAL_URL_SETTINGS?.nodeColors ?? false);
-  const [dimensionMode, setDimensionMode] = useState<DimensionMode>(
-    INITIAL_URL_SETTINGS?.dimensionMode ?? '2d'
-  );
+  const [dimensionMode, setDimensionMode] = useState<DimensionMode>(INITIAL_URL_SETTINGS?.dimensionMode ?? "2d");
   const [linkWidth, setLinkWidth] = useState(INITIAL_URL_SETTINGS?.linkWidth ?? false);
   const graphViewRef = useRef<GraphViewHandle>(null);
 
@@ -104,9 +95,7 @@ export default function App() {
   );
 
   return (
-    <div
-      className="font-quicksand text-accent selection:bg-surface bg-body h-screen overflow-hidden"
-    >
+    <div className="font-quicksand text-accent selection:bg-surface bg-body h-screen overflow-hidden">
       <div className="flex h-screen w-screen">
         <ControlPanel
           config={physicsConfig}
