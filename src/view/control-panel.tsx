@@ -8,6 +8,7 @@ import {
   CirclesThree,
   Fire,
   Graph,
+  Info,
   Lightning,
   Magnet,
   MagnifyingGlassMinus,
@@ -19,6 +20,7 @@ import {
   Swatches,
   Wind,
 } from "@phosphor-icons/react";
+import * as Popover from "@radix-ui/react-popover";
 import * as RadixSelect from "@radix-ui/react-select";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import * as Switch from "@radix-ui/react-switch";
@@ -224,12 +226,14 @@ function ForceSection({
   config,
   maxStrength = 2,
   onChange,
+  description,
 }: {
   icon: ReactNode;
   label: string;
   config: ForceConfig;
   maxStrength?: number;
   onChange: (c: ForceConfig) => void;
+  description?: string;
 }) {
   return (
     <div className="rounded-lg border border-accent/10 bg-white/[0.025]">
@@ -244,6 +248,25 @@ function ForceSection({
         >
           {label}
         </span>
+        {description && (
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <button className="shrink-0 text-accent/25 hover:text-accent/60 transition-colors focus:outline-none">
+                <Info size={12} weight="bold" />
+              </button>
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Content
+                side="right"
+                sideOffset={8}
+                className="z-50 max-w-[200px] rounded-lg border border-accent/20 bg-panel/95 px-3 py-2.5 shadow-2xl backdrop-blur-sm text-[11px] text-accent/80 leading-relaxed data-[state=open]:animate-[popover-in_160ms_ease-out] data-[state=closed]:animate-[popover-out_120ms_ease-in]"
+              >
+                {description}
+                <Popover.Arrow className="fill-accent/20" />
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
+        )}
         <ForceSwitch
           checked={config.enabled}
           onChange={(checked) => onChange({ ...config, enabled: checked })}
@@ -499,18 +522,21 @@ export function ControlPanel({
                 label="Gravity"
                 config={config.centerPull}
                 onChange={(fc) => setForce("centerPull", fc)}
+                description="Pulls every node toward the center of the canvas. Keeps the graph compact and prevents nodes from drifting off-screen."
               />
               <ForceSection
                 icon={<ArrowsOut size={14} weight="duotone" />}
                 label="Charge Repulsion"
                 config={config.basicRepulsion}
                 onChange={(fc) => setForce("basicRepulsion", fc)}
+                description="Each node repels every other node like an electric charge. Spreads the graph out and prevents nodes from overlapping."
               />
               <ForceSection
                 icon={<Magnet size={14} weight="duotone" />}
                 label="Link Spring"
                 config={config.springAttraction}
                 onChange={(fc) => setForce("springAttraction", fc)}
+                description="Edges act as springs that pull connected nodes toward each other. Higher strength draws linked nodes closer together."
               />
               <ForceSection
                 icon={<Graph size={14} weight="duotone" />}
@@ -518,24 +544,28 @@ export function ControlPanel({
                 config={config.graphDistanceRepulsion}
                 maxStrength={10}
                 onChange={(fc) => setForce("graphDistanceRepulsion", fc)}
+                description="Pushes nodes apart based on their graph distance — nodes many hops away from each other are pushed further apart, revealing the network's structure."
               />
               <ForceSection
                 icon={<ChartBar size={14} weight="duotone" />}
                 label="Hub Gravity"
                 config={config.degreeDrift}
                 onChange={(fc) => setForce("degreeDrift", fc)}
+                description="Pulls nodes toward the center with force proportional to their degree. Nodes with many connections naturally migrate toward the center of the layout."
               />
               <ForceSection
                 icon={<CirclesThree size={14} weight="duotone" />}
                 label="Hub Repulsion"
                 config={config.degreeRepulsion}
                 onChange={(fc) => setForce("degreeRepulsion", fc)}
+                description="Pushes nodes away from others with force proportional to their degree. Gives highly-connected nodes more visual breathing room."
               />
               <ForceSection
                 icon={<Network size={14} weight="duotone" />}
                 label="Centrality Gravity"
                 config={config.eigenvectorDrift}
                 onChange={(fc) => setForce("eigenvectorDrift", fc)}
+                description="Pulls nodes toward the center weighted by eigenvector centrality — a measure of influence that accounts for the quality of a node's connections, not just the count."
               />
             </div>
 

@@ -138,6 +138,19 @@
 
 body {
   background-color: #000;
+  font-family: "Quicksand Variable", sans-serif;
+}
+
+/* ── Popover animations ────────────────────────────────────────────────────── */
+
+@keyframes popover-in {
+  from { opacity: 0; transform: scale(0.94) translateY(4px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+@keyframes popover-out {
+  from { opacity: 1; transform: scale(1)    translateY(0);   }
+  to   { opacity: 0; transform: scale(0.94) translateY(4px); }
 }
 
 /* Edge color driven by CSS variable so all themes work without JS */
