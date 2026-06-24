@@ -1,0 +1,1049 @@
+{
+  "nodes": [
+    {
+      "id": "Beak",
+      "group": 0
+    },
+    {
+      "id": "Beescratch",
+      "group": 0
+    },
+    {
+      "id": "Bumper",
+      "group": 0
+    },
+    {
+      "id": "CCL",
+      "group": 0
+    },
+    {
+      "id": "Cross",
+      "group": 0
+    },
+    {
+      "id": "DN16",
+      "group": 0
+    },
+    {
+      "id": "DN21",
+      "group": 0
+    },
+    {
+      "id": "DN63",
+      "group": 0
+    },
+    {
+      "id": "Double",
+      "group": 0
+    },
+    {
+      "id": "Feather",
+      "group": 0
+    },
+    {
+      "id": "Fish",
+      "group": 0
+    },
+    {
+      "id": "Five",
+      "group": 0
+    },
+    {
+      "id": "Fork",
+      "group": 0
+    },
+    {
+      "id": "Gallatin",
+      "group": 0
+    },
+    {
+      "id": "Grin",
+      "group": 0
+    },
+    {
+      "id": "Haecksel",
+      "group": 0
+    },
+    {
+      "id": "Hook",
+      "group": 0
+    },
+    {
+      "id": "Jet",
+      "group": 0
+    },
+    {
+      "id": "Jonah",
+      "group": 0
+    },
+    {
+      "id": "Knit",
+      "group": 0
+    },
+    {
+      "id": "Kringel",
+      "group": 0
+    },
+    {
+      "id": "MN105",
+      "group": 0
+    },
+    {
+      "id": "MN23",
+      "group": 0
+    },
+    {
+      "id": "MN60",
+      "group": 0
+    },
+    {
+      "id": "MN83",
+      "group": 0
+    },
+    {
+      "id": "Mus",
+      "group": 0
+    },
+    {
+      "id": "Notch",
+      "group": 0
+    },
+    {
+      "id": "Number1",
+      "group": 0
+    },
+    {
+      "id": "Oscar",
+      "group": 0
+    },
+    {
+      "id": "Patchback",
+      "group": 0
+    },
+    {
+      "id": "PL",
+      "group": 0
+    },
+    {
+      "id": "Quasi",
+      "group": 0
+    },
+    {
+      "id": "Ripplefluke",
+      "group": 0
+    },
+    {
+      "id": "Scabs",
+      "group": 0
+    },
+    {
+      "id": "Shmuddel",
+      "group": 0
+    },
+    {
+      "id": "SMN5",
+      "group": 0
+    },
+    {
+      "id": "SN100",
+      "group": 0
+    },
+    {
+      "id": "SN4",
+      "group": 0
+    },
+    {
+      "id": "SN63",
+      "group": 0
+    },
+    {
+      "id": "SN89",
+      "group": 0
+    },
+    {
+      "id": "SN9",
+      "group": 0
+    },
+    {
+      "id": "SN90",
+      "group": 0
+    },
+    {
+      "id": "SN96",
+      "group": 0
+    },
+    {
+      "id": "Stripes",
+      "group": 0
+    },
+    {
+      "id": "Thumper",
+      "group": 0
+    },
+    {
+      "id": "Topless",
+      "group": 0
+    },
+    {
+      "id": "TR120",
+      "group": 0
+    },
+    {
+      "id": "TR77",
+      "group": 0
+    },
+    {
+      "id": "TR82",
+      "group": 0
+    },
+    {
+      "id": "TR88",
+      "group": 0
+    },
+    {
+      "id": "TR99",
+      "group": 0
+    },
+    {
+      "id": "Trigger",
+      "group": 0
+    },
+    {
+      "id": "TSN103",
+      "group": 0
+    },
+    {
+      "id": "TSN83",
+      "group": 0
+    },
+    {
+      "id": "Upbang",
+      "group": 0
+    },
+    {
+      "id": "Vau",
+      "group": 0
+    },
+    {
+      "id": "Wave",
+      "group": 0
+    },
+    {
+      "id": "Web",
+      "group": 0
+    },
+    {
+      "id": "Whitetip",
+      "group": 0
+    },
+    {
+      "id": "Zap",
+      "group": 0
+    },
+    {
+      "id": "Zig",
+      "group": 0
+    },
+    {
+      "id": "Zipfel",
+      "group": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "Double",
+      "target": "CCL",
+      "value": 1
+    },
+    {
+      "source": "Feather",
+      "target": "DN16",
+      "value": 1
+    },
+    {
+      "source": "Feather",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Fish",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "Fish",
+      "target": "Bumper",
+      "value": 1
+    },
+    {
+      "source": "Gallatin",
+      "target": "DN16",
+      "value": 1
+    },
+    {
+      "source": "Gallatin",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Gallatin",
+      "target": "Feather",
+      "value": 1
+    },
+    {
+      "source": "Grin",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "Grin",
+      "target": "CCL",
+      "value": 1
+    },
+    {
+      "source": "Haecksel",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "Hook",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "Jet",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Jet",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Jet",
+      "target": "Feather",
+      "value": 1
+    },
+    {
+      "source": "Jet",
+      "target": "Gallatin",
+      "value": 1
+    },
+    {
+      "source": "Jonah",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "Knit",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Knit",
+      "target": "DN63",
+      "value": 1
+    },
+    {
+      "source": "Kringel",
+      "target": "Double",
+      "value": 1
+    },
+    {
+      "source": "Kringel",
+      "target": "Hook",
+      "value": 1
+    },
+    {
+      "source": "Kringel",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "MN105",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "MN23",
+      "target": "Jet",
+      "value": 1
+    },
+    {
+      "source": "MN83",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "MN83",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "MN83",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "Mus",
+      "target": "Jet",
+      "value": 1
+    },
+    {
+      "source": "Notch",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Notch",
+      "target": "Mus",
+      "value": 1
+    },
+    {
+      "source": "Number1",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Number1",
+      "target": "DN63",
+      "value": 1
+    },
+    {
+      "source": "Number1",
+      "target": "Jet",
+      "value": 1
+    },
+    {
+      "source": "Number1",
+      "target": "Mus",
+      "value": 1
+    },
+    {
+      "source": "Number1",
+      "target": "Notch",
+      "value": 1
+    },
+    {
+      "source": "Oscar",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Oscar",
+      "target": "Double",
+      "value": 1
+    },
+    {
+      "source": "Oscar",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "Patchback",
+      "target": "Fish",
+      "value": 1
+    },
+    {
+      "source": "Patchback",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "Patchback",
+      "target": "MN105",
+      "value": 1
+    },
+    {
+      "source": "Patchback",
+      "target": "MN83",
+      "value": 1
+    },
+    {
+      "source": "PL",
+      "target": "DN63",
+      "value": 1
+    },
+    {
+      "source": "PL",
+      "target": "Knit",
+      "value": 1
+    },
+    {
+      "source": "PL",
+      "target": "Oscar",
+      "value": 1
+    },
+    {
+      "source": "Quasi",
+      "target": "Jet",
+      "value": 1
+    },
+    {
+      "source": "Ripplefluke",
+      "target": "Feather",
+      "value": 1
+    },
+    {
+      "source": "Ripplefluke",
+      "target": "Gallatin",
+      "value": 1
+    },
+    {
+      "source": "Scabs",
+      "target": "Fork",
+      "value": 1
+    },
+    {
+      "source": "Scabs",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "Scabs",
+      "target": "Hook",
+      "value": 1
+    },
+    {
+      "source": "Scabs",
+      "target": "MN105",
+      "value": 1
+    },
+    {
+      "source": "Shmuddel",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "Shmuddel",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "SMN5",
+      "target": "Patchback",
+      "value": 1
+    },
+    {
+      "source": "SN100",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "SN100",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "SN100",
+      "target": "MN60",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "Double",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "Hook",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "MN105",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "Shmuddel",
+      "value": 1
+    },
+    {
+      "source": "SN4",
+      "target": "SN100",
+      "value": 1
+    },
+    {
+      "source": "SN63",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "SN63",
+      "target": "Hook",
+      "value": 1
+    },
+    {
+      "source": "SN63",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "SN63",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "SN89",
+      "target": "SN100",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "DN63",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "SN100",
+      "value": 1
+    },
+    {
+      "source": "SN9",
+      "target": "SN4",
+      "value": 1
+    },
+    {
+      "source": "SN90",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "SN90",
+      "target": "Feather",
+      "value": 1
+    },
+    {
+      "source": "SN90",
+      "target": "Gallatin",
+      "value": 1
+    },
+    {
+      "source": "SN96",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "SN96",
+      "target": "Bumper",
+      "value": 1
+    },
+    {
+      "source": "SN96",
+      "target": "Fish",
+      "value": 1
+    },
+    {
+      "source": "SN96",
+      "target": "PL",
+      "value": 1
+    },
+    {
+      "source": "Stripes",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "Stripes",
+      "target": "Patchback",
+      "value": 1
+    },
+    {
+      "source": "Stripes",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "Stripes",
+      "target": "SN4",
+      "value": 1
+    },
+    {
+      "source": "Stripes",
+      "target": "SN63",
+      "value": 1
+    },
+    {
+      "source": "Thumper",
+      "target": "Bumper",
+      "value": 1
+    },
+    {
+      "source": "Thumper",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "Thumper",
+      "target": "Shmuddel",
+      "value": 1
+    },
+    {
+      "source": "Thumper",
+      "target": "SN63",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "Double",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "MN105",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "MN60",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "MN83",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "Patchback",
+      "value": 1
+    },
+    {
+      "source": "Topless",
+      "target": "SN4",
+      "value": 1
+    },
+    {
+      "source": "TR120",
+      "target": "Stripes",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "Beak",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "Fish",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "Oscar",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "PL",
+      "value": 1
+    },
+    {
+      "source": "TR77",
+      "target": "SN96",
+      "value": 1
+    },
+    {
+      "source": "TR88",
+      "target": "Shmuddel",
+      "value": 1
+    },
+    {
+      "source": "TR88",
+      "target": "TR120",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "Hook",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "Kringel",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "Scabs",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "SN96",
+      "value": 1
+    },
+    {
+      "source": "TR99",
+      "target": "Topless",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "Cross",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "Five",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "Jonah",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "MN105",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "MN60",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "MN83",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "Patchback",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "Topless",
+      "value": 1
+    },
+    {
+      "source": "Trigger",
+      "target": "TR99",
+      "value": 1
+    },
+    {
+      "source": "TSN103",
+      "target": "Grin",
+      "value": 1
+    },
+    {
+      "source": "TSN103",
+      "target": "Patchback",
+      "value": 1
+    },
+    {
+      "source": "TSN103",
+      "target": "SN63",
+      "value": 1
+    },
+    {
+      "source": "TSN103",
+      "target": "SN9",
+      "value": 1
+    },
+    {
+      "source": "TSN83",
+      "target": "Stripes",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "Beescratch",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "DN63",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "Gallatin",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "Knit",
+      "value": 1
+    },
+    {
+      "source": "Upbang",
+      "target": "SN90",
+      "value": 1
+    },
+    {
+      "source": "Vau",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "Vau",
+      "target": "Trigger",
+      "value": 1
+    },
+    {
+      "source": "Wave",
+      "target": "DN16",
+      "value": 1
+    },
+    {
+      "source": "Wave",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "DN16",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "DN21",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "Feather",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "Gallatin",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "Jet",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "SN89",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "SN90",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "TR82",
+      "value": 1
+    },
+    {
+      "source": "Web",
+      "target": "Upbang",
+      "value": 1
+    },
+    {
+      "source": "Whitetip",
+      "target": "SN63",
+      "value": 1
+    },
+    {
+      "source": "Zap",
+      "target": "CCL",
+      "value": 1
+    },
+    {
+      "source": "Zap",
+      "target": "Double",
+      "value": 1
+    },
+    {
+      "source": "Zap",
+      "target": "Haecksel",
+      "value": 1
+    },
+    {
+      "source": "Zap",
+      "target": "SN100",
+      "value": 1
+    },
+    {
+      "source": "Zap",
+      "target": "Topless",
+      "value": 1
+    },
+    {
+      "source": "Zig",
+      "target": "Ripplefluke",
+      "value": 1
+    },
+    {
+      "source": "Zipfel",
+      "target": "Bumper",
+      "value": 1
+    },
+    {
+      "source": "Zipfel",
+      "target": "SN4",
+      "value": 1
+    },
+    {
+      "source": "Zipfel",
+      "target": "TSN83",
+      "value": 1
+    }
+  ]
+}

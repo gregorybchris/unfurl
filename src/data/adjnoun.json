@@ -1,0 +1,2579 @@
+{
+  "nodes": [
+    {
+      "id": "agreeable",
+      "group": 0
+    },
+    {
+      "id": "man",
+      "group": 1
+    },
+    {
+      "id": "old",
+      "group": 0
+    },
+    {
+      "id": "person",
+      "group": 1
+    },
+    {
+      "id": "anything",
+      "group": 1
+    },
+    {
+      "id": "short",
+      "group": 0
+    },
+    {
+      "id": "arm",
+      "group": 1
+    },
+    {
+      "id": "round",
+      "group": 0
+    },
+    {
+      "id": "aunt",
+      "group": 1
+    },
+    {
+      "id": "first",
+      "group": 0
+    },
+    {
+      "id": "bad",
+      "group": 0
+    },
+    {
+      "id": "air",
+      "group": 1
+    },
+    {
+      "id": "boy",
+      "group": 1
+    },
+    {
+      "id": "beautiful",
+      "group": 0
+    },
+    {
+      "id": "black",
+      "group": 0
+    },
+    {
+      "id": "face",
+      "group": 1
+    },
+    {
+      "id": "letter",
+      "group": 1
+    },
+    {
+      "id": "little",
+      "group": 0
+    },
+    {
+      "id": "young",
+      "group": 0
+    },
+    {
+      "id": "best",
+      "group": 0
+    },
+    {
+      "id": "course",
+      "group": 1
+    },
+    {
+      "id": "friend",
+      "group": 1
+    },
+    {
+      "id": "love",
+      "group": 1
+    },
+    {
+      "id": "part",
+      "group": 1
+    },
+    {
+      "id": "room",
+      "group": 1
+    },
+    {
+      "id": "thing",
+      "group": 1
+    },
+    {
+      "id": "time",
+      "group": 1
+    },
+    {
+      "id": "way",
+      "group": 1
+    },
+    {
+      "id": "better",
+      "group": 0
+    },
+    {
+      "id": "heart",
+      "group": 1
+    },
+    {
+      "id": "mind",
+      "group": 1
+    },
+    {
+      "id": "place",
+      "group": 1
+    },
+    {
+      "id": "right",
+      "group": 0
+    },
+    {
+      "id": "state",
+      "group": 1
+    },
+    {
+      "id": "woman",
+      "group": 1
+    },
+    {
+      "id": "word",
+      "group": 1
+    },
+    {
+      "id": "door",
+      "group": 1
+    },
+    {
+      "id": "eye",
+      "group": 1
+    },
+    {
+      "id": "bright",
+      "group": 0
+    },
+    {
+      "id": "evening",
+      "group": 1
+    },
+    {
+      "id": "morning",
+      "group": 1
+    },
+    {
+      "id": "certain",
+      "group": 0
+    },
+    {
+      "id": "day",
+      "group": 1
+    },
+    {
+      "id": "other",
+      "group": 0
+    },
+    {
+      "id": "child",
+      "group": 1
+    },
+    {
+      "id": "happy",
+      "group": 0
+    },
+    {
+      "id": "common",
+      "group": 0
+    },
+    {
+      "id": "dark",
+      "group": 0
+    },
+    {
+      "id": "kind",
+      "group": 0
+    },
+    {
+      "id": "night",
+      "group": 1
+    },
+    {
+      "id": "dear",
+      "group": 0
+    },
+    {
+      "id": "good",
+      "group": 0
+    },
+    {
+      "id": "home",
+      "group": 1
+    },
+    {
+      "id": "mother",
+      "group": 1
+    },
+    {
+      "id": "pretty",
+      "group": 0
+    },
+    {
+      "id": "open",
+      "group": 0
+    },
+    {
+      "id": "early",
+      "group": 0
+    },
+    {
+      "id": "fire",
+      "group": 1
+    },
+    {
+      "id": "full",
+      "group": 0
+    },
+    {
+      "id": "great",
+      "group": 0
+    },
+    {
+      "id": "master",
+      "group": 1
+    },
+    {
+      "id": "moment",
+      "group": 1
+    },
+    {
+      "id": "work",
+      "group": 1
+    },
+    {
+      "id": "general",
+      "group": 0
+    },
+    {
+      "id": "fancy",
+      "group": 0
+    },
+    {
+      "id": "voice",
+      "group": 1
+    },
+    {
+      "id": "head",
+      "group": 1
+    },
+    {
+      "id": "hope",
+      "group": 1
+    },
+    {
+      "id": "long",
+      "group": 0
+    },
+    {
+      "id": "greater",
+      "group": 0
+    },
+    {
+      "id": "hand",
+      "group": 1
+    },
+    {
+      "id": "hard",
+      "group": 0
+    },
+    {
+      "id": "red",
+      "group": 0
+    },
+    {
+      "id": "life",
+      "group": 1
+    },
+    {
+      "id": "glad",
+      "group": 0
+    },
+    {
+      "id": "large",
+      "group": 0
+    },
+    {
+      "id": "new",
+      "group": 0
+    },
+    {
+      "id": "white",
+      "group": 0
+    },
+    {
+      "id": "late",
+      "group": 0
+    },
+    {
+      "id": "whole",
+      "group": 0
+    },
+    {
+      "id": "light",
+      "group": 0
+    },
+    {
+      "id": "manner",
+      "group": 1
+    },
+    {
+      "id": "bed",
+      "group": 1
+    },
+    {
+      "id": "house",
+      "group": 1
+    },
+    {
+      "id": "low",
+      "group": 0
+    },
+    {
+      "id": "money",
+      "group": 1
+    },
+    {
+      "id": "ready",
+      "group": 0
+    },
+    {
+      "id": "small",
+      "group": 0
+    },
+    {
+      "id": "strange",
+      "group": 0
+    },
+    {
+      "id": "thought",
+      "group": 1
+    },
+    {
+      "id": "lost",
+      "group": 0
+    },
+    {
+      "id": "alone",
+      "group": 0
+    },
+    {
+      "id": "nothing",
+      "group": 1
+    },
+    {
+      "id": "miserable",
+      "group": 0
+    },
+    {
+      "id": "natural",
+      "group": 0
+    },
+    {
+      "id": "half",
+      "group": 1
+    },
+    {
+      "id": "wrong",
+      "group": 0
+    },
+    {
+      "id": "name",
+      "group": 1
+    },
+    {
+      "id": "pleasant",
+      "group": 0
+    },
+    {
+      "id": "possible",
+      "group": 0
+    },
+    {
+      "id": "side",
+      "group": 1
+    },
+    {
+      "id": "perfect",
+      "group": 0
+    },
+    {
+      "id": "poor",
+      "group": 0
+    },
+    {
+      "id": "quiet",
+      "group": 0
+    },
+    {
+      "id": "same",
+      "group": 0
+    },
+    {
+      "id": "strong",
+      "group": 0
+    },
+    {
+      "id": "something",
+      "group": 1
+    },
+    {
+      "id": "true",
+      "group": 0
+    },
+    {
+      "id": "usual",
+      "group": 0
+    },
+    {
+      "id": "family",
+      "group": 1
+    },
+    {
+      "id": "world",
+      "group": 1
+    },
+    {
+      "id": "year",
+      "group": 1
+    }
+  ],
+  "links": [
+    {
+      "source": "man",
+      "target": "agreeable",
+      "value": 1
+    },
+    {
+      "source": "old",
+      "target": "agreeable",
+      "value": 1
+    },
+    {
+      "source": "old",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "person",
+      "target": "agreeable",
+      "value": 1
+    },
+    {
+      "source": "person",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "short",
+      "target": "anything",
+      "value": 1
+    },
+    {
+      "source": "arm",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "round",
+      "target": "arm",
+      "value": 1
+    },
+    {
+      "source": "first",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "first",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "first",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "first",
+      "target": "aunt",
+      "value": 1
+    },
+    {
+      "source": "bad",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "air",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "air",
+      "target": "bad",
+      "value": 1
+    },
+    {
+      "source": "boy",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "boy",
+      "target": "bad",
+      "value": 1
+    },
+    {
+      "source": "black",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "black",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "black",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "face",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "face",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "letter",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "letter",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "little",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "young",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "young",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "young",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "young",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "best",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "course",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "friend",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "friend",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "friend",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "friend",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "friend",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "love",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "love",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "love",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "part",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "part",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "room",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "room",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "room",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "room",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "thing",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "thing",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "thing",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "thing",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "thing",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "time",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "time",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "time",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "time",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "way",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "way",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "way",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "way",
+      "target": "best",
+      "value": 1
+    },
+    {
+      "source": "better",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "better",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "better",
+      "target": "friend",
+      "value": 1
+    },
+    {
+      "source": "heart",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "heart",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "mind",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "mind",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "place",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "place",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "place",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "arm",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "right",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "state",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "woman",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "woman",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "woman",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "woman",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "word",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "word",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "door",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "door",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "door",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "door",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "eye",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "eye",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "eye",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "bright",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "bright",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "bright",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "bright",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "evening",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "evening",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "evening",
+      "target": "bright",
+      "value": 1
+    },
+    {
+      "source": "morning",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "morning",
+      "target": "air",
+      "value": 1
+    },
+    {
+      "source": "morning",
+      "target": "bright",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "certain",
+      "target": "bright",
+      "value": 1
+    },
+    {
+      "source": "day",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "day",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "day",
+      "target": "certain",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "short",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "course",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "friend",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "door",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "evening",
+      "value": 1
+    },
+    {
+      "source": "other",
+      "target": "certain",
+      "value": 1
+    },
+    {
+      "source": "child",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "child",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "child",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "child",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "happy",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "happy",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "happy",
+      "target": "love",
+      "value": 1
+    },
+    {
+      "source": "happy",
+      "target": "child",
+      "value": 1
+    },
+    {
+      "source": "common",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "common",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "dark",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "dark",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "dark",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "friend",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "word",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "kind",
+      "target": "dark",
+      "value": 1
+    },
+    {
+      "source": "night",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "night",
+      "target": "dark",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "bad",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "friend",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "child",
+      "value": 1
+    },
+    {
+      "source": "dear",
+      "target": "kind",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "arm",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "friend",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "mind",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "right",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "woman",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "word",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "bright",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "day",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "night",
+      "value": 1
+    },
+    {
+      "source": "good",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "arm",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "right",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "happy",
+      "value": 1
+    },
+    {
+      "source": "home",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "mother",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "mother",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "woman",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "pretty",
+      "target": "mother",
+      "value": 1
+    },
+    {
+      "source": "open",
+      "target": "arm",
+      "value": 1
+    },
+    {
+      "source": "open",
+      "target": "door",
+      "value": 1
+    },
+    {
+      "source": "early",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "early",
+      "target": "morning",
+      "value": 1
+    },
+    {
+      "source": "early",
+      "target": "day",
+      "value": 1
+    },
+    {
+      "source": "early",
+      "target": "home",
+      "value": 1
+    },
+    {
+      "source": "fire",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "fire",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "full",
+      "target": "heart",
+      "value": 1
+    },
+    {
+      "source": "full",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "night",
+      "value": 1
+    },
+    {
+      "source": "great",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "master",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "master",
+      "target": "young",
+      "value": 1
+    },
+    {
+      "source": "moment",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "work",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "general",
+      "target": "air",
+      "value": 1
+    },
+    {
+      "source": "general",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "general",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "fancy",
+      "target": "general",
+      "value": 1
+    },
+    {
+      "source": "voice",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "voice",
+      "target": "great",
+      "value": 1
+    },
+    {
+      "source": "voice",
+      "target": "general",
+      "value": 1
+    },
+    {
+      "source": "head",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "head",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "head",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "head",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "hope",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "hope",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "letter",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "night",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "long",
+      "target": "pretty",
+      "value": 1
+    },
+    {
+      "source": "greater",
+      "target": "air",
+      "value": 1
+    },
+    {
+      "source": "greater",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "right",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "pretty",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "open",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "great",
+      "value": 1
+    },
+    {
+      "source": "hand",
+      "target": "long",
+      "value": 1
+    },
+    {
+      "source": "hard",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "hard",
+      "target": "word",
+      "value": 1
+    },
+    {
+      "source": "hard",
+      "target": "great",
+      "value": 1
+    },
+    {
+      "source": "hard",
+      "target": "master",
+      "value": 1
+    },
+    {
+      "source": "hard",
+      "target": "work",
+      "value": 1
+    },
+    {
+      "source": "red",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "red",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "red",
+      "target": "pretty",
+      "value": 1
+    },
+    {
+      "source": "red",
+      "target": "great",
+      "value": 1
+    },
+    {
+      "source": "red",
+      "target": "head",
+      "value": 1
+    },
+    {
+      "source": "life",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "life",
+      "target": "happy",
+      "value": 1
+    },
+    {
+      "source": "life",
+      "target": "mother",
+      "value": 1
+    },
+    {
+      "source": "life",
+      "target": "long",
+      "value": 1
+    },
+    {
+      "source": "life",
+      "target": "hard",
+      "value": 1
+    },
+    {
+      "source": "glad",
+      "target": "heart",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "pretty",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "fire",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "head",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "long",
+      "value": 1
+    },
+    {
+      "source": "large",
+      "target": "hand",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "state",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "kind",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "master",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "hope",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "life",
+      "value": 1
+    },
+    {
+      "source": "new",
+      "target": "large",
+      "value": 1
+    },
+    {
+      "source": "white",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "white",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "white",
+      "target": "large",
+      "value": 1
+    },
+    {
+      "source": "late",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "late",
+      "target": "pretty",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "course",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "heart",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "mind",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "day",
+      "value": 1
+    },
+    {
+      "source": "whole",
+      "target": "late",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "red",
+      "value": 1
+    },
+    {
+      "source": "light",
+      "target": "new",
+      "value": 1
+    },
+    {
+      "source": "manner",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "manner",
+      "target": "whole",
+      "value": 1
+    },
+    {
+      "source": "manner",
+      "target": "light",
+      "value": 1
+    },
+    {
+      "source": "bed",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "house",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "house",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "house",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "house",
+      "target": "whole",
+      "value": 1
+    },
+    {
+      "source": "low",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "low",
+      "target": "mind",
+      "value": 1
+    },
+    {
+      "source": "low",
+      "target": "state",
+      "value": 1
+    },
+    {
+      "source": "low",
+      "target": "voice",
+      "value": 1
+    },
+    {
+      "source": "low",
+      "target": "long",
+      "value": 1
+    },
+    {
+      "source": "money",
+      "target": "person",
+      "value": 1
+    },
+    {
+      "source": "money",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "ready",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "ready",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "door",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "voice",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "hope",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "hand",
+      "value": 1
+    },
+    {
+      "source": "small",
+      "target": "house",
+      "value": 1
+    },
+    {
+      "source": "strange",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "strange",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "strange",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "strange",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "strange",
+      "target": "kind",
+      "value": 1
+    },
+    {
+      "source": "thought",
+      "target": "anything",
+      "value": 1
+    },
+    {
+      "source": "thought",
+      "target": "first",
+      "value": 1
+    },
+    {
+      "source": "thought",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "thought",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "thought",
+      "target": "mother",
+      "value": 1
+    },
+    {
+      "source": "lost",
+      "target": "day",
+      "value": 1
+    },
+    {
+      "source": "alone",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "nothing",
+      "target": "better",
+      "value": 1
+    },
+    {
+      "source": "nothing",
+      "target": "mind",
+      "value": 1
+    },
+    {
+      "source": "nothing",
+      "target": "new",
+      "value": 1
+    },
+    {
+      "source": "nothing",
+      "target": "thought",
+      "value": 1
+    },
+    {
+      "source": "miserable",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "miserable",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "natural",
+      "target": "course",
+      "value": 1
+    },
+    {
+      "source": "natural",
+      "target": "love",
+      "value": 1
+    },
+    {
+      "source": "natural",
+      "target": "manner",
+      "value": 1
+    },
+    {
+      "source": "half",
+      "target": "nothing",
+      "value": 1
+    },
+    {
+      "source": "wrong",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "wrong",
+      "target": "nothing",
+      "value": 1
+    },
+    {
+      "source": "name",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "pleasant",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "pleasant",
+      "target": "air",
+      "value": 1
+    },
+    {
+      "source": "pleasant",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "pleasant",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "pleasant",
+      "target": "manner",
+      "value": 1
+    },
+    {
+      "source": "possible",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "possible",
+      "target": "thought",
+      "value": 1
+    },
+    {
+      "source": "side",
+      "target": "right",
+      "value": 1
+    },
+    {
+      "source": "side",
+      "target": "other",
+      "value": 1
+    },
+    {
+      "source": "perfect",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "perfect",
+      "target": "master",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "man",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "beautiful",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "child",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "mother",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "head",
+      "value": 1
+    },
+    {
+      "source": "poor",
+      "target": "hand",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "way",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "eye",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "evening",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "voice",
+      "value": 1
+    },
+    {
+      "source": "quiet",
+      "target": "life",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "air",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "boy",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "face",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "little",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "thing",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "time",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "state",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "word",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "bright",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "common",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "kind",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "dear",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "great",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "moment",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "manner",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "low",
+      "value": 1
+    },
+    {
+      "source": "same",
+      "target": "quiet",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "old",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "black",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "part",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "hand",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "red",
+      "value": 1
+    },
+    {
+      "source": "strong",
+      "target": "same",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "round",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "good",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "new",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "light",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "strange",
+      "value": 1
+    },
+    {
+      "source": "something",
+      "target": "wrong",
+      "value": 1
+    },
+    {
+      "source": "true",
+      "target": "state",
+      "value": 1
+    },
+    {
+      "source": "true",
+      "target": "woman",
+      "value": 1
+    },
+    {
+      "source": "usual",
+      "target": "course",
+      "value": 1
+    },
+    {
+      "source": "usual",
+      "target": "room",
+      "value": 1
+    },
+    {
+      "source": "usual",
+      "target": "place",
+      "value": 1
+    },
+    {
+      "source": "usual",
+      "target": "strong",
+      "value": 1
+    },
+    {
+      "source": "family",
+      "target": "whole",
+      "value": 1
+    },
+    {
+      "source": "world",
+      "target": "whole",
+      "value": 1
+    },
+    {
+      "source": "world",
+      "target": "side",
+      "value": 1
+    },
+    {
+      "source": "year",
+      "target": "old",
+      "value": 1
+    }
+  ]
+}

@@ -1,0 +1,3531 @@
+{
+  "nodes": [
+    {
+      "id": "BrighamYoung",
+      "group": 7
+    },
+    {
+      "id": "FloridaState",
+      "group": 0
+    },
+    {
+      "id": "Iowa",
+      "group": 2
+    },
+    {
+      "id": "KansasState",
+      "group": 3
+    },
+    {
+      "id": "NewMexico",
+      "group": 7
+    },
+    {
+      "id": "TexasTech",
+      "group": 3
+    },
+    {
+      "id": "PennState",
+      "group": 2
+    },
+    {
+      "id": "SouthernCalifornia",
+      "group": 8
+    },
+    {
+      "id": "ArizonaState",
+      "group": 8
+    },
+    {
+      "id": "SanDiegoState",
+      "group": 7
+    },
+    {
+      "id": "Baylor",
+      "group": 3
+    },
+    {
+      "id": "NorthTexas",
+      "group": 10
+    },
+    {
+      "id": "NorthernIllinois",
+      "group": 6
+    },
+    {
+      "id": "Northwestern",
+      "group": 2
+    },
+    {
+      "id": "WesternMichigan",
+      "group": 6
+    },
+    {
+      "id": "Wisconsin",
+      "group": 2
+    },
+    {
+      "id": "Wyoming",
+      "group": 7
+    },
+    {
+      "id": "Auburn",
+      "group": 9
+    },
+    {
+      "id": "Akron",
+      "group": 6
+    },
+    {
+      "id": "VirginiaTech",
+      "group": 1
+    },
+    {
+      "id": "Alabama",
+      "group": 9
+    },
+    {
+      "id": "UCLA",
+      "group": 8
+    },
+    {
+      "id": "Arizona",
+      "group": 8
+    },
+    {
+      "id": "Utah",
+      "group": 7
+    },
+    {
+      "id": "ArkansasState",
+      "group": 10
+    },
+    {
+      "id": "NorthCarolinaState",
+      "group": 0
+    },
+    {
+      "id": "BallState",
+      "group": 6
+    },
+    {
+      "id": "Florida",
+      "group": 9
+    },
+    {
+      "id": "BoiseState",
+      "group": 11
+    },
+    {
+      "id": "BostonCollege",
+      "group": 1
+    },
+    {
+      "id": "WestVirginia",
+      "group": 1
+    },
+    {
+      "id": "BowlingGreenState",
+      "group": 6
+    },
+    {
+      "id": "Michigan",
+      "group": 2
+    },
+    {
+      "id": "Virginia",
+      "group": 0
+    },
+    {
+      "id": "Buffalo",
+      "group": 6
+    },
+    {
+      "id": "Syracuse",
+      "group": 1
+    },
+    {
+      "id": "CentralFlorida",
+      "group": 5
+    },
+    {
+      "id": "GeorgiaTech",
+      "group": 0
+    },
+    {
+      "id": "CentralMichigan",
+      "group": 6
+    },
+    {
+      "id": "Purdue",
+      "group": 2
+    },
+    {
+      "id": "Colorado",
+      "group": 3
+    },
+    {
+      "id": "ColoradoState",
+      "group": 7
+    },
+    {
+      "id": "Connecticut",
+      "group": 5
+    },
+    {
+      "id": "EasternMichigan",
+      "group": 6
+    },
+    {
+      "id": "EastCarolina",
+      "group": 4
+    },
+    {
+      "id": "Duke",
+      "group": 0
+    },
+    {
+      "id": "FresnoState",
+      "group": 11
+    },
+    {
+      "id": "OhioState",
+      "group": 2
+    },
+    {
+      "id": "Houston",
+      "group": 4
+    },
+    {
+      "id": "Rice",
+      "group": 11
+    },
+    {
+      "id": "Idaho",
+      "group": 10
+    },
+    {
+      "id": "Washington",
+      "group": 8
+    },
+    {
+      "id": "Kansas",
+      "group": 3
+    },
+    {
+      "id": "SouthernMethodist",
+      "group": 11
+    },
+    {
+      "id": "Kent",
+      "group": 6
+    },
+    {
+      "id": "Pittsburgh",
+      "group": 1
+    },
+    {
+      "id": "Kentucky",
+      "group": 9
+    },
+    {
+      "id": "Louisville",
+      "group": 4
+    },
+    {
+      "id": "LouisianaTech",
+      "group": 11
+    },
+    {
+      "id": "LouisianaMonroe",
+      "group": 10
+    },
+    {
+      "id": "Minnesota",
+      "group": 2
+    },
+    {
+      "id": "MiamiOhio",
+      "group": 6
+    },
+    {
+      "id": "Vanderbilt",
+      "group": 9
+    },
+    {
+      "id": "MiddleTennesseeState",
+      "group": 10
+    },
+    {
+      "id": "Illinois",
+      "group": 2
+    },
+    {
+      "id": "MississippiState",
+      "group": 9
+    },
+    {
+      "id": "Memphis",
+      "group": 4
+    },
+    {
+      "id": "Nevada",
+      "group": 11
+    },
+    {
+      "id": "Oregon",
+      "group": 8
+    },
+    {
+      "id": "NewMexicoState",
+      "group": 10
+    },
+    {
+      "id": "SouthCarolina",
+      "group": 9
+    },
+    {
+      "id": "Ohio",
+      "group": 6
+    },
+    {
+      "id": "IowaState",
+      "group": 3
+    },
+    {
+      "id": "SanJoseState",
+      "group": 11
+    },
+    {
+      "id": "Nebraska",
+      "group": 3
+    },
+    {
+      "id": "SouthernMississippi",
+      "group": 4
+    },
+    {
+      "id": "Tennessee",
+      "group": 9
+    },
+    {
+      "id": "Stanford",
+      "group": 8
+    },
+    {
+      "id": "WashingtonState",
+      "group": 8
+    },
+    {
+      "id": "Temple",
+      "group": 1
+    },
+    {
+      "id": "Navy",
+      "group": 5
+    },
+    {
+      "id": "TexasA&M",
+      "group": 3
+    },
+    {
+      "id": "NotreDame",
+      "group": 5
+    },
+    {
+      "id": "TexasElPaso",
+      "group": 11
+    },
+    {
+      "id": "Oklahoma",
+      "group": 3
+    },
+    {
+      "id": "Toledo",
+      "group": 6
+    },
+    {
+      "id": "Tulane",
+      "group": 4
+    },
+    {
+      "id": "Mississippi",
+      "group": 9
+    },
+    {
+      "id": "Tulsa",
+      "group": 11
+    },
+    {
+      "id": "NorthCarolina",
+      "group": 0
+    },
+    {
+      "id": "UtahState",
+      "group": 5
+    },
+    {
+      "id": "Army",
+      "group": 4
+    },
+    {
+      "id": "Cincinnati",
+      "group": 4
+    },
+    {
+      "id": "AirForce",
+      "group": 7
+    },
+    {
+      "id": "Rutgers",
+      "group": 1
+    },
+    {
+      "id": "Georgia",
+      "group": 9
+    },
+    {
+      "id": "LouisianaState",
+      "group": 9
+    },
+    {
+      "id": "LouisianaLafayette",
+      "group": 10
+    },
+    {
+      "id": "Texas",
+      "group": 3
+    },
+    {
+      "id": "Marshall",
+      "group": 6
+    },
+    {
+      "id": "MichiganState",
+      "group": 2
+    },
+    {
+      "id": "MiamiFlorida",
+      "group": 1
+    },
+    {
+      "id": "Missouri",
+      "group": 3
+    },
+    {
+      "id": "Clemson",
+      "group": 0
+    },
+    {
+      "id": "NevadaLasVegas",
+      "group": 7
+    },
+    {
+      "id": "WakeForest",
+      "group": 0
+    },
+    {
+      "id": "Indiana",
+      "group": 2
+    },
+    {
+      "id": "OklahomaState",
+      "group": 3
+    },
+    {
+      "id": "OregonState",
+      "group": 8
+    },
+    {
+      "id": "Maryland",
+      "group": 0
+    },
+    {
+      "id": "TexasChristian",
+      "group": 4
+    },
+    {
+      "id": "California",
+      "group": 8
+    },
+    {
+      "id": "AlabamaBirmingham",
+      "group": 4
+    },
+    {
+      "id": "Arkansas",
+      "group": 9
+    },
+    {
+      "id": "Hawaii",
+      "group": 11
+    }
+  ],
+  "links": [
+    {
+      "source": "FloridaState",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "KansasState",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "NewMexico",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "TexasTech",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "TexasTech",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "PennState",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "SouthernCalifornia",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "ArizonaState",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "SanDiegoState",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "SanDiegoState",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "SanDiegoState",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "Baylor",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "NorthTexas",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "NorthTexas",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "NorthTexas",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "Northwestern",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Northwestern",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "WesternMichigan",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "WesternMichigan",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Wisconsin",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Wisconsin",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Wisconsin",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "Wyoming",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "Wyoming",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "Wyoming",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "Auburn",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "Auburn",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Akron",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "VirginiaTech",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Alabama",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "UCLA",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "UCLA",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "UCLA",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "Arizona",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "Arizona",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "Arizona",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "Arizona",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "Utah",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "Utah",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "Utah",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "Utah",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "Utah",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "ArkansasState",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolinaState",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolinaState",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "BallState",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "BallState",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "BallState",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Florida",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "Florida",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "Florida",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "BoiseState",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "BoiseState",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "BoiseState",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "BostonCollege",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "WestVirginia",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "WestVirginia",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "BowlingGreenState",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Michigan",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Michigan",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "Michigan",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Michigan",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Michigan",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Virginia",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "Virginia",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "Virginia",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "Virginia",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "Buffalo",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Buffalo",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "Buffalo",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Buffalo",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Syracuse",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Syracuse",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "Syracuse",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Syracuse",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "Syracuse",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "CentralFlorida",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "CentralFlorida",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "CentralFlorida",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "CentralFlorida",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "GeorgiaTech",
+      "target": "CentralFlorida",
+      "value": 1
+    },
+    {
+      "source": "GeorgiaTech",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "GeorgiaTech",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "GeorgiaTech",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "CentralMichigan",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Purdue",
+      "target": "CentralMichigan",
+      "value": 1
+    },
+    {
+      "source": "Purdue",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Purdue",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "Purdue",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Purdue",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Colorado",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "Colorado",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "ColoradoState",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "Connecticut",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Connecticut",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Connecticut",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Connecticut",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "Connecticut",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "CentralFlorida",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "CentralMichigan",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "EasternMichigan",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "EastCarolina",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "EastCarolina",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "EastCarolina",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "Duke",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "FresnoState",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "OhioState",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "Houston",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Rice",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Rice",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "Rice",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Idaho",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Idaho",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "Idaho",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "Idaho",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "Washington",
+      "target": "Idaho",
+      "value": 1
+    },
+    {
+      "source": "Washington",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "Washington",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "Washington",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "Washington",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "Kansas",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "Kansas",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "Kansas",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "SouthernMethodist",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "SouthernMethodist",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "SouthernMethodist",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "SouthernMethodist",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "SouthernMethodist",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "CentralMichigan",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Kent",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "Kent",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "Pittsburgh",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Kentucky",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "Louisville",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "Louisville",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "Louisville",
+      "target": "Connecticut",
+      "value": 1
+    },
+    {
+      "source": "Louisville",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Louisville",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "LouisianaTech",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "LouisianaTech",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "LouisianaTech",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "LouisianaTech",
+      "target": "CentralFlorida",
+      "value": 1
+    },
+    {
+      "source": "LouisianaMonroe",
+      "target": "CentralFlorida",
+      "value": 1
+    },
+    {
+      "source": "LouisianaMonroe",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "OhioState",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Minnesota",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "EasternMichigan",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "OhioState",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "Kent",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "MiamiOhio",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "MiamiOhio",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "Duke",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "Vanderbilt",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "MiddleTennesseeState",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "MiddleTennesseeState",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "MiddleTennesseeState",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "MiddleTennesseeState",
+      "target": "Connecticut",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "MiddleTennesseeState",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "Minnesota",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "OhioState",
+      "value": 1
+    },
+    {
+      "source": "Illinois",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "MiddleTennesseeState",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "MississippiState",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "Memphis",
+      "target": "MississippiState",
+      "value": 1
+    },
+    {
+      "source": "Memphis",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "Memphis",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "Memphis",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Memphis",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Nevada",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "Nevada",
+      "target": "ColoradoState",
+      "value": 1
+    },
+    {
+      "source": "Nevada",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Nevada",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "Nevada",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "Idaho",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "Oregon",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "NewMexicoState",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "NewMexicoState",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "NewMexicoState",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "NewMexicoState",
+      "target": "Idaho",
+      "value": 1
+    },
+    {
+      "source": "NewMexicoState",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "EasternMichigan",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "MississippiState",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "Vanderbilt",
+      "value": 1
+    },
+    {
+      "source": "SouthCarolina",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "Minnesota",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "Kent",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "CentralMichigan",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "MiamiOhio",
+      "value": 1
+    },
+    {
+      "source": "Ohio",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "Ohio",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "IowaState",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "SanJoseState",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "SanJoseState",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "SanJoseState",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "SanJoseState",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "SanJoseState",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "IowaState",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "Nebraska",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "SouthernMississippi",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "SouthernMississippi",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "SouthernMississippi",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "SouthernMississippi",
+      "target": "Louisville",
+      "value": 1
+    },
+    {
+      "source": "SouthernMississippi",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "SouthernMississippi",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "SouthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "Tennessee",
+      "target": "Vanderbilt",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "Stanford",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Stanford",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Idaho",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Oregon",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "WashingtonState",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "EasternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "Temple",
+      "target": "Pittsburgh",
+      "value": 1
+    },
+    {
+      "source": "Navy",
+      "target": "Temple",
+      "value": 1
+    },
+    {
+      "source": "Navy",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "Navy",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "IowaState",
+      "value": 1
+    },
+    {
+      "source": "TexasA&M",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "TexasA&M",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "Nebraska",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "Stanford",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "NotreDame",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "TexasA&M",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "TexasElPaso",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "TexasElPaso",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "Nebraska",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "TexasA&M",
+      "value": 1
+    },
+    {
+      "source": "Oklahoma",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "CentralMichigan",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "EasternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "NorthernIllinois",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "BallState",
+      "value": 1
+    },
+    {
+      "source": "Toledo",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "SouthernMississippi",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "Louisville",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "Tulane",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "Tulane",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "Vanderbilt",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "Mississippi",
+      "target": "MississippiState",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "TexasElPaso",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "Tulsa",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "Tulsa",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "Pittsburgh",
+      "value": 1
+    },
+    {
+      "source": "NorthCarolina",
+      "target": "Duke",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "Idaho",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "UtahState",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "Tulane",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "Louisville",
+      "value": 1
+    },
+    {
+      "source": "Army",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Army",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Tulane",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Louisville",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "MiamiOhio",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "Cincinnati",
+      "target": "SouthernMississippi",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "NotreDame",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "Army",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "ColoradoState",
+      "value": 1
+    },
+    {
+      "source": "AirForce",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "Pittsburgh",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "Temple",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "NotreDame",
+      "value": 1
+    },
+    {
+      "source": "Rutgers",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "SouthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "NewMexicoState",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Tennessee",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Vanderbilt",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "Mississippi",
+      "value": 1
+    },
+    {
+      "source": "Georgia",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Tennessee",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Florida",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "MississippiState",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "LouisianaState",
+      "target": "Mississippi",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "Tulane",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "LouisianaLafayette",
+      "target": "MiddleTennesseeState",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "LouisianaLafayette",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Stanford",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Houston",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Oklahoma",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "Texas",
+      "target": "TexasA&M",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "NorthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "Buffalo",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "WesternMichigan",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "Toledo",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "Kent",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "Akron",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "BowlingGreenState",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "MiamiOhio",
+      "value": 1
+    },
+    {
+      "source": "Marshall",
+      "target": "Ohio",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Marshall",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "NotreDame",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Illinois",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "OhioState",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "MichiganState",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "Rutgers",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "Temple",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "VirginiaTech",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "Pittsburgh",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "Syracuse",
+      "value": 1
+    },
+    {
+      "source": "MiamiFlorida",
+      "target": "BostonCollege",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "MichiganState",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "Nebraska",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "Texas",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "IowaState",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "Missouri",
+      "target": "KansasState",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "Missouri",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "Duke",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "NorthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "Clemson",
+      "target": "SouthCarolina",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "IowaState",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "NorthTexas",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "BrighamYoung",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "AirForce",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "ColoradoState",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "Wyoming",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "Mississippi",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "NevadaLasVegas",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "NorthCarolina",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "Clemson",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "Vanderbilt",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "Duke",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "WakeForest",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Kentucky",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Cincinnati",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Iowa",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Michigan",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Minnesota",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "PennState",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Illinois",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Indiana",
+      "target": "Purdue",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Tulsa",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "SouthernMississippi",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Texas",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Missouri",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "IowaState",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Colorado",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "TexasA&M",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "TexasTech",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Baylor",
+      "value": 1
+    },
+    {
+      "source": "OklahomaState",
+      "target": "Oklahoma",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "NewMexico",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "SanDiegoState",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "Stanford",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "WashingtonState",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "Arizona",
+      "value": 1
+    },
+    {
+      "source": "OregonState",
+      "target": "Oregon",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "Temple",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "WestVirginia",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "MiddleTennesseeState",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "FloridaState",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "Virginia",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "Clemson",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "WakeForest",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "Duke",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "NorthCarolinaState",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "NorthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Maryland",
+      "target": "GeorgiaTech",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "Northwestern",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "ArkansasState",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "Navy",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "Tulsa",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "TexasElPaso",
+      "value": 1
+    },
+    {
+      "source": "TexasChristian",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "Utah",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "Illinois",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "WashingtonState",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "ArizonaState",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "UCLA",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "Washington",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "SouthernCalifornia",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "OregonState",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "Oregon",
+      "value": 1
+    },
+    {
+      "source": "California",
+      "target": "Stanford",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "Kansas",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "LouisianaState",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "LouisianaLafayette",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "Louisville",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "Memphis",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "MiddleTennesseeState",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "EastCarolina",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "Cincinnati",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "SouthernMississippi",
+      "value": 1
+    },
+    {
+      "source": "AlabamaBirmingham",
+      "target": "Army",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "BoiseState",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "Alabama",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "Georgia",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "LouisianaMonroe",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "SouthCarolina",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "Auburn",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "Mississippi",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "Tennessee",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "MississippiState",
+      "value": 1
+    },
+    {
+      "source": "Arkansas",
+      "target": "LouisianaState",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "TexasElPaso",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "Tulsa",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "TexasChristian",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "SouthernMethodist",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "Rice",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "SanJoseState",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "FresnoState",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "Nevada",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "LouisianaTech",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "Wisconsin",
+      "value": 1
+    },
+    {
+      "source": "Hawaii",
+      "target": "NevadaLasVegas",
+      "value": 1
+    }
+  ]
+}

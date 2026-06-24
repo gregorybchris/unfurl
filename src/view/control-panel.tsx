@@ -21,6 +21,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import * as Switch from "@radix-ui/react-switch";
 import type { ReactNode } from "react";
+import { GRAPH_OPTIONS } from "@/app";
 import { ForceConfig, FunctionType, PhysicsConfig } from "@/simulation/physics-config";
 import { ScrubSlider, SnapTier } from "@/view/scrub-slider";
 
@@ -55,6 +56,47 @@ const DAMPING_SNAP_TIERS: SnapTier[] = [
   { maxYOffset: 45, step: 0.01 },
   { maxYOffset: Infinity, step: 0.05 },
 ];
+
+function GraphSelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <RadixSelect.Root value={value} onValueChange={onChange}>
+      <RadixSelect.Trigger className="flex items-center justify-between w-full bg-white/5 border border-sea-green/15 rounded-md px-2.5 py-1.5 text-[11px] text-sea-green/80 hover:bg-sea-green/10 hover:text-sea-green focus:outline-none focus:ring-1 focus:ring-sea-green/30 gap-1 transition-colors cursor-pointer">
+        <RadixSelect.Value />
+        <RadixSelect.Icon className="shrink-0 text-sea-green/40">
+          <CaretDown size={9} weight="bold" />
+        </RadixSelect.Icon>
+      </RadixSelect.Trigger>
+      <RadixSelect.Portal>
+        <RadixSelect.Content
+          className="bg-[#1c3530] border border-sea-green/20 rounded-lg shadow-2xl overflow-hidden z-50 min-w-[12rem]"
+          position="popper"
+          sideOffset={4}
+        >
+          <RadixSelect.Viewport className="p-1">
+            {GRAPH_OPTIONS.map((g) => (
+              <RadixSelect.Item
+                key={g.id}
+                value={g.id}
+                className="relative flex items-center pl-6 pr-3 py-1.5 text-[11px] text-sea-green/80 rounded-md cursor-pointer outline-none data-[highlighted]:bg-sea-green/15 data-[highlighted]:text-sea-green data-[state=checked]:text-light-green"
+              >
+                <RadixSelect.ItemIndicator className="absolute left-2 text-sea-green">
+                  <Check size={9} weight="bold" />
+                </RadixSelect.ItemIndicator>
+                <RadixSelect.ItemText>{g.label}</RadixSelect.ItemText>
+              </RadixSelect.Item>
+            ))}
+          </RadixSelect.Viewport>
+        </RadixSelect.Content>
+      </RadixSelect.Portal>
+    </RadixSelect.Root>
+  );
+}
 
 function CurveSelect({
   value,
@@ -261,6 +303,8 @@ interface ControlPanelProps {
   onReset: () => void;
   onZoomIn: () => void;
   onZoomOut: () => void;
+  selectedGraphId: string;
+  onGraphChange: (id: string) => void;
 }
 
 export function ControlPanel({
@@ -270,6 +314,8 @@ export function ControlPanel({
   onReset,
   onZoomIn,
   onZoomOut,
+  selectedGraphId,
+  onGraphChange,
 }: ControlPanelProps) {
   const setForce = (key: keyof PhysicsConfig, fc: ForceConfig) =>
     onChange({ ...config, [key]: fc });
@@ -286,6 +332,9 @@ export function ControlPanel({
       <ScrollArea.Root className="flex-1 min-h-0">
         <ScrollArea.Viewport className="h-full w-full">
           <div className="px-3 py-3 space-y-2.5">
+
+            {/* Graph selector */}
+            <GraphSelect value={selectedGraphId} onChange={onGraphChange} />
 
             {/* Action row */}
             <div className="flex gap-1.5">
